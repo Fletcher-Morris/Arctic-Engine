@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include "states/StateBase.h"
 
 class Game
 {
@@ -18,14 +19,21 @@ class Game
         void PopState();
 
     private:
+
+        StateBase& GetCurrentState();
+
         sf::RenderWindow m_window;
+        std::vector<std::unique_ptr<StateBase>>m_states;
+
         bool m_tryPop = false;
+        void HandleEvents();
+        void TryPop();
 };
 
 template<typename T, typename... Args>
-void Game::PushState()
+void Game::PushState(Args&&... args)
 {
-
+    m_states.push_back(std::make_unique<T>(std::forward<Args>(args)...));
 }
 
 #endif // GAME_H

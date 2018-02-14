@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game() : m_window({1280, 720, "Arctic Engine"})
+Game::Game() : m_window({1280, 720}, "Arctic Engine")
 {
 
 }
@@ -12,7 +12,7 @@ Game::~Game()
 
 void Game::Run()
 {
-    while (m_window.isOpen()){
+    while (m_window.isOpen() && !m_states.empty()){
         m_window.clear();
         m_window.display();
         HandleEvents();
@@ -22,14 +22,17 @@ void Game::Run()
     }
 }
 
-void Game::PushState(Args&&...args)
-{
-
-}
-
 void Game::TryPop()
 {
+    if(m_tryPop)
+    {
+        m_states.pop_back();
+    }
+}
 
+StateBase& Game::GetCurrentState()
+{
+    return *m_states.back();
 }
 
 void Game::PopState()
@@ -46,7 +49,7 @@ void Game::HandleEvents()
         switch(e.type)
         {
         case sf::Event::Closed:
-            m_windo.close();
+            m_window.close();
 
         default:
             break;

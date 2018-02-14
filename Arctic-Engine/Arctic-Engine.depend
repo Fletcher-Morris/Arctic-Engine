@@ -391,8 +391,12 @@
 	<string>
 	<vector>
 
-1518642802 d:\arctic-engine\arctic-engine\include\game.h
+1518650300 d:\arctic-engine\arctic-engine\include\game.h
 	<memory>
 	<vector>
+	<SFML/Graphics.hpp>
+	"states/StateBase.h"
+
+1518645392 d:\arctic-engine\arctic-engine\include\states\statebase.h
 	<SFML/Graphics.hpp>
 

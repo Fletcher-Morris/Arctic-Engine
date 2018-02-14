@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics-d" />
@@ -29,6 +30,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -49,6 +51,8 @@
 		<Linker>
 			<Add directory="D:/SFML-2.4.2/lib" />
 		</Linker>
+		<Unit filename="include/Game.h" />
+		<Unit filename="include/states/StateBase.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="sfml-audio-2.dll" />
 		<Unit filename="sfml-audio-d-2.dll" />
@@ -60,6 +64,7 @@
 		<Unit filename="sfml-system-d-2.dll" />
 		<Unit filename="sfml-window-2.dll" />
 		<Unit filename="sfml-window-d-2.dll" />
+		<Unit filename="src/Game.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
