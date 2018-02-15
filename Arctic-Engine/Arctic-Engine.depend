@@ -397,6 +397,9 @@
 	<SFML/Graphics.hpp>
 	"states/StateBase.h"
 
-1518645392 d:\arctic-engine\arctic-engine\include\states\statebase.h
+1518652551 d:\arctic-engine\arctic-engine\include\states\statebase.h
 	<SFML/Graphics.hpp>
+	"NonCopyable.h"
+
+1518651608 d:\arctic-engine\arctic-engine\include\noncopyable.h
 

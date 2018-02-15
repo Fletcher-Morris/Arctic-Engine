@@ -12,13 +12,19 @@ Game::~Game()
 
 void Game::Run()
 {
-    while (m_window.isOpen() && !m_states.empty()){
+
+    sf::Clock clock;
+    while (m_window.isOpen() && !m_states.empty())
+    {
+        auto dt = clock.restart();
+        auto& state = GetCurrentState();
+        state.HandleInput();
+        state.Update(dt);
         m_window.clear();
+        state.Render(m_window);
         m_window.display();
         HandleEvents();
-        if(m_tryPop){
-            TryPop();
-        }
+        TryPop();
     }
 }
 
@@ -45,7 +51,9 @@ void Game::HandleEvents()
     sf::Event e;
 
     while(m_window.pollEvent(e))
-        {
+    {
+        GetCurrentState().HandleEvent(e);
+
         switch(e.type)
         {
         case sf::Event::Closed:
