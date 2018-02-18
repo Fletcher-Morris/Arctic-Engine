@@ -1,6 +1,7 @@
 #include "MatrixMaths.h"
 #include "../entity/Entity.h"
 #include "../util/GlmTypedefs.h"
+#include "Camera.h"
 
 Matrix4 CreateModelMatrix(const Entity & entity)
 {
@@ -16,7 +17,14 @@ Matrix4 CreateModelMatrix(const Entity & entity)
 
 Matrix4 CreateViewMatrix(const Camera & camera)
 {
-	return Matrix4();
+	Matrix4 matrix;
+
+	matrix = glm::rotate(matrix, glm::radians(camera.rotation.x), { 1,0,0 });
+	matrix = glm::rotate(matrix, glm::radians(camera.rotation.y), { 0,1,0 });
+	matrix = glm::rotate(matrix, glm::radians(camera.rotation.z), { 0,0,1 });
+	matrix = glm::translate(matrix, -camera.position);
+
+	return matrix;
 }
 
 Matrix4 CreateProjMatrix(const CameraConfig& config)
