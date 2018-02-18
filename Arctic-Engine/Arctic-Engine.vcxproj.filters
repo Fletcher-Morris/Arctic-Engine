@@ -31,6 +31,12 @@
     <Filter Include="Source Files\states">
       <UniqueIdentifier>{fdde3965-f204-4157-b1b3-2eab2ce3f411}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\entity">
+      <UniqueIdentifier>{a7398cdc-be81-4990-b1e5-9ffcde5140e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\entity">
+      <UniqueIdentifier>{c33568b2-b96e-4721-9fed-5649ddfe1bbb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -52,7 +58,16 @@
       <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="source\util\GlmTypedefs.h">
-      <Filter>Source Files\util</Filter>
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\entity\Entity.h">
+      <Filter>Header Files\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="source\util\OtherTypedefs.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\entity\Camera.h">
+      <Filter>Header Files\entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entity\Camera.cpp">
+      <Filter>Source Files\entity</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
