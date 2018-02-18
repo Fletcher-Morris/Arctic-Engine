@@ -1,8 +1,5 @@
 #include "MatrixMaths.h"
-#include "../entity/Entity.h"
-#include "../util/GlmTypedefs.h"
 #include "Camera.h"
-#include "CameraConfig.h"
 
 Matrix4 CreateModelMatrix(const Entity & entity)
 {
