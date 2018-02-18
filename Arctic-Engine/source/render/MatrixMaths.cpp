@@ -2,6 +2,7 @@
 #include "../entity/Entity.h"
 #include "../util/GlmTypedefs.h"
 #include "Camera.h"
+#include "CameraConfig.h"
 
 Matrix4 CreateModelMatrix(const Entity & entity)
 {
@@ -29,5 +30,7 @@ Matrix4 CreateViewMatrix(const Camera & camera)
 
 Matrix4 CreateProjMatrix(const CameraConfig& config)
 {
-	return Matrix4();
+	Matrix4 matrix = glm::perspective(glm::radians(config.fov), (float)(config.width / config.height), config.nearClip, config.farClip);
+
+	return matrix;
 }

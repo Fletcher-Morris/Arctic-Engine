@@ -4,7 +4,7 @@ struct CameraConfig
 {
 	int width;
 	int height;
-	int fov;
+	float fov;
 	float nearClip;
 	float farClip;
 };
