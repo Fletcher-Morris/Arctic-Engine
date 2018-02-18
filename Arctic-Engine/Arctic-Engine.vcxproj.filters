@@ -51,6 +51,9 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="source\util\GlmTypedefs.h">
+      <Filter>Source Files\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
