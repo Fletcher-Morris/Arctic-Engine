@@ -1,11 +1,13 @@
 #include "Camera.h"
 
-Camera::Camera(const CameraConfig & config)
+Camera::Camera(const CameraConfig & config) : m_config (config)
 {
+
 }
 
 void Camera::Update()
 {
+	
 }
 
 const Matrix4 & Camera::GetViewMatrix()
