@@ -78,6 +78,9 @@
     <ClInclude Include="source\render\Camera.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="source\render\MatrixMaths.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="source\render\Camera.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\MatrixMaths.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
   </ItemGroup>

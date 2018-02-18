@@ -168,6 +168,7 @@
     <ClInclude Include="source\entity\Entity.h" />
     <ClInclude Include="source\render\Camera.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
+    <ClInclude Include="source\render\MatrixMaths.h" />
     <ClInclude Include="source\states\State.h" />
     <ClInclude Include="source\util\AssetManager.h" />
     <ClInclude Include="source\util\GlmTypedefs.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Arctic-Engine.cpp" />
     <ClCompile Include="source\core\Game.cpp" />
     <ClCompile Include="source\render\Camera.cpp" />
+    <ClCompile Include="source\render\MatrixMaths.cpp" />
     <ClCompile Include="source\util\AssetManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
