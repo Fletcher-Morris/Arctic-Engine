@@ -1,26 +1,28 @@
 #include "Camera.h"
+#include "MatrixMaths.h"
 
 Camera::Camera(const CameraConfig & config) : m_config (config)
 {
-
+	m_projMatrix = CreateProjMatrix(config);
 }
 
 void Camera::Update()
 {
-	
+	m_viewMatrix = CreateViewMatrix(*this);
+	m_projViewMatrix = m_projMatrix * m_viewMatrix;
 }
 
-const Matrix4 & Camera::GetViewMatrix()
+const Matrix4& Camera::GetViewMatrix()
 {
-	// TODO: insert return statement here
+	return m_viewMatrix;
 }
 
-const Matrix4 & Camera::GetProjectionMatrix()
+const Matrix4& Camera::GetProjectionMatrix()
 {
-	// TODO: insert return statement here
+	return m_projMatrix;
 }
 
-const Matrix4 & Camera::GetProjectionViewMatrix()
+const Matrix4& Camera::GetProjectionViewMatrix()
 {
-	// TODO: insert return statement here
+	return m_projViewMatrix;
 }

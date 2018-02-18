@@ -13,7 +13,6 @@ public:
 	const Matrix4& GetProjectionViewMatrix();
 
 private:
-	const Entity* m_pEntity;
 	CameraConfig m_config;
 	Matrix4 m_projMatrix;
 	Matrix4 m_viewMatrix;
