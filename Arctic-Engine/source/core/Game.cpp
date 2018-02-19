@@ -1,6 +1,8 @@
 #include "Game.h"
 
-Game::Game() : m_window({ 1280, 720 }, "Arctic Engine")
+#include "../states/State_Splash.h"
+
+Game::Game() : m_window({ 960, 540 }, "Arctic Engine")
 {
 
 }
@@ -21,6 +23,8 @@ void Game::Run()
 	sf::Clock timer;
 	auto lastTime = sf::Time::Zero;
 	auto lag = sf::Time::Zero;
+
+	PushState<State_Splash>(*this);
 
 	while (m_window.isOpen() && !m_states.empty())
 	{
@@ -70,6 +74,16 @@ void Game::PopState()
 
 }
 
+void Game::Shutdown()
+{
+	m_window.close();
+}
+
+const sf::RenderWindow& Game::GetWindow() const
+{
+	return m_window;
+}
+
 void Game::HandleEvents()
 {
 	sf::Event e;
@@ -81,7 +95,7 @@ void Game::HandleEvents()
 		switch (e.type)
 		{
 		case sf::Event::Closed:
-			m_window.close();
+			Shutdown();
 
 		default:
 			break;

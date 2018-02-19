@@ -13,11 +13,11 @@ public:
 
 	virtual ~State() = default;
 
-	virtual void HandleEvent(sf::Event e) = 0;
-	virtual void HandleInput() = 0;
-	virtual void Update(sf::Time deltaTime) = 0;
-	virtual void FixedUpdate(sf::Time fixedTime) = 0;
-	virtual void Render(sf::RenderTarget& renderer);
+	virtual void HandleEvent	(sf::Event e) = 0;
+	virtual void HandleInput	() = 0;
+	virtual void Update			(sf::Time deltaTime) = 0;
+	virtual void FixedUpdate	(sf::Time fixedTime) = 0;
+	virtual void Render			(sf::RenderTarget& target) = 0;
 
 protected:
 	Game * m_pGame;

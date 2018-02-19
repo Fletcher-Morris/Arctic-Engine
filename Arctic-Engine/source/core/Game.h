@@ -5,6 +5,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "..\states\State.h"
+#include "../util/AssetManager.h"
 
 class Game
 {
@@ -17,6 +18,9 @@ public:
 	template<typename T, typename... Args>
 	void PushState(Args&&... args);
 	void PopState();
+	void Shutdown();
+	const sf::RenderWindow& GetWindow() const;
+	AssetManager assets;
 
 private:
 
