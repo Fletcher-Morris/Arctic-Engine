@@ -167,6 +167,7 @@
     <ClInclude Include="source\core\Game.h" />
     <ClInclude Include="source\core\Obj.h" />
     <ClInclude Include="source\entity\Entity.h" />
+    <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\Camera.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
     <ClInclude Include="source\render\MatrixMaths.h" />
@@ -182,6 +183,7 @@
   <ItemGroup>
     <ClCompile Include="Arctic-Engine.cpp" />
     <ClCompile Include="source\core\Game.cpp" />
+    <ClCompile Include="source\example\State_Example.cpp" />
     <ClCompile Include="source\render\Camera.cpp" />
     <ClCompile Include="source\render\MatrixMaths.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />

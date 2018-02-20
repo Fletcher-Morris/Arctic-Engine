@@ -43,6 +43,12 @@
     <Filter Include="Source Files\render">
       <UniqueIdentifier>{c68eca72-9ccf-4abd-8be5-3376cdfa5a2e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\example">
+      <UniqueIdentifier>{f57497ac-ffa2-46af-9228-1c0f6644bc24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\example">
+      <UniqueIdentifier>{5c69abce-3ddd-416c-a257-2b99fd3f7881}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -87,6 +93,9 @@
     <ClInclude Include="source\core\Obj.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="source\example\State_Example.h">
+      <Filter>Header Files\example</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -109,6 +118,9 @@
     </ClCompile>
     <ClCompile Include="source\states\State_Splash.cpp">
       <Filter>Source Files\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\example\State_Example.cpp">
+      <Filter>Source Files\example</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
