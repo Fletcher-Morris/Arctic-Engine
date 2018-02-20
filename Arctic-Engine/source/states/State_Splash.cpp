@@ -14,8 +14,8 @@ State_Splash::State_Splash(Game& game) : State(game) {
 	splash.setPosition(0, 0);
 	timer.restart();
 
-	if (game.assets.LoadObj("cube", "assets/cube.obj")) {
-		Obj leCube = game.assets.GetObj("cube");
+	if (game.assets.LoadObj("teapot", "assets/teapot.obj")) {
+		Obj leCube = game.assets.GetObj("teapot");
 	}
 }
 
