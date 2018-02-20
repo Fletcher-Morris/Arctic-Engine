@@ -16,11 +16,15 @@ public:
 	sf::Texture &GetTexture(std::string name);
 	sf::Texture PlaceholderTexture();
 
+	void  LoadImage(std::string name, std::string fileName);
+	sf::Image &GetImage(std::string name);
+
 	void LoadFont(std::string name, std::string fileName);
 	sf::Font &GetFont(std::string name);
 
 private:
 	std::map<std::string, sf::Texture> _textures;
+	std::map<std::string, sf::Image> _images;
 	std::map<std::string, sf::Font> _fonts;
 };
 

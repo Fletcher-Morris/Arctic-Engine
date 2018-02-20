@@ -1,10 +1,13 @@
 #include "Game.h"
-
+#include <iostream>
 #include "../states/State_Splash.h"
 
 Game::Game() : m_window({ 960, 540 }, "Arctic Engine")
 {
-
+	std::cout << "Initialised OpenGL 4.6" << std::endl;
+	std::cout << "Creating OpenGL context (" << m_window.getSize().x << " x " << m_window.getSize().y << ")" << std::endl;
+	assets.LoadImage("icon", "assets/icon.jpg");
+	m_window.setIcon(128,128,assets.GetImage("icon").getPixelsPtr());
 }
 
 Game::~Game()
@@ -102,3 +105,4 @@ void Game::HandleEvents()
 		}
 	}
 }
+

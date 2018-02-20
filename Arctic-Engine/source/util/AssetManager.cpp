@@ -12,6 +12,7 @@ void AssetManager::LoadTexture(std::string name, std::string fileName)
 		std::cout << "Loaded " + fileName + "" << std::endl;
 	}
 	else {
+		std::cout << "Failed to load " + fileName + "" << std::endl;
 		this->_textures[name] = PlaceholderTexture();
 	}
 }
@@ -50,7 +51,24 @@ sf::Texture AssetManager::PlaceholderTexture()
 	return PlaceholderTexture;
 }
 
+void AssetManager::LoadImage(std::string name, std::string fileName)
+{
+	sf::Image image;
 
+	if (image.loadFromFile(fileName)) {
+		this->_images[name] = image;
+
+		std::cout << "Loaded " + fileName + "" << std::endl;
+	}
+	else {
+		std::cout << "Failed to load " + fileName + "" << std::endl;
+	}
+}
+
+sf::Image & AssetManager::GetImage(std::string name)
+{
+	return this->_images.at(name);
+}
 
 void AssetManager::LoadFont(std::string name, std::string fileName)
 {
@@ -62,7 +80,7 @@ void AssetManager::LoadFont(std::string name, std::string fileName)
 		std::cout << "Loaded " + fileName + "" << std::endl;
 	}
 	else {
-
+		std::cout << "Failed to load " + fileName + "" << std::endl;
 	}
 }
 sf::Font &AssetManager::GetFont(std::string name) {
