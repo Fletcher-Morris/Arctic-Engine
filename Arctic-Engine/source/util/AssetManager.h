@@ -14,7 +14,7 @@ public:
 
 	void LoadTexture(std::string name, std::string fileName);
 	sf::Texture &GetTexture(std::string name);
-	sf::Texture PlaceholderTexture();
+	sf::Image PlaceholderImage();
 
 	void  LoadImage(std::string name, std::string fileName);
 	sf::Image &GetImage(std::string name);

@@ -13,13 +13,15 @@ void AssetManager::LoadTexture(std::string name, std::string fileName)
 	}
 	else {
 		std::cout << "Failed to load " + fileName + "" << std::endl;
-		this->_textures[name] = PlaceholderTexture();
+		sf::Texture tex;
+		tex.loadFromImage(PlaceholderImage());
+		this->_textures[name] = tex;
 	}
 }
 sf::Texture &AssetManager::GetTexture(std::string name) {
 	return this->_textures.at(name);
 }
-sf::Texture AssetManager::PlaceholderTexture()
+sf::Image AssetManager::PlaceholderImage()
 {
 	//  Generate a pink and black place-holder texture
 	sf::Image missingImage;
@@ -45,10 +47,7 @@ sf::Texture AssetManager::PlaceholderTexture()
 		cY++;
 	}
 
-	sf::Texture PlaceholderTexture;
-	PlaceholderTexture.loadFromImage(missingImage);
-
-	return PlaceholderTexture;
+	return missingImage;
 }
 
 void AssetManager::LoadImage(std::string name, std::string fileName)
@@ -62,6 +61,7 @@ void AssetManager::LoadImage(std::string name, std::string fileName)
 	}
 	else {
 		std::cout << "Failed to load " + fileName + "" << std::endl;
+		this->_images[name] = PlaceholderImage();
 	}
 }
 
