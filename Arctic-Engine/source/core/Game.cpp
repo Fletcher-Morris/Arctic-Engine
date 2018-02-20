@@ -6,7 +6,7 @@ Game::Game() : m_window({ sf::VideoMode::getDesktopMode().width/2, sf::VideoMode
 {
 	std::cout << "Initialised OpenGL 4.6" << std::endl;
 	std::cout << "Creating OpenGL context (" << m_window.getSize().x << " x " << m_window.getSize().y << ")" << std::endl;
-	assets.LoadImage("icon", "assets/icon.jpg");
+	assets.LoadImage("icon", "assets/textures/icon.jpg");
 	m_window.setIcon(128,128,assets.GetImage("icon").getPixelsPtr());
 }
 

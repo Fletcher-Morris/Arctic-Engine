@@ -90,11 +90,11 @@
     <ClInclude Include="source\states\State_Splash.h">
       <Filter>Header Files\states</Filter>
     </ClInclude>
-    <ClInclude Include="source\core\Obj.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
     <ClInclude Include="source\example\State_Example.h">
       <Filter>Header Files\example</Filter>
+    </ClInclude>
+    <ClInclude Include="source\core\Obj.h">
+      <Filter>Header Files\core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

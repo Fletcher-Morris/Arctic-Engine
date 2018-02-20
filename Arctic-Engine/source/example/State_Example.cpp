@@ -4,7 +4,7 @@
 
 State_Example::State_Example(Game& game) : State(game) {
 
-	if (game.assets.LoadObj("teapot", "assets/teapot.obj")) {
+	if (game.assets.LoadObj("teapot", "assets/models/teapot.obj")) {
 		Obj leCube = game.assets.GetObj("teapot");
 	}
 }

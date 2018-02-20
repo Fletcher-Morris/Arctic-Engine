@@ -8,7 +8,7 @@ sf::Sprite splash;
 
 State_Splash::State_Splash(Game& game) : State(game) {
 
-	game.assets.LoadTexture("ArcticSplash", "assets/ArcticSplash.jpg");
+	game.assets.LoadTexture("ArcticSplash", "assets/textures/ArcticSplash.jpg");
 	splash = sf::Sprite(game.assets.GetTexture("ArcticSplash"));
 	splash.setScale((float)m_pGame->GetWindow().getSize().x / 1920.0f, (float)m_pGame->GetWindow().getSize().y / 1080.0f);
 	splash.setPosition(0, 0);
@@ -30,6 +30,8 @@ void State_Splash::HandleInput() {
 }
 
 void State_Splash::Update(sf::Time deltaTime) {
+
+	splash.setScale(splash.getScale().x + 0.01f * deltaTime.asSeconds(), splash.getScale().y + 0.01f * deltaTime.asSeconds());
 
 	if (timer.getElapsedTime().asSeconds() >= 3) {
 		m_pGame->PushState<State_Example>(*m_pGame);
