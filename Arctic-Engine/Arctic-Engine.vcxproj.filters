@@ -81,6 +81,12 @@
     <ClInclude Include="source\render\MatrixMaths.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="source\states\State_Splash.h">
+      <Filter>Header Files\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\core\Obj.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="source\render\MatrixMaths.cpp">
       <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states\State_Splash.cpp">
+      <Filter>Source Files\states</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,8 +1,13 @@
 #include "Game.h"
+#include <iostream>
+#include "../states/State_Splash.h"
 
-Game::Game() : m_window({ 1280, 720 }, "Arctic Engine")
+Game::Game() : m_window({ 960, 540 }, "Arctic Engine")
 {
-
+	std::cout << "Initialised OpenGL 4.6" << std::endl;
+	std::cout << "Creating OpenGL context (" << m_window.getSize().x << " x " << m_window.getSize().y << ")" << std::endl;
+	assets.LoadImage("icon", "assets/icon.jpg");
+	m_window.setIcon(128,128,assets.GetImage("icon").getPixelsPtr());
 }
 
 Game::~Game()
@@ -21,6 +26,8 @@ void Game::Run()
 	sf::Clock timer;
 	auto lastTime = sf::Time::Zero;
 	auto lag = sf::Time::Zero;
+
+	PushState<State_Splash>(*this);
 
 	while (m_window.isOpen() && !m_states.empty())
 	{
@@ -70,6 +77,16 @@ void Game::PopState()
 
 }
 
+void Game::Shutdown()
+{
+	m_window.close();
+}
+
+const sf::RenderWindow& Game::GetWindow() const
+{
+	return m_window;
+}
+
 void Game::HandleEvents()
 {
 	sf::Event e;
@@ -81,10 +98,11 @@ void Game::HandleEvents()
 		switch (e.type)
 		{
 		case sf::Event::Closed:
-			m_window.close();
+			Shutdown();
 
 		default:
 			break;
 		}
 	}
 }
+
