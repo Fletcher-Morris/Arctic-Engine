@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../states/State_Splash.h"
 
-Game::Game() : m_window({ 960, 540 }, "Arctic Engine")
+Game::Game() : m_window({ sf::VideoMode::getDesktopMode().width/2, sf::VideoMode::getDesktopMode().height / 2 }, "Arctic Engine")
 {
 	std::cout << "Initialised OpenGL 4.6" << std::endl;
 	std::cout << "Creating OpenGL context (" << m_window.getSize().x << " x " << m_window.getSize().y << ")" << std::endl;
