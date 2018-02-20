@@ -1,5 +1,6 @@
 #include "State_Splash.h"
 #include "../core/Game.h"
+#include "../core/Obj.h"
 
 sf::Sprite splashSprite;
 sf::Clock timer;
@@ -12,6 +13,10 @@ State_Splash::State_Splash(Game& game) : State(game) {
 	splash.setScale((float)m_pGame->GetWindow().getSize().x / 1920.0f, (float)m_pGame->GetWindow().getSize().y / 1080.0f);
 	splash.setPosition(0, 0);
 	timer.restart();
+
+	if (game.assets.LoadObj("cube", "assets/cube.obj")) {
+		Obj leCube = game.assets.GetObj("cube");
+	}
 }
 
 void State_Splash::HandleEvent(sf::Event e) {
@@ -30,7 +35,7 @@ void State_Splash::HandleInput() {
 
 void State_Splash::Update(sf::Time deltaTime) {
 
-	if (timer.getElapsedTime().asSeconds() >= 3) {
+	if (timer.getElapsedTime().asSeconds() >= 60) {
 		m_pGame->Shutdown();
 	}
 }
