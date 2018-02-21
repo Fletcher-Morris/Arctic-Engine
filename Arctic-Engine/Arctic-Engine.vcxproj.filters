@@ -96,6 +96,9 @@
     <ClInclude Include="source\core\Obj.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="source\render\Shader.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="source\example\State_Example.cpp">
       <Filter>Source Files\example</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\Shader.cpp">
+      <Filter>Source Files\render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
