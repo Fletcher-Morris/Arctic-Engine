@@ -80,3 +80,19 @@ Shader::Shader(const char * vertPath, const char * fragPath)
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 }
+
+void Shader::Activate()
+{
+}
+
+void Shader::SetBool(const std::string & name, bool value) const
+{
+}
+
+void Shader::SetInt(const std::string & name, int value) const
+{
+}
+
+void Shader::SetFloat(const std::string & name, float value) const
+{
+}
