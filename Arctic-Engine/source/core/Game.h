@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "..\states\State.h"
 #include "../util/AssetManager.h"
+#include <glad\glad.h>
 #include <glfw3.h>
 
 class Game

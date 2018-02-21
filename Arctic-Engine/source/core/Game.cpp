@@ -3,7 +3,6 @@
 #include "../states/State_Splash.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
-void ProcessInput(GLFWwindow *window);
 
 Game::Game()
 {
@@ -24,6 +23,11 @@ Game::Game()
 	}
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD" << std::endl;
+	}
 
 	std::cout << "Creating OpenGL context (" << mode->width/2 << " x " << mode->height/2 << ")" << std::endl;
 	glViewport(0, 0, mode->width, mode->height);
@@ -97,9 +101,9 @@ const GLFWwindow* Game::GetWindow() const
 
 void Game::HandleEvents()
 {
-	sf::Event e;
+	/*sf::Event e;
 
-	/*while (m_window.pollEvent(e))
+	while (m_window.pollEvent(e))
 	{
 		GetCurrentState().HandleEvent(e);
 
