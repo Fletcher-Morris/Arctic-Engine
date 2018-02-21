@@ -23,14 +23,18 @@ void State_Example::HandleInput() {
 
 }
 
-void State_Example::Update(sf::Time deltaTime) {
+void State_Example::Update(double deltaTime) {
 
 }
 
-void State_Example::FixedUpdate(sf::Time deltaTime) {
+void State_Example::FixedUpdate(double fixedTime) {
 
 }
 
-void State_Example::Render(sf::RenderTarget& target) {
+void State_Example::Render(GLFWwindow* target) {
 
+	glClearColor(1.0f, 0.4353f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	glfwSwapBuffers(target);
 }

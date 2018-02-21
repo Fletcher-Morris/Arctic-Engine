@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 #include "..\states\State.h"
 #include "../util/AssetManager.h"
+#include <glfw3.h>
 
 class Game
 {
@@ -19,14 +20,14 @@ public:
 	void PushState(Args&&... args);
 	void PopState();
 	void Shutdown();
-	const sf::RenderWindow& GetWindow() const;
+	const GLFWwindow* GetWindow() const;
 	AssetManager assets;
 
 private:
 
 	State & GetCurrentState();
 
-	sf::RenderWindow m_window;
+	GLFWwindow* window;
 	std::vector<std::unique_ptr<State>>m_states;
 
 	bool m_tryPop = false;

@@ -3,6 +3,7 @@
 #define STATE_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include "..\util\NonCopyable.h"
+#include <glfw3.h>
 
 class Game;
 
@@ -15,9 +16,9 @@ public:
 
 	virtual void HandleEvent	(sf::Event e) = 0;
 	virtual void HandleInput	() = 0;
-	virtual void Update			(sf::Time deltaTime) = 0;
-	virtual void FixedUpdate	(sf::Time fixedTime) = 0;
-	virtual void Render			(sf::RenderTarget& target) = 0;
+	virtual void Update			(double deltaTime) = 0;
+	virtual void FixedUpdate	(double fixedTime) = 0;
+	virtual void Render			(GLFWwindow* target) = 0;
 
 protected:
 	Game * m_pGame;
