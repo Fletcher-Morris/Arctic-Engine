@@ -31,8 +31,6 @@ void State_Splash::HandleInput() {
 
 void State_Splash::Update(sf::Time deltaTime) {
 
-	splash.setScale(splash.getScale().x + 0.01f * deltaTime.asSeconds(), splash.getScale().y + 0.01f * deltaTime.asSeconds());
-
 	if (timer.getElapsedTime().asSeconds() >= 3) {
 		m_pGame->PushState<State_Example>(*m_pGame);
 	}
