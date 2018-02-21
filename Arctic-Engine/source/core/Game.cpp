@@ -52,12 +52,12 @@ void Game::Run()
 
 
 		double time = glfwGetTime();
-		double elapsed = time - lastTime;
+		double dt = time - lastTime;
 		lastTime = time;
 
 		//  Delta Time
 		state.HandleInput(window);
-		state.Update(elapsed);
+		state.Update(dt);
 		//  Render
 		state.Render(window);
 		glfwPollEvents();
