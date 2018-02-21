@@ -56,7 +56,7 @@ void Game::Run()
 		lastTime = time;
 
 		//  Delta Time
-		state.HandleInput();
+		state.HandleInput(window);
 		state.Update(elapsed);
 		//  Render
 		state.Render(window);

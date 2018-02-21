@@ -7,9 +7,9 @@ public:
 
 	State_Example(Game& game);
 
-	void HandleEvent(sf::Event e)		override;
-	void HandleInput()					override;
-	void Update(double deltaTime)		override;
-	void FixedUpdate(double deltaTime)	override;
-	void Render(GLFWwindow* target)		override;
+	void HandleEvent	(sf::Event e)			override;
+	void HandleInput	(GLFWwindow* window)	override;
+	void Update			(double deltaTime)		override;
+	void FixedUpdate	(double deltaTime)		override;
+	void Render			(GLFWwindow* target)	override;
 };

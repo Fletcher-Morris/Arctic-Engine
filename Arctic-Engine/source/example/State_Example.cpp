@@ -19,8 +19,10 @@ void State_Example::HandleEvent(sf::Event e) {
 	}
 }
 
-void State_Example::HandleInput() {
+void State_Example::HandleInput(GLFWwindow* window) {
 
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
 }
 
 void State_Example::Update(double deltaTime) {

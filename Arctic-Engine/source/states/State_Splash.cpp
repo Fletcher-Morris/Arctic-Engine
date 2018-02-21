@@ -25,7 +25,7 @@ void State_Splash::HandleEvent(sf::Event e) {
 	}
 }
 
-void State_Splash::HandleInput() {
+void State_Splash::HandleInput(GLFWwindow* window) {
 
 }
 

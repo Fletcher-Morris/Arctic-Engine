@@ -15,7 +15,7 @@ public:
 	virtual ~State() = default;
 
 	virtual void HandleEvent	(sf::Event e) = 0;
-	virtual void HandleInput	() = 0;
+	virtual void HandleInput	(GLFWwindow* window) = 0;
 	virtual void Update			(double deltaTime) = 0;
 	virtual void FixedUpdate	(double fixedTime) = 0;
 	virtual void Render			(GLFWwindow* target) = 0;
