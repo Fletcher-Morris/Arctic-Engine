@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include "../states/State_Splash.h"
+#include "../render/Shader.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -12,8 +13,6 @@ Game::Game()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	PushState<State_Splash>(*this);
-
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	window = glfwCreateWindow(mode->width/2, mode->height/2, "Arctic Engine", NULL, NULL);
 	if (!window)
@@ -21,6 +20,7 @@ Game::Game()
 		std::cout << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();
 	}
+
 	glfwMakeContextCurrent(window);
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 
@@ -33,6 +33,10 @@ Game::Game()
 	glViewport(0, 0, mode->width, mode->height);
 
 	assets.LoadImage("icon", "assets/textures/icon.jpg");
+
+	PushState<State_Splash>(*this);
+
+	Run();
 }
 
 Game::~Game()
@@ -49,6 +53,7 @@ void Game::Run()
 
 	constexpr unsigned  TICKS_PER_SECOND = 60;
 	double lastTime = 0.0;
+
 
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{

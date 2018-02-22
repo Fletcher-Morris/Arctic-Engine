@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "..\util\NonCopyable.h"
 #include <glfw3.h>
+#include "../render/Shader.h"
 
 class Game;
 

@@ -2,6 +2,7 @@
 #include "../core/Game.h"
 #include "../core/Obj.h"
 #include "../render/Shader.h"
+#include <glad\glad.h>
 
 Obj o;
 
@@ -10,7 +11,6 @@ State_Example::State_Example(Game& game) : State(game) {
 	if (game.assets.LoadObj("teapot", "assets/models/teapot.obj")) {
 		o = game.assets.GetObj("teapot");
 	}
-	Shader shader(std::string("assets/shaders/vertex.vert").c_str(), std::string("assets/shaders/fragment.frag").c_str());
 }
 
 void State_Example::HandleEvent(sf::Event e) {
