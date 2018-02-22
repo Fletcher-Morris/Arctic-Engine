@@ -38,10 +38,6 @@ Shader::Shader(const char * vertPath, const char * fragPath)
 	Parse(vertCode, fragCode);
 }
 
-Shader::Shader(std::string vertPath, std::string fragPath)
-{
-}
-
 Shader::Shader(std::string path)
 {
 	enum class ShaderType {

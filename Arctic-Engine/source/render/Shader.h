@@ -10,7 +10,6 @@ class Shader
 public:
 	unsigned int ShaderId;
 	Shader(const char* vertPath, const char* fragPath);
-	Shader(std::string vertPath, std::string fragPath);
 	Shader(std::string path);
 	void Activate();
 	void SetBool(const std::string &name, bool value) const;
