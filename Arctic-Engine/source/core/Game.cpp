@@ -7,12 +7,6 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 Game::Game()
 {
-	std::cout << "Initialised OpenGL 4.6" << std::endl;
-
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	window = glfwCreateWindow(mode->width/2, mode->height/2, "Arctic Engine", NULL, NULL);
 	if (!window)
@@ -27,7 +21,11 @@ Game::Game()
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD" << std::endl;
+		glfwTerminate();
 	}
+
+	std::cout << "Initialised OpenGL (" << glGetString(GL_VERSION) << ")" << std::endl;
+	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
 
 	std::cout << "Creating OpenGL context (" << mode->width/2 << " x " << mode->height/2 << ")" << std::endl;
 	glViewport(0, 0, mode->width, mode->height);
