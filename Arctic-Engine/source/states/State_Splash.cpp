@@ -39,22 +39,5 @@ void State_Splash::FixedUpdate(double fixedTime) {
 }
 
 void State_Splash::Render(GLFWwindow* target) {
-
-	/*glClearColor(0.0f, 0.4353f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-	float positions[6] = {
-		-0.5f, -0.5f,
-		0.0f,  0.5f,
-		0.5f, -0.5f
-	};
-
-	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-
-	glfwSwapBuffers(target);*/
+	Game* m_game = (Game*)glfwGetWindowUserPointer(target);
 }

@@ -32,6 +32,7 @@ bool Game::Init()
 		std::cout << "Failed to create GLFW window!" << std::endl;
 	}
 	glfwMakeContextCurrent(window);
+	glfwSetWindowUserPointer(window, this);
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -62,10 +63,11 @@ void Game::Run()
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
-		glClearColor(0.0f, 0.5647f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//	RENDER START
+
+		glClearColor(0.0f, 0.5647f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
