@@ -6,27 +6,27 @@
 #include <SFML/Graphics.hpp>
 #include "..\states\State.h"
 #include "../util/AssetManager.h"
+#include <glad\glad.h>
+#include <glfw3.h>
 
 class Game
 {
 public:
 	Game();
 	virtual ~Game();
-
+	bool Init();
 	void Run();
 
 	template<typename T, typename... Args>
 	void PushState(Args&&... args);
 	void PopState();
 	void Shutdown();
-	const sf::RenderWindow& GetWindow() const;
+	GLFWwindow* window;
 	AssetManager assets;
 
 private:
 
 	State & GetCurrentState();
-
-	sf::RenderWindow m_window;
 	std::vector<std::unique_ptr<State>>m_states;
 
 	bool m_tryPop = false;

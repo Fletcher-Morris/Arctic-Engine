@@ -1,61 +1,66 @@
 #include "Game.h"
 #include <iostream>
 #include "../states/State_Splash.h"
+#include "../render/Shader.h"
 
-Game::Game() : m_window({ sf::VideoMode::getDesktopMode().width/2, sf::VideoMode::getDesktopMode().height / 2 }, "Arctic Engine")
+void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
+
+Game::Game()
 {
-	std::cout << "Initialised OpenGL 4.6" << std::endl;
-	std::cout << "Creating OpenGL context (" << m_window.getSize().x << " x " << m_window.getSize().y << ")" << std::endl;
-	assets.LoadImage("icon", "assets/textures/icon.jpg");
-	m_window.setIcon(128,128,assets.GetImage("icon").getPixelsPtr());
+	PushState<State_Splash>(*this);
+
+	if (!Init()) {
+		glfwTerminate();
+	}
+
+	Run();
 }
 
 Game::~Game()
 {
+	glfwTerminate();
+}
+
+bool Game::Init()
+{
+	if (!glfwInit()) {
+		std::cout << "Failed to initialise GLFW!" << std::endl;
+		return false;
+	}
+	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
+	window = glfwCreateWindow(960, 540, "Arctic Engine", NULL, NULL);
+	if (!window) {
+		std::cout << "Failed to create GLFW window!" << std::endl;
+	}
+	glfwMakeContextCurrent(window);
+	glfwSetWindowUserPointer(window, this);
+	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD!" << std::endl;
+		return false;
+	}
+	std::cout << "Initialised GLAD" << std::endl;
+	std::cout << "Initialised OpenGL (" << glGetString(GL_VERSION) << ")\n" << std::endl;
+
+	return true;
+
 
 }
 
 void Game::Run()
 {
-
-	sf::Clock clock;
-	constexpr unsigned  TICKS_PER_SECOND = 60;
-	const sf::Time      TICKS_PER_UPDATE = sf::seconds(1.0f / float(TICKS_PER_SECOND));
-	unsigned    ticks = 0;
-
-	sf::Clock timer;
-	auto lastTime = sf::Time::Zero;
-	auto lag = sf::Time::Zero;
-
-	PushState<State_Splash>(*this);
-
-	while (m_window.isOpen() && !m_states.empty())
+	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
-		auto& state = GetCurrentState();
+		glfwPollEvents();
 
+		//	RENDER START
 
-		auto time = timer.getElapsedTime();
-		auto elapsed = time - lastTime;
-		lastTime = time;
-		lag += elapsed;
+		GetCurrentState().Render(window);
 
-		//  Delta Time
-		state.HandleInput();
-		state.Update(elapsed);
-		//  Fixed Time
-		while (lag >= TICKS_PER_UPDATE)
-		{
-			ticks++;
-			lag -= TICKS_PER_UPDATE;
-			state.FixedUpdate(elapsed);
-		}
-		//  Render
-		m_window.clear();
-		state.Render(m_window);
-		m_window.display();
-		//  Events
-		HandleEvents();
-		TryPop();
+		//	RENDER END
+
+		glfwSwapBuffers(window);
 	}
 }
 
@@ -79,30 +84,15 @@ void Game::PopState()
 
 void Game::Shutdown()
 {
-	m_window.close();
-}
-
-const sf::RenderWindow& Game::GetWindow() const
-{
-	return m_window;
+	glfwDestroyWindow(window);
 }
 
 void Game::HandleEvents()
 {
-	sf::Event e;
 
-	while (m_window.pollEvent(e))
-	{
-		GetCurrentState().HandleEvent(e);
-
-		switch (e.type)
-		{
-		case sf::Event::Closed:
-			Shutdown();
-
-		default:
-			break;
-		}
-	}
 }
 
+void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
