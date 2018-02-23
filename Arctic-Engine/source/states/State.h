@@ -8,7 +8,7 @@
 
 class Game;
 
-class State : public NonCopyable
+class State
 {
 public:
 	State(Game& game) :m_pGame(&game) {}
