@@ -14,21 +14,19 @@ class Game
 public:
 	Game();
 	virtual ~Game();
-
+	bool Init();
 	void Run();
 
 	template<typename T, typename... Args>
 	void PushState(Args&&... args);
 	void PopState();
 	void Shutdown();
-	const GLFWwindow* GetWindow() const;
+	GLFWwindow* window;
 	AssetManager assets;
 
 private:
 
 	State & GetCurrentState();
-
-	GLFWwindow* window;
 	std::vector<std::unique_ptr<State>>m_states;
 
 	bool m_tryPop = false;

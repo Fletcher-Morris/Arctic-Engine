@@ -9,9 +9,7 @@ sf::Sprite splash;
 
 State_Splash::State_Splash(Game& game) : State(game) {
 
-	Shader shader(std::string("assets/shaders/vertex.vert").c_str(), std::string("assets/shaders/fragment.frag").c_str());
-	Shader shadercombo("assets/shaders/combo.shader");
-	shader.Activate();
+	std::cout << "Entered state: (State_Splash)" << std::endl;
 
 	game.assets.LoadTexture("ArcticSplash", "assets/textures/ArcticSplash.jpg");
 	splash = sf::Sprite(game.assets.GetTexture("ArcticSplash"));
@@ -20,17 +18,13 @@ State_Splash::State_Splash(Game& game) : State(game) {
 }
 
 void State_Splash::HandleEvent(sf::Event e) {
-	switch (e.type)
-	{
-	case sf::Event::KeyPressed:
-		if (e.key.code == sf::Keyboard::Escape) {
-			m_pGame->Shutdown();
-		}
-	}
+	glfwPollEvents();
 }
 
 void State_Splash::HandleInput(GLFWwindow* window) {
 
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
 }
 
 void State_Splash::Update(double deltaTime) {
@@ -46,7 +40,7 @@ void State_Splash::FixedUpdate(double fixedTime) {
 
 void State_Splash::Render(GLFWwindow* target) {
 
-	glClearColor(0.0f, 0.4353f, 0.0f, 1.0f);
+	/*glClearColor(0.0f, 0.4353f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	float positions[6] = {
@@ -62,5 +56,5 @@ void State_Splash::Render(GLFWwindow* target) {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
-	glfwSwapBuffers(target);
+	glfwSwapBuffers(target);*/
 }

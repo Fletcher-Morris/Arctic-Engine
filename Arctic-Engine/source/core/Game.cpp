@@ -7,70 +7,73 @@ void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 Game::Game()
 {
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	window = glfwCreateWindow(mode->width/2, mode->height/2, "Arctic Engine", NULL, NULL);
-	if (!window)
-	{
-		std::cout << "Failed to create GLFW window" << std::endl;
+	
+	if (!Init()) {
 		glfwTerminate();
 	}
-
-	glfwMakeContextCurrent(window);
-	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
-
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "Failed to initialize GLAD" << std::endl;
-		glfwTerminate();
-	}
-
-	std::cout << "Initialised OpenGL (" << glGetString(GL_VERSION) << ")" << std::endl;
-	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
-
-	std::cout << "Creating OpenGL context (" << mode->width/2 << " x " << mode->height/2 << ")" << std::endl;
-	glViewport(0, 0, mode->width, mode->height);
-
-	assets.LoadImage("icon", "assets/textures/icon.jpg");
-
-	PushState<State_Splash>(*this);
 
 	Run();
 }
 
 Game::~Game()
 {
+	glfwTerminate();
+}
+
+bool Game::Init()
+{
+	if (!glfwInit()) {
+		std::cout << "Failed to initialise GLFW!" << std::endl;
+		return false;
+	}
+	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
+	window = glfwCreateWindow(960, 540, "Arctic Engine", NULL, NULL);
+	if (!window) {
+		std::cout << "Failed to create GLFW window!" << std::endl;
+	}
+	glfwMakeContextCurrent(window);
+	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "Failed to initialize GLAD!" << std::endl;
+		return false;
+	}
+	std::cout << "Initialised GLAD" << std::endl;
+	std::cout << "Initialised OpenGL (" << glGetString(GL_VERSION) << ")\n" << std::endl;
+
+	return true;
+
 
 }
 
 void Game::Run()
 {
-	if (!window)
+	float positions[6] = {
+		-0.5f, -0.5f,
+		0.0f,  0.5f,
+		0.5f, -0.5f
+	};
+
+	unsigned int buffer;
+	glGenBuffers(1, &buffer);
+	glBindBuffer(GL_ARRAY_BUFFER, buffer);
+	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
+
+	while (!glfwWindowShouldClose(window))
 	{
-		glfwTerminate();
-	}
-
-	constexpr unsigned  TICKS_PER_SECOND = 60;
-	double lastTime = 0.0;
-
-
-	while (!glfwWindowShouldClose(window) && !m_states.empty())
-	{
-		auto& state = GetCurrentState();
-
-
-		double time = glfwGetTime();
-		double dt = time - lastTime;
-		lastTime = time;
-
-		//  Delta Time
-		state.HandleInput(window);
-		state.Update(dt);
-		//  Render
-		state.Render(window);
 		glfwPollEvents();
-		//  Events
-		HandleEvents();
-		TryPop();
+		glClearColor(0.0f, 0.5647f, 1.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		//	RENDER START
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+
+		//	RENDER END
+
+		glfwSwapBuffers(window);
 	}
 }
 
@@ -97,28 +100,9 @@ void Game::Shutdown()
 	glfwDestroyWindow(window);
 }
 
-const GLFWwindow* Game::GetWindow() const
-{
-	return window;
-}
-
 void Game::HandleEvents()
 {
-	/*sf::Event e;
 
-	while (m_window.pollEvent(e))
-	{
-		GetCurrentState().HandleEvent(e);
-
-		switch (e.type)
-		{
-		case sf::Event::Closed:
-			Shutdown();
-
-		default:
-			break;
-		}
-	}*/
 }
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)

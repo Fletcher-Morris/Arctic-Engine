@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\core">
       <UniqueIdentifier>{b5232063-c6ff-49d2-a6a6-1de6288a9ebf}</UniqueIdentifier>
     </Filter>
@@ -48,6 +44,12 @@
     </Filter>
     <Filter Include="Source Files\example">
       <UniqueIdentifier>{5c69abce-3ddd-416c-a257-2b99fd3f7881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{102ab364-3055-42a1-a9a3-96289172714a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\shaders">
+      <UniqueIdentifier>{74811285-bf78-46d6-9e58-63d718101daf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,8 +130,19 @@
     <ClCompile Include="source\render\Shader.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\glad\src\glad.c">
+    <ClCompile Include="source\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\shaders\combo.shader">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\fragment.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="assets\shaders\vertex.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
