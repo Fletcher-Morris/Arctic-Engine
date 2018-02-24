@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <glad\glad.h>
+#include <GL\glew.h>
+#include <gl\GLU.h>
 
 class Shader
 {

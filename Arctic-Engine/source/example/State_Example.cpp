@@ -2,12 +2,13 @@
 #include "../core/Game.h"
 #include "../core/Obj.h"
 #include "../render/Shader.h"
-#include <glad\glad.h>
 #include "../states/State_Splash.h"
 
 Obj o;
 
 State_Example::State_Example(Game& game) : State(game) {
+
+	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
 	if (game.assets.LoadObj("teapot", "assets/models/teapot.obj")) {
 		o = game.assets.GetObj("teapot");
