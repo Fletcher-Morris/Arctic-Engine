@@ -5,6 +5,7 @@
 #include "../states/State_Splash.h"
 
 Obj o;
+unsigned int vertBuffer;
 
 State_Example::State_Example(Game& game) : State(game) {
 
@@ -13,6 +14,12 @@ State_Example::State_Example(Game& game) : State(game) {
 	if (game.assets.LoadObj("teapot", "assets/models/teapot.obj")) {
 		o = game.assets.GetObj("teapot");
 	}
+
+	//shad = Shader("assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
+
+	glGenBuffers(1, &vertBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
+	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
 }
 
 void State_Example::HandleEvent(sf::Event e) {
@@ -33,21 +40,16 @@ void State_Example::FixedUpdate(double fixedTime) {
 
 void State_Example::Render(GLFWwindow* target) {
 
-	float positions[6] = {
-		-0.5f, -0.5f,
-		0.0f,  0.5f,
-		0.5f, -0.5f
-	};
-
-	unsigned int buffer;
-	glGenBuffers(1, &buffer);
-	glBindBuffer(GL_ARRAY_BUFFER, buffer);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);
-
 	glClearColor(1.0f, 0.4353f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//shad.Activate();
+
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+	glDrawArrays(GL_TRIANGLES, 0, o.vertices.size());
+
+	glDisableVertexAttribArray(0);
 }
