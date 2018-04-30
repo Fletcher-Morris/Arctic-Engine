@@ -1,6 +1,4 @@
 #pragma once
-#ifndef STATE_H_INCLUDED
-#define STATE_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include "..\util\NonCopyable.h"
 #include <glfw3.h>
@@ -24,5 +22,3 @@ public:
 protected:
 	Game * m_pGame;
 };
-
-#endif // STATE_H_INCLUDED

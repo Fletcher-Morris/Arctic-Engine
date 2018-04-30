@@ -6,13 +6,17 @@
 
 sf::Clock timer;
 sf::Sprite splash;
+float positions[6] = {
+	-0.5f, -0.5f,
+	0.0f,  0.5f,
+	0.5f, -0.5f
+};
+
+unsigned int buffer;
 
 State_Splash::State_Splash(Game& game) : State(game) {
 
-	std::cout << "Entered state: (State_Splash)" << std::endl;
-
-	game.assets.LoadTexture("ArcticSplash", "assets/textures/ArcticSplash.jpg");
-	splash = sf::Sprite(game.assets.GetTexture("ArcticSplash"));
+	//std::cout << "Initialised state system" << std::endl;
 	splash.setPosition(0, 0);
 	timer.restart();
 }
@@ -37,17 +41,10 @@ void State_Splash::FixedUpdate(double fixedTime) {
 
 void State_Splash::Render(GLFWwindow* target) {
 
-	if (timer.getElapsedTime().asSeconds() >= 3) {
+	if (timer.getElapsedTime().asSeconds() >= 1) {
 		m_pGame->PushState<State_Example>(*m_pGame);
 	}
 
-	float positions[6] = {
-		-0.5f, -0.5f,
-		0.0f,  0.5f,
-		0.5f, -0.5f
-	};
-
-	unsigned int buffer;
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
 	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), positions, GL_STATIC_DRAW);

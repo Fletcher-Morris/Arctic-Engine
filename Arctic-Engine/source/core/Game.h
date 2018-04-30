@@ -3,11 +3,13 @@
 
 #include <memory>
 #include <vector>
-#include <SFML/Graphics.hpp>
-#include "..\states\State.h"
-#include "../util/AssetManager.h"
-#include <glad\glad.h>
+#include <iostream>
+#include <GL\glew.h>
 #include <glfw3.h>
+#include "..\states\State.h"
+#include "../states/State_Splash.h"
+#include "../render/Shader.h"
+#include "../util/AssetManager.h"
 
 class Game
 {
