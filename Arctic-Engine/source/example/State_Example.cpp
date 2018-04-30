@@ -39,19 +39,17 @@ void State_Example::FixedUpdate(double fixedTime) {
 
 }
 
+float color[3] = { 0.f, 0.f, 0.f };
 void State_Example::GuiUpdate()
 {
-	ImGui::Text("Arctic Engine GUI");
-	ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
-
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("New Scene")) {}
-			if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
-			if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {}
-			if (ImGui::MenuItem("Save As...")) {}
+			if (ImGui::MenuItem("New Scene","Ctrl+N", false, false)) {}
+			if (ImGui::MenuItem("Open Scene", "Ctrl+O", false, false)) {}
+			if (ImGui::MenuItem("Save Scene", "Ctrl+S", false, false)) {}
+			if (ImGui::MenuItem("Save As...","", false, false)) {}
 			ImGui::Separator();
 			if (ImGui::BeginMenu("Options"))
 			{
@@ -60,28 +58,36 @@ void State_Example::GuiUpdate()
 				if(useDarkMode) ImGui::StyleColorsDark();
 				else ImGui::StyleColorsLight();
 
+				ImGui::Separator();
+
+				if (ImGui::ColorEdit3("Clear Color", color)) {}
+
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Quit", "Alt+F4")) { m_pGame->~Game(); }
+			if (ImGui::MenuItem("Quit", "Alt+F4", false, false)) { m_pGame->~Game(); }
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Edit"))
 		{
 			if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-			if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+			if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}
 			ImGui::Separator();
-			if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-			if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-			if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+			if (ImGui::MenuItem("Cut", "CTRL+X", false, false)) {}
+			if (ImGui::MenuItem("Copy", "CTRL+C", false, false)) {}
+			if (ImGui::MenuItem("Paste", "CTRL+V", false, false)) {}
 			ImGui::EndMenu();
 		}
+		ImGui::Separator();
+		ImGui::SameLine(ImGui::GetWindowWidth() - 80);
+		ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
 	}
 }
 
 void State_Example::Render(GLFWwindow* target) {
 
-	glClearColor(1.0f, 0.4353f, 0.0f, 1.0f);
+	//glClearColor(1.0f, 0.4353f, 0.0f, 1.0f);
+	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//shad.Activate();
