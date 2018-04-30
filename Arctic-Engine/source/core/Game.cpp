@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "../editor/imgui.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
