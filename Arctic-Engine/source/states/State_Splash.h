@@ -11,5 +11,6 @@ public:
 	void HandleInput	(GLFWwindow* window)	override;
 	void Update			(double deltaTime)		override;
 	void FixedUpdate	(double deltaTime)		override;
+	void GuiUpdate()							override;
 	void Render			(GLFWwindow* target)	override;
 };

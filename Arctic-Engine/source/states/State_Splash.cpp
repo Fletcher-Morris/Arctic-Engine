@@ -39,6 +39,10 @@ void State_Splash::FixedUpdate(double fixedTime) {
 
 }
 
+void State_Splash::GuiUpdate()
+{
+}
+
 void State_Splash::Render(GLFWwindow* target) {
 
 	if (timer.getElapsedTime().asSeconds() >= 1) {

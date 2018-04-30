@@ -3,6 +3,7 @@
 #include "../core/Obj.h"
 #include "../render/Shader.h"
 #include "../states/State_Splash.h"
+#include "../editor/imgui.h"
 
 Obj o;
 unsigned int vertBuffer;
@@ -36,6 +37,46 @@ void State_Example::Update(double deltaTime) {
 
 void State_Example::FixedUpdate(double fixedTime) {
 
+}
+
+void State_Example::GuiUpdate()
+{
+	ImGui::Text("Arctic Engine GUI");
+	ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
+
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("New Scene")) {}
+			if (ImGui::MenuItem("Open Scene", "Ctrl+O")) {}
+			if (ImGui::MenuItem("Save Scene", "Ctrl+S")) {}
+			if (ImGui::MenuItem("Save As...")) {}
+			ImGui::Separator();
+			if (ImGui::BeginMenu("Options"))
+			{
+				static bool useDarkMode = true;
+				ImGui::MenuItem("Dark Mode", "", &useDarkMode);
+				if(useDarkMode) ImGui::StyleColorsDark();
+				else ImGui::StyleColorsLight();
+
+				ImGui::EndMenu();
+			}
+			if (ImGui::MenuItem("Quit", "Alt+F4")) { m_pGame->~Game(); }
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Edit"))
+		{
+			if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+			if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {}  // Disabled item
+			ImGui::Separator();
+			if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+			if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+			if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+			ImGui::EndMenu();
+		}
+		ImGui::EndMainMenuBar();
+	}
 }
 
 void State_Example::Render(GLFWwindow* target) {

@@ -125,6 +125,9 @@
     <ClInclude Include="source\editor\stb_truetype.h">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
+    <ClInclude Include="source\editor\imgui_impl_glfw_gl3.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -159,6 +162,12 @@
     </ClCompile>
     <ClCompile Include="source\editor\imgui_draw.cpp">
       <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states\State.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
