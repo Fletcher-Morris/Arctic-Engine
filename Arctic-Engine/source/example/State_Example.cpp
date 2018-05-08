@@ -4,9 +4,11 @@
 #include "../render/Shader.h"
 #include "../states/State_Splash.h"
 #include "../editor/imgui.h"
+#include "../core/Texture.h"
 
 Obj o;
 unsigned int vertBuffer;
+float color[3] = { 0.f, 0.f, 0.f };
 
 State_Example::State_Example(Game& game) : State(game) {
 
@@ -19,6 +21,10 @@ State_Example::State_Example(Game& game) : State(game) {
 	glGenBuffers(1, &vertBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
 	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
+
+	Texture tex("assets/textures/icon.png");
+	tex.Bind();
+	std::cout << tex.GetRenderId() << std::endl;
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
@@ -40,13 +46,24 @@ void State_Example::FixedUpdate(double fixedTime) {
 
 }
 
-float color[3] = { 0.f, 0.f, 0.f };
 void State_Example::GuiUpdate()
 {
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			Texture tex("assets/textures/icon.png");
+			tex.Bind();
+			if (ImGui::ImageButton((GLuint*)tex.GetRenderId(), ImVec2(50.0f, 50.0f))) {
+
+			}
+			for (int i = 0; i < 5; i++)
+			{
+				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) {
+
+				}
+			}
+
 			if (ImGui::MenuItem("New Scene","Ctrl+N", false, false)) {}
 			if (ImGui::MenuItem("Open Scene", "Ctrl+O", false, false)) {}
 			if (ImGui::MenuItem("Save Scene", "Ctrl+S", false, false)) {}

@@ -2,6 +2,11 @@
 #include "../editor/imgui.h"
 #include "../editor/imgui_impl_glfw_gl3.h"
 
+#include "../render/VertexArray.h"
+#include "../render/VertexBufferLayout.h"
+#include "../render/IndexBuffer.h"
+#include "Texture.h"
+
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 Game::Game()
@@ -63,6 +68,49 @@ bool Game::Init()
 
 void Game::Run()
 {
+	float positions[] =
+	{
+		-1.0f, -1.0f, 0.0f, 0.0f,
+		1.0f, -1.f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 0.0f, 1.0f
+	};
+
+	unsigned int indeces[] =
+	{
+		0,1,2,
+		2,3,0
+	};
+
+	VertexArray va;
+	VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.AddBuffer(vb, layout);
+
+	IndexBuffer ib(indeces, 6);
+
+	Shader shad("assets/shaders/combo.shader");
+	shad.Bind();
+	shad.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+	Texture tex("assets/textures/ArcticSplash.jpg");
+	tex.Bind();
+	std::cout << tex.GetRenderId() << std::endl;
+	shad.SetUniform1i("u_Texture", 0);
+
+	va.Unbind();
+	vb.Unbind();
+	ib.Unbind();
+	shad.Unbind();
+
+	Renderer rend;
+
+	Texture tex2("assets/textures/icon.jpg");
+
+
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
 
@@ -71,7 +119,25 @@ void Game::Run()
 
 		//	RENDER START
 
-		GetCurrentState().Render(window);
+		//GetCurrentState().Render(window);
+
+		tex.Bind();
+		rend.Clear(0.0f, 0.0f, 0.0f);
+		rend.Draw(va, ib, shad);
+
+		if (ImGui::BeginMainMenuBar())
+		{
+			if (ImGui::BeginMenu(""))
+			{
+				tex2.Bind();
+				if (ImGui::ImageButton((GLuint*)tex2.GetRenderId(), ImVec2(50.0f, 50.0f))) {
+
+				}
+				
+				ImGui::EndMenu();
+			}
+			ImGui::EndMainMenuBar();
+		}
 
 		//	RENDER END
 
