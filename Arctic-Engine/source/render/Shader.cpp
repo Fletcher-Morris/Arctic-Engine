@@ -70,7 +70,7 @@ Shader::Shader(const std::string& path)
 
 void Shader::Bind() const
 {
-	GLCall(glUseProgram(ShaderId))
+	GLCall(glUseProgram(RenderId))
 }
 
 void Shader::Unbind() const
@@ -80,17 +80,17 @@ void Shader::Unbind() const
 
 void Shader::SetBool(const std::string & name, bool value) const
 {
-	glUniform1i(glGetUniformLocation(ShaderId, name.c_str()), (int)value);
+	glUniform1i(glGetUniformLocation(RenderId, name.c_str()), (int)value);
 }
 
 void Shader::SetInt(const std::string & name, int value) const
 {
-	glUniform1i(glGetUniformLocation(ShaderId, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(RenderId, name.c_str()), value);
 }
 
 void Shader::SetFloat(const std::string & name, float value) const
 {
-	glUniform1i(glGetUniformLocation(ShaderId, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(RenderId, name.c_str()), value);
 }
 
 void Shader::SetUniform4f(const std::string & name, float v0, float v1, float v2, float v3)
@@ -128,18 +128,18 @@ void Shader::Compile(std::string vert, std::string frag)
 	};
 
 
-	ShaderId = glCreateProgram();
-	GLCall(glAttachShader(ShaderId, vertex));
-	GLCall(glAttachShader(ShaderId, fragment));
-	GLCall(glLinkProgram(ShaderId));
+	RenderId = glCreateProgram();
+	GLCall(glAttachShader(RenderId, vertex));
+	GLCall(glAttachShader(RenderId, fragment));
+	GLCall(glLinkProgram(RenderId));
 
-	GLCall(glGetProgramiv(ShaderId, GL_LINK_STATUS, &success));
+	GLCall(glGetProgramiv(RenderId, GL_LINK_STATUS, &success));
 	if (!success)
 	{
-		GLCall(glGetProgramInfoLog(ShaderId, 512, NULL, info));
+		GLCall(glGetProgramInfoLog(RenderId, 512, NULL, info));
 		std::cout << "Failed to link shader:\n" << info << std::endl;
 	}
-	std::cout << "Linked shader: " << ShaderId << std::endl;
+	std::cout << "Linked shader: " << RenderId << std::endl;
 
 
 	GLCall(glDeleteShader(vertex));
@@ -152,7 +152,7 @@ unsigned int Shader::GetUniformLocation(const std::string & name)
 		return m_LocationCashe[name];
 	}
 
-	GLCall(int location = glGetUniformLocation(ShaderId, name.c_str()));
+	GLCall(int location = glGetUniformLocation(RenderId, name.c_str()));
 	if (location == -1) {
 		std::cout << "Error: uniform '" << name << "' does not exist!" << std::endl;
 	}

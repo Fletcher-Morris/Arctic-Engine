@@ -10,7 +10,7 @@
 class Shader
 {
 public:
-	unsigned int ShaderId;
+	unsigned int RenderId;
 	Shader(const char* vertPath, const char* fragPath);
 	Shader(const std::string& path);
 
