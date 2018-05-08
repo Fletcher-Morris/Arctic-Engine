@@ -24,7 +24,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	shad.Bind();
 }
 
-void State_Example::HandleEvent(sf::Event e) {
+void State_Example::HandleEvent(int e) {
 
 }
 
@@ -87,7 +87,6 @@ void State_Example::GuiUpdate()
 
 void State_Example::Render(GLFWwindow* target) {
 
-	//glClearColor(1.0f, 0.4353f, 0.0f, 1.0f);
 	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

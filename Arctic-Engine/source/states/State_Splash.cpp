@@ -4,8 +4,6 @@
 #include "../example/State_Example.h"
 #include <iostream>
 
-sf::Clock timer;
-sf::Sprite splash;
 float positions[6] = {
 	-0.5f, -0.5f,
 	0.0f,  0.5f,
@@ -17,11 +15,9 @@ unsigned int buffer;
 State_Splash::State_Splash(Game& game) : State(game) {
 
 	//std::cout << "Initialised state system" << std::endl;
-	splash.setPosition(0, 0);
-	timer.restart();
 }
 
-void State_Splash::HandleEvent(sf::Event e) {
+void State_Splash::HandleEvent(int e) {
 	glfwPollEvents();
 }
 
@@ -45,9 +41,7 @@ void State_Splash::GuiUpdate()
 
 void State_Splash::Render(GLFWwindow* target) {
 
-	if (timer.getElapsedTime().asSeconds() >= 1) {
-		m_pGame->PushState<State_Example>(*m_pGame);
-	}
+	m_pGame->PushState<State_Example>(*m_pGame);
 
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
