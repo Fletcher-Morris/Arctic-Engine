@@ -1,4 +1,6 @@
 #include "Game.h"
+#include "../editor/imgui.h"
+#include "../editor/imgui_impl_glfw_gl3.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -13,6 +15,8 @@ Game::Game()
 
 Game::~Game()
 {
+	ImGui_ImplGlfwGL3_Shutdown();
+	ImGui::DestroyContext();
 	glfwTerminate();
 }
 
@@ -43,6 +47,13 @@ bool Game::Init()
 	}
 	std::cout << "Initialised GLEW (" << glewGetString(GLEW_VERSION) << ")" << std::endl;
 	std::cout << "Initialised OpenGL (" << glGetString(GL_VERSION) << ")" << std::endl;
+
+	//	ImGui
+	ImGui::CreateContext();
+	ImGui_ImplGlfwGL3_Init(window, true);
+	ImGui::StyleColorsDark();
+	std::cout << "Initialised ImGui (" << ImGui::GetVersion() << ")" << std::endl;
+
 	std::cout << "===============================================" << std::endl;
 
 	return true;
@@ -50,17 +61,21 @@ bool Game::Init()
 
 void Game::Run()
 {
-
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
 
 		glfwPollEvents();
+		ImGui_ImplGlfwGL3_NewFrame();
 
 		//	RENDER START
 
 		GetCurrentState().Render(window);
 
 		//	RENDER END
+
+		GetCurrentState().GuiUpdate();
+		ImGui::Render();
+		ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
 
 		glfwSwapBuffers(window);
 	}
