@@ -29,6 +29,8 @@ bool Game::Init()
 		return false;
 	}
 	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
+	glfwWindowHint(GLFW_SAMPLES, 4);
+	glEnable(GL_MULTISAMPLE);
 	window = glfwCreateWindow(960, 540, "Arctic Engine", NULL, NULL);
 	if (!window) {
 		std::cout << "Failed to create GLFW window!" << std::endl;
