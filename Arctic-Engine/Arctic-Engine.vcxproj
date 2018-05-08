@@ -168,12 +168,24 @@
   <ItemGroup>
     <ClInclude Include="source\core\Game.h" />
     <ClInclude Include="source\core\Obj.h" />
+    <ClInclude Include="source\editor\imconfig.h" />
+    <ClInclude Include="source\editor\imgui.h" />
+    <ClInclude Include="source\editor\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="source\editor\imgui_internal.h" />
+    <ClInclude Include="source\editor\stb_rect_pack.h" />
+    <ClInclude Include="source\editor\stb_textedit.h" />
+    <ClInclude Include="source\editor\stb_truetype.h" />
     <ClInclude Include="source\entity\Entity.h" />
     <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\Camera.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
+    <ClInclude Include="source\render\IndexBuffer.h" />
     <ClInclude Include="source\render\MatrixMaths.h" />
+    <ClInclude Include="source\render\Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />
+    <ClInclude Include="source\render\VertexArray.h" />
+    <ClInclude Include="source\render\VertexBuffer.h" />
+    <ClInclude Include="source\render\VertexBufferLayout.h" />
     <ClInclude Include="source\states\State.h" />
     <ClInclude Include="source\states\State_Splash.h" />
     <ClInclude Include="source\util\AssetManager.h" />
@@ -186,10 +198,18 @@
   <ItemGroup>
     <ClCompile Include="Arctic-Engine.cpp" />
     <ClCompile Include="source\core\Game.cpp" />
+    <ClCompile Include="source\editor\imgui.cpp" />
+    <ClCompile Include="source\editor\imgui_draw.cpp" />
+    <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
     <ClCompile Include="source\render\Camera.cpp" />
+    <ClCompile Include="source\render\IndexBuffer.cpp" />
     <ClCompile Include="source\render\MatrixMaths.cpp" />
+    <ClCompile Include="source\render\Renderer.cpp" />
     <ClCompile Include="source\render\Shader.cpp" />
+    <ClCompile Include="source\render\VertexArray.cpp" />
+    <ClCompile Include="source\render\VertexBuffer.cpp" />
+    <ClCompile Include="source\states\State.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />
     <ClCompile Include="source\util\AssetManager.cpp" />
     <ClCompile Include="stdafx.cpp">

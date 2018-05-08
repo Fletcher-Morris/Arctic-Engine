@@ -51,6 +51,12 @@
     <Filter Include="Assets\shaders">
       <UniqueIdentifier>{74811285-bf78-46d6-9e58-63d718101daf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\editor">
+      <UniqueIdentifier>{7cabd636-b7d4-4527-a0cf-fdd3612403f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\editor">
+      <UniqueIdentifier>{362d8bdc-2665-4414-98b0-7a4026250518}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -101,6 +107,42 @@
     <ClInclude Include="source\render\Shader.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="source\editor\imconfig.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\imgui.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\imgui_internal.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\stb_rect_pack.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\stb_textedit.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\stb_truetype.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\editor\imgui_impl_glfw_gl3.h">
+      <Filter>Header Files\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\IndexBuffer.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\VertexBuffer.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\Renderer.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\VertexArray.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\VertexBufferLayout.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -129,6 +171,30 @@
     </ClCompile>
     <ClCompile Include="source\render\Shader.cpp">
       <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\editor\imgui.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\editor\imgui_draw.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp">
+      <Filter>Source Files\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\IndexBuffer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\Renderer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\VertexBuffer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states\State.cpp">
+      <Filter>Source Files\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\render\VertexArray.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
