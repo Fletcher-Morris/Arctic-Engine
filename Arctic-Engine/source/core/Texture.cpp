@@ -24,6 +24,10 @@ m_buffer(nullptr), m_width(0), m_height(0), m_bits(0)
 	}
 }
 
+Texture::Texture()
+{
+}
+
 Texture::~Texture()
 {
 	GLCall(glDeleteTextures(1, &m_rendererId));
