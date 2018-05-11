@@ -101,9 +101,9 @@ void Game::Run()
 	shad.Bind();
 	shad.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
-	Texture splashDirect("assets/textures/ArcticSplash.jpg");
-	Texture iconDirect("assets/textures/icon.jpg");
-	splashDirect.Bind();
+	//Texture splashDirect("assets/textures/ArcticSplash.jpg");
+	//Texture iconDirect("assets/textures/icon.jpg");
+
 	shad.SetUniform1i("u_Texture", 0);
 
 	va.Unbind();
@@ -123,29 +123,12 @@ void Game::Run()
 
 		//GetCurrentState().Render(window);
 
-		assets.GetTexture("Splash").Bind();
+		assets.GetTexture("hot").Bind();
 		rend.Clear(0.0f, 0.0f, 0.0f);
 		rend.Draw(va, ib, shad);
 
 		if (ImGui::BeginMainMenuBar())
 		{
-			if (ImGui::BeginMenu("Direct"))
-			{
-				iconDirect.Bind();
-				if (ImGui::ImageButton((void*)iconDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
-					std::cout << "Render ID Of Direct Icon is " << iconDirect.GetRenderId() << std::endl;
-
-				}
-
-				splashDirect.Bind();
-				if (ImGui::ImageButton((void*)splashDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
-
-					std::cout << "Render ID Of Direct Splash is " << splashDirect.GetRenderId() << std::endl;
-
-				}
-				
-				ImGui::EndMenu();
-			}
 			if (ImGui::BeginMenu("Managed"))
 			{
 				assets.GetTexture("hot").Bind();
@@ -158,6 +141,23 @@ void Game::Run()
 					std::cout << "Render ID Of Managed Rosmarus is " << assets.GetTexture("ros").GetRenderId() << std::endl;
 				}
 
+				ImGui::EndMenu();
+			}
+			if (ImGui::BeginMenu("Direct"))
+			{
+				/*iconDirect.Bind();
+				if (ImGui::ImageButton((void*)iconDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
+					std::cout << "Render ID Of Direct Icon is " << iconDirect.GetRenderId() << std::endl;
+
+				}
+
+				splashDirect.Bind();
+				if (ImGui::ImageButton((void*)splashDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
+
+					std::cout << "Render ID Of Direct Splash is " << splashDirect.GetRenderId() << std::endl;
+
+				}*/
+				
 				ImGui::EndMenu();
 			}
 			ImGui::EndMainMenuBar();

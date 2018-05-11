@@ -18,7 +18,6 @@ Texture::Texture(const std::string & path) :m_filePath(path)
 	if (m_data) {
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
-		std::cout << "Parsed texture '" << m_filePath << "', ID " << m_textureId << std::endl;
 	}
 	else
 	{

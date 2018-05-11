@@ -88,6 +88,7 @@ Obj& AssetManager::GetObj(std::string name)
 void AssetManager::LoadTexture(std::string name, std::string fileName)
 {
 	this->m_textures[name] = Texture(fileName);
+	std::cout << "Loaded texture: " + fileName + "" << std::endl;
 	return;
 }
 
