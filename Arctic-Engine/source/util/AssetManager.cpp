@@ -2,7 +2,7 @@
 #include <iostream>
 #include "NonCopyable.h"
 
-bool AssetManager::LoadObj(std::string name, std::string fileName)
+void AssetManager::LoadObj(std::string name, std::string fileName)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -12,8 +12,8 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
-		//std::cout << "Failed to load obj: " + fileName + "" << std::endl;
-		return false;
+		std::cout << "Failed to load obj: " + fileName + "" << std::endl;
+		return;
 	}
 	else {
 		int res = 0;
@@ -41,8 +41,8 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
-					//std::cout << "Error parsing obj file: " << fileName << std::endl;
-					return false;
+					std::cout << "Error parsing obj file: " << fileName << std::endl;
+					return;
 				}
 				vertexIndices.push_back(vertexIndex[0]);
 				vertexIndices.push_back(vertexIndex[1]);
@@ -75,8 +75,8 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 		}
 
 		this->m_objs[name] = obj;
-		//std::cout << "Loaded obj: " + fileName + "" << std::endl;
-		return true;
+		std::cout << "Loaded obj: " + fileName + "" << std::endl;
+		return;
 	}
 }
 
@@ -87,8 +87,17 @@ Obj& AssetManager::GetObj(std::string name)
 
 void AssetManager::LoadTexture(std::string name, std::string fileName)
 {
-	Texture t(fileName);
-	this->m_textures[name] = t;
+	this->m_textures[name] = Texture(fileName);
+	return;
+}
+
+void AssetManager::AddTexture(std::string name, Texture tex)
+{
+	AddTexture(tex, name);
+}
+void AssetManager::AddTexture(Texture tex, std::string name)
+{
+	this->m_textures[name] = tex;
 }
 
 Texture& AssetManager::GetTexture(std::string name)

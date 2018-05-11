@@ -13,10 +13,15 @@ class AssetManager : public NonCopyable, public NonMovable {
 public:
 	AssetManager() {}
 
-	bool LoadObj(std::string name, std::string fileName);
+	void LoadObj(std::string name, std::string fileName);
 	Obj &GetObj(std::string name);
+
 	void LoadTexture(std::string name, std::string fileName);
+	void AddTexture(std::string name, Texture tex);
+	void AddTexture(Texture tex, std::string name);
 	Texture &GetTexture(std::string name);
+
+	void SomeFunction();
 
 private:
 	std::map<std::string, Obj> m_objs;

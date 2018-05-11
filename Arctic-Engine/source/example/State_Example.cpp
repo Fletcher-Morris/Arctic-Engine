@@ -14,9 +14,8 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
-	if (game.assets.LoadObj("teapot", "assets/models/teapot.obj")) {
-		o = game.assets.GetObj("teapot");
-	}
+	game.assets.LoadObj("teapot", "assets/models/teapot.obj");
+	o = game.assets.GetObj("teapot");
 
 	glGenBuffers(1, &vertBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
