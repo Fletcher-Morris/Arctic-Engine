@@ -14,16 +14,18 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
-	game.assets.LoadObj("teapot", "assets/models/teapot.obj");
-	o = game.assets.GetObj("teapot");
+	/*AssetManager::Instance()->LoadObj("teapot", "assets/models/teapot.obj");
+	AssetManager::Instance()->GetObj("teapot");
 
 	glGenBuffers(1, &vertBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);*/
 
-	Texture tex("assets/textures/icon.png");
-	tex.Bind();
-	std::cout << tex.GetRenderId() << std::endl;
+	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
+	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
+	AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
+	AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
+	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
@@ -51,13 +53,13 @@ void State_Example::GuiUpdate()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			Texture tex("assets/textures/icon.png");
-			tex.Bind();
-			if (ImGui::ImageButton((GLuint*)tex.GetRenderId(), ImVec2(50.0f, 50.0f))) {
+			AssetManager::Instance()->BindTexture("ros");
+			if (ImGui::ImageButton((GLuint*)AssetManager::Instance()->GetTextureId("ros"), ImVec2(50.0f, 50.0f))) {
 
 			}
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < AssetManager::Instance()->GetLoadedTextureCount(); i++)
 			{
+				GLCall(glBindTexture(GL_TEXTURE_2D, i));
 				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) {
 
 				}

@@ -68,10 +68,11 @@ bool Game::Init()
 
 void Game::Run()
 {
-	assets.LoadObj("teapot", "assets/models/teapot.obj");
-	assets.LoadTexture("Splash", "assets/textures/ArcticSplash.jpg");
-	assets.LoadTexture("hot", "assets/textures/hot.jpg");
-	assets.LoadTexture("ros", "assets/textures/r.png");
+	//AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
+	//AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
+	//AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
+	//AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
+	//AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
 
 	float positions[] =
 	{
@@ -101,9 +102,6 @@ void Game::Run()
 	shad.Bind();
 	shad.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
 
-	//Texture splashDirect("assets/textures/ArcticSplash.jpg");
-	//Texture iconDirect("assets/textures/icon.jpg");
-
 	shad.SetUniform1i("u_Texture", 0);
 
 	va.Unbind();
@@ -121,47 +119,10 @@ void Game::Run()
 
 		//	RENDER START
 
-		//GetCurrentState().Render(window);
+		GetCurrentState().Render(window);
 
-		assets.GetTexture("hot").Bind();
 		rend.Clear(0.0f, 0.0f, 0.0f);
 		rend.Draw(va, ib, shad);
-
-		if (ImGui::BeginMainMenuBar())
-		{
-			if (ImGui::BeginMenu("Managed"))
-			{
-				assets.GetTexture("hot").Bind();
-				if (ImGui::ImageButton((void*)assets.GetTexture("hot").GetRenderId(), ImVec2(50.0f, 50.0f))) {
-					std::cout << "Render ID Of Managed HOT is " << assets.GetTexture("hot").GetRenderId() << std::endl;
-				}
-
-				assets.GetTexture("ros").Bind();
-				if (ImGui::ImageButton((void*)assets.GetTexture("ros").GetRenderId(), ImVec2(50.0f, 50.0f))) {
-					std::cout << "Render ID Of Managed Rosmarus is " << assets.GetTexture("ros").GetRenderId() << std::endl;
-				}
-
-				ImGui::EndMenu();
-			}
-			if (ImGui::BeginMenu("Direct"))
-			{
-				/*iconDirect.Bind();
-				if (ImGui::ImageButton((void*)iconDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
-					std::cout << "Render ID Of Direct Icon is " << iconDirect.GetRenderId() << std::endl;
-
-				}
-
-				splashDirect.Bind();
-				if (ImGui::ImageButton((void*)splashDirect.GetRenderId(), ImVec2(50.0f, 50.0f))) {
-
-					std::cout << "Render ID Of Direct Splash is " << splashDirect.GetRenderId() << std::endl;
-
-				}*/
-				
-				ImGui::EndMenu();
-			}
-			ImGui::EndMainMenuBar();
-		}
 
 		//	RENDER END
 

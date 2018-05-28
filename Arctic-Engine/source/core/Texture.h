@@ -4,8 +4,8 @@
 class Texture
 {
 private:
-	unsigned int m_textureId;
 	std::string m_filePath;
+	std::string m_texName;
 	unsigned char * m_data;
 	int m_width, m_height, m_bits;
 public:
@@ -17,4 +17,5 @@ public:
 	inline int GetWidth() const { return m_width; }
 	inline int GetHeight() const { return m_height; }
 	inline int GetRenderId() const { return m_textureId; }
+	unsigned int m_textureId;
 };

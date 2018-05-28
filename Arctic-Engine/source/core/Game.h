@@ -24,7 +24,6 @@ public:
 	void PopState();
 	void Shutdown();
 	GLFWwindow* window;
-	AssetManager assets;
 
 private:
 

@@ -2,6 +2,19 @@
 #include <iostream>
 #include "NonCopyable.h"
 
+AssetManager * AssetManager::m_instance(0);
+
+AssetManager * AssetManager::Instance()
+{
+	if (!m_instance) m_instance = new AssetManager();
+	return m_instance;
+}
+
+AssetManager::~AssetManager()
+{
+	m_instance = 0;
+}
+
 void AssetManager::LoadObj(std::string name, std::string fileName)
 {
 
@@ -104,4 +117,27 @@ void AssetManager::AddTexture(Texture tex, std::string name)
 Texture& AssetManager::GetTexture(std::string name)
 {
 	return this->m_textures.at(name);
+}
+
+void AssetManager::BindTexture(std::string name)
+{
+	m_textures.at(name).Bind();
+}
+
+unsigned int AssetManager::GetTextureId(std::string name)
+{
+	return m_textures.at(name).m_textureId;
+}
+
+int AssetManager::GetLoadedTextureCount()
+{
+	return m_textures.size();
+}
+
+AssetManager::AssetManager()
+{
+}
+
+AssetManager::AssetManager(const AssetManager & ass)
+{
 }
