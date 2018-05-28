@@ -14,12 +14,7 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
-	/*AssetManager::Instance()->LoadObj("teapot", "assets/models/teapot.obj");
-	AssetManager::Instance()->GetObj("teapot");
-
-	glGenBuffers(1, &vertBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);*/
+	AssetManager::Instance()->LoadObj("teapot", "assets/models/teapot.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");

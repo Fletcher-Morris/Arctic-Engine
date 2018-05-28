@@ -155,7 +155,6 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 	GLCall(glGenTextures(1, &m_textureId));
 	m_texIdMap[name] = m_textureId;
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
-	std::cout << "Generated texture to " << m_textureId << std::endl;
 
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
