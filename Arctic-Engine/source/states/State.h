@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "..\util\NonCopyable.h"
 #include <glfw3.h>
 #include "../render/Shader.h"
@@ -13,7 +12,7 @@ public:
 
 	virtual ~State() = default;
 
-	virtual void HandleEvent	(sf::Event e) = 0;
+	virtual void HandleEvent	(int e) = 0;
 	virtual void HandleInput	(GLFWwindow* window) = 0;
 	virtual void Update			(double deltaTime) = 0;
 	virtual void FixedUpdate	(double fixedTime) = 0;
