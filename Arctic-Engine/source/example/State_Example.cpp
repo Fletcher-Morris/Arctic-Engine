@@ -25,7 +25,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
 	AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
 	AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
-	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
+	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.png");
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
@@ -53,18 +53,6 @@ void State_Example::GuiUpdate()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			AssetManager::Instance()->BindTexture("ros");
-			if (ImGui::ImageButton((GLuint*)AssetManager::Instance()->GetTextureId("ros"), ImVec2(50.0f, 50.0f))) {
-
-			}
-			for (int i = 0; i < AssetManager::Instance()->GetLoadedTextureCount(); i++)
-			{
-				GLCall(glBindTexture(GL_TEXTURE_2D, i));
-				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) {
-
-				}
-			}
-
 			if (ImGui::MenuItem("New Scene","Ctrl+N", false, false)) {}
 			if (ImGui::MenuItem("Open Scene", "Ctrl+O", false, false)) {}
 			if (ImGui::MenuItem("Save Scene", "Ctrl+S", false, false)) {}
@@ -94,6 +82,15 @@ void State_Example::GuiUpdate()
 			if (ImGui::MenuItem("Cut", "CTRL+X", false, false)) {}
 			if (ImGui::MenuItem("Copy", "CTRL+C", false, false)) {}
 			if (ImGui::MenuItem("Paste", "CTRL+V", false, false)) {}
+			ImGui::EndMenu();
+		}
+		if (ImGui::BeginMenu("Assets"))
+		{
+			for (int i = 0; i < AssetManager::Instance()->GetLoadedTextureCount() + 2; i++)
+			{
+				GLCall(glBindTexture(GL_TEXTURE_2D, i));
+				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) {}
+			}
 			ImGui::EndMenu();
 		}
 		ImGui::Separator();

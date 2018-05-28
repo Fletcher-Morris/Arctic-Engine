@@ -155,6 +155,9 @@
     <ClInclude Include="source\core\Texture.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="source\util\ConsoleColour.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">

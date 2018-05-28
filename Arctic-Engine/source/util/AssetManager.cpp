@@ -1,6 +1,7 @@
 #include "AssetManager.h"
 #include <iostream>
-#include "NonCopyable.h"
+#include "../render/Renderer.h"
+#include "../stb/stb_image.h"
 
 AssetManager * AssetManager::m_instance(0);
 
@@ -25,7 +26,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
-		std::cout << "Failed to load obj: " + fileName + "" << std::endl;
+		std::cout << red << "Failed to load obj: " + fileName + "" << std::endl;
 		return;
 	}
 	else {
@@ -54,7 +55,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
-					std::cout << "Error parsing obj file: " << fileName << std::endl;
+					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
 					return;
 				}
 				vertexIndices.push_back(vertexIndex[0]);
@@ -98,10 +99,12 @@ Obj& AssetManager::GetObj(std::string name)
 	return this->m_objs.at(name);
 }
 
-void AssetManager::LoadTexture(std::string name, std::string fileName)
+void AssetManager::LoadTexturePropper(std::string name, std::string fileName)
 {
-	this->m_textures[name] = Texture(fileName);
-	std::cout << "Loaded texture: " + fileName + "" << std::endl;
+	Texture t = Texture(fileName);
+
+	this->m_textures[name] = t;
+	std::cout << "Loaded texture: " + fileName + " , GLID = " << t.m_textureId << std::endl;
 	return;
 }
 
@@ -114,12 +117,12 @@ void AssetManager::AddTexture(Texture tex, std::string name)
 	this->m_textures[name] = tex;
 }
 
-Texture& AssetManager::GetTexture(std::string name)
+Texture& AssetManager::GetTexturePropper(std::string name)
 {
 	return this->m_textures.at(name);
 }
 
-void AssetManager::BindTexture(std::string name)
+void AssetManager::BindTexturePropper(std::string name)
 {
 	m_textures.at(name).Bind();
 }
@@ -131,8 +134,59 @@ unsigned int AssetManager::GetTextureId(std::string name)
 
 int AssetManager::GetLoadedTextureCount()
 {
-	return m_textures.size();
+	return m_texIdMap.size();
 }
+
+
+
+
+
+
+void AssetManager::LoadTexture(std::string name, std::string filename)
+{
+	unsigned char * m_data;
+	int m_width, m_height, m_bits;
+	unsigned int m_textureId;
+
+
+	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
+
+
+	GLCall(glGenTextures(1, &m_textureId));
+	m_texIdMap[name] = m_textureId;
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
+	std::cout << "Generated texture to " << m_textureId << std::endl;
+
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+	if (m_data) {
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
+	}
+	else
+	{
+		std::cout << "Failed to parse texture '" << filename << "'" << std::endl;
+	}
+}
+
+void AssetManager::BindTexture(std::string name)
+{
+	GLCall(glActiveTexture(GL_TEXTURE0));
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_texIdMap.at(name)));
+}
+
+unsigned int AssetManager::GetTexture(std::string name)
+{
+	return m_texIdMap.at(name);
+}
+
+
 
 AssetManager::AssetManager()
 {

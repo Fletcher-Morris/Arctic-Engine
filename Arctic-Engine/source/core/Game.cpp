@@ -6,6 +6,7 @@
 #include "../render/VertexBufferLayout.h"
 #include "../render/IndexBuffer.h"
 #include "Texture.h"
+#include "../util/ConsoleColour.h"
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
@@ -30,7 +31,7 @@ bool Game::Init()
 	std::cout << "===============================================" << std::endl;
 	//	GLFW
 	if (!glfwInit()) {
-		std::cout << "Failed to initialise GLFW!" << std::endl;
+		std::cout << red << "Failed to initialise GLFW!" << std::endl;
 		return false;
 	}
 	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
@@ -38,7 +39,7 @@ bool Game::Init()
 	glEnable(GL_MULTISAMPLE);
 	window = glfwCreateWindow(960, 540, "Arctic Engine", NULL, NULL);
 	if (!window) {
-		std::cout << "Failed to create GLFW window!" << std::endl;
+		std::cout << red << "Failed to create GLFW window!" << std::endl;
 	}
 	PushState<State_Splash>(*this);
 	glfwMakeContextCurrent(window);
@@ -49,7 +50,7 @@ bool Game::Init()
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
-		std::cout << "Failed to initialise GLEW!" << std::endl;
+		std::cout << red << "Failed to initialise GLEW!" << std::endl;
 		return false;
 	}
 	std::cout << "Initialised GLEW (" << glewGetString(GLEW_VERSION) << ")" << std::endl;
@@ -110,7 +111,6 @@ void Game::Run()
 	shad.Unbind();
 
 	Renderer rend;
-
 
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{

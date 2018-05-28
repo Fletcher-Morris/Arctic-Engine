@@ -191,6 +191,7 @@
     <ClInclude Include="source\states\State_Splash.h" />
     <ClInclude Include="source\stb\stb_image.h" />
     <ClInclude Include="source\util\AssetManager.h" />
+    <ClInclude Include="source\util\ConsoleColour.h" />
     <ClInclude Include="source\util\GlmTypedefs.h" />
     <ClInclude Include="source\util\OtherTypedefs.h" />
     <ClInclude Include="source\util\Random.h" />
