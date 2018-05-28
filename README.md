@@ -10,3 +10,4 @@ The ongoing goal is to create an engine (or at the very least, a framework) with
 - [GLM](https://glm.g-truc.net/0.9.8/index.html),
 - [SFML](https://www.sfml-dev.org/),
 - [ImGui](https://github.com/ocornut/imgui)
+- [stb](https://github.com/nothings/stb)

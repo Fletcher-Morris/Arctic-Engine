@@ -2,12 +2,18 @@
 #include "../editor/imgui.h"
 #include "../editor/imgui_impl_glfw_gl3.h"
 
+#include "../render/VertexArray.h"
+#include "../render/VertexBufferLayout.h"
+#include "../render/IndexBuffer.h"
+#include "Texture.h"
+#include "../util/ConsoleColour.h"
+
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
 
 Game::Game()
 {
 	if (!Init()) {
-		glfwTerminate();
+		Shutdown();
 	}
 
 	Run();
@@ -25,7 +31,7 @@ bool Game::Init()
 	std::cout << "===============================================" << std::endl;
 	//	GLFW
 	if (!glfwInit()) {
-		std::cout << "Failed to initialise GLFW!" << std::endl;
+		std::cout << red << "Failed to initialise GLFW!" << std::endl;
 		return false;
 	}
 	std::cout << "Initialised GLFW (" << glfwGetVersionString() << ")" << std::endl;
@@ -33,7 +39,7 @@ bool Game::Init()
 	glEnable(GL_MULTISAMPLE);
 	window = glfwCreateWindow(960, 540, "Arctic Engine", NULL, NULL);
 	if (!window) {
-		std::cout << "Failed to create GLFW window!" << std::endl;
+		std::cout << red << "Failed to create GLFW window!" << std::endl;
 	}
 	PushState<State_Splash>(*this);
 	glfwMakeContextCurrent(window);
@@ -44,7 +50,7 @@ bool Game::Init()
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
-		std::cout << "Failed to initialise GLEW!" << std::endl;
+		std::cout << red << "Failed to initialise GLEW!" << std::endl;
 		return false;
 	}
 	std::cout << "Initialised GLEW (" << glewGetString(GLEW_VERSION) << ")" << std::endl;
@@ -63,15 +69,60 @@ bool Game::Init()
 
 void Game::Run()
 {
+	//AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
+	//AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
+	//AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
+	//AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
+	//AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
+
+	float positions[] =
+	{
+		-1.0f, -1.0f, 0.0f, 0.0f,
+		1.0f, -1.f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 0.0f, 1.0f
+	};
+
+	unsigned int indeces[] =
+	{
+		0,1,2,
+		2,3,0
+	};
+
+	VertexArray va;
+	VertexBuffer vb(positions, 4 * 4 * sizeof(float));
+
+	VertexBufferLayout layout;
+	layout.Push<float>(2);
+	layout.Push<float>(2);
+	va.AddBuffer(vb, layout);
+
+	IndexBuffer ib(indeces, 6);
+
+	Shader shad("assets/shaders/combo.shader");
+	shad.Bind();
+	shad.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
+
+	shad.SetUniform1i("u_Texture", 0);
+
+	va.Unbind();
+	vb.Unbind();
+	ib.Unbind();
+	shad.Unbind();
+
+	Renderer rend;
+
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
-
 		glfwPollEvents();
 		ImGui_ImplGlfwGL3_NewFrame();
 
 		//	RENDER START
 
 		GetCurrentState().Render(window);
+
+		rend.Clear(0.0f, 0.0f, 0.0f);
+		rend.Draw(va, ib, shad);
 
 		//	RENDER END
 
@@ -114,4 +165,9 @@ void Game::HandleEvents()
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+}
+
+void window_close_callback(GLFWwindow* window)
+{
+	glfwSetWindowShouldClose(window, true);
 }

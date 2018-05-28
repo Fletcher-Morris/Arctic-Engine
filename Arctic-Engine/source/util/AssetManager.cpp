@@ -1,93 +1,22 @@
 #include "AssetManager.h"
 #include <iostream>
-#include "NonCopyable.h"
+#include "../render/Renderer.h"
+#include "../stb/stb_image.h"
 
-void AssetManager::LoadTexture(std::string name, std::string fileName)
+AssetManager * AssetManager::m_instance(0);
+
+AssetManager * AssetManager::Instance()
 {
-	sf::Texture tex;
-
-	if (tex.loadFromFile(fileName)) {
-		this->_textures[name] = tex;
-
-		std::cout << "Loaded texture: " + fileName + "" << std::endl;
-	}
-	else {
-		std::cout << "Failed to load texture: " + fileName + "" << std::endl;
-		sf::Texture tex;
-		tex.loadFromImage(PlaceholderImage());
-		this->_textures[name] = tex;
-	}
+	if (!m_instance) m_instance = new AssetManager();
+	return m_instance;
 }
-sf::Texture &AssetManager::GetTexture(std::string name) {
-	return this->_textures.at(name);
-}
-sf::Image AssetManager::PlaceholderImage()
+
+AssetManager::~AssetManager()
 {
-	//  Generate a pink and black place-holder texture
-	sf::Image missingImage;
-	missingImage.create(128, 128, sf::Color::Black);
-
-	int cY = 0;
-	int cX = 0;
-
-	for (int y = 0; y < 128; y++) {
-		for (int x = 0; x < 128; x++) {
-			if ((cX + cY) / 2 < 8) {
-				missingImage.setPixel(x, y, sf::Color(255, 20, 147, 255));
-			}
-			else {
-				missingImage.setPixel(x, y, sf::Color(0, 0, 0, 255));
-			}
-			cX++;
-			if (cY >= 16)
-				cY = 0;
-			if (cX >= 16)
-				cX = 0;
-		}
-		cY++;
-	}
-
-	return missingImage;
+	m_instance = 0;
 }
 
-void AssetManager::LoadImage(std::string name, std::string fileName)
-{
-	sf::Image image;
-
-	if (image.loadFromFile(fileName)) {
-		this->_images[name] = image;
-
-		std::cout << "Loaded image: " + fileName + "" << std::endl;
-	}
-	else {
-		std::cout << "Failed to load image: " + fileName + "" << std::endl;
-		this->_images[name] = PlaceholderImage();
-	}
-}
-
-sf::Image & AssetManager::GetImage(std::string name)
-{
-	return this->_images.at(name);
-}
-
-void AssetManager::LoadFont(std::string name, std::string fileName)
-{
-	sf::Font font;
-
-	if (font.loadFromFile(fileName)) {
-		this->_fonts[name] = font;
-
-		std::cout << "Loaded font: " + fileName + "" << std::endl;
-	}
-	else {
-		std::cout << "Failed to load font: " + fileName + "" << std::endl;
-	}
-}
-sf::Font &AssetManager::GetFont(std::string name) {
-	return this->_fonts.at(name);
-}
-
-bool AssetManager::LoadObj(std::string name, std::string fileName)
+void AssetManager::LoadObj(std::string name, std::string fileName)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -97,8 +26,8 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
-		std::cout << "Failed to load obj: " + fileName + "" << std::endl;
-		return false;
+		std::cout << red << "Failed to load obj: " + fileName + "" << std::endl;
+		return;
 	}
 	else {
 		int res = 0;
@@ -126,8 +55,8 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
 				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 				if (matches != 9) {
-					std::cout << "Error parsing obj file: " << fileName << std::endl;
-					return false;
+					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
+					return;
 				}
 				vertexIndices.push_back(vertexIndex[0]);
 				vertexIndices.push_back(vertexIndex[1]);
@@ -159,13 +88,109 @@ bool AssetManager::LoadObj(std::string name, std::string fileName)
 			obj.normals.push_back(normal);
 		}
 
-		this->_objs[name] = obj;
+		this->m_objs[name] = obj;
 		std::cout << "Loaded obj: " + fileName + "" << std::endl;
-		return true;
+		return;
 	}
 }
 
-Obj & AssetManager::GetObj(std::string name)
+Obj& AssetManager::GetObj(std::string name)
 {
-	return this->_objs.at(name);
+	return this->m_objs.at(name);
+}
+
+void AssetManager::LoadTexturePropper(std::string name, std::string fileName)
+{
+	Texture t = Texture(fileName);
+
+	this->m_textures[name] = t;
+	std::cout << "Loaded texture: " + fileName + " , GLID = " << t.m_textureId << std::endl;
+	return;
+}
+
+void AssetManager::AddTexture(std::string name, Texture tex)
+{
+	AddTexture(tex, name);
+}
+void AssetManager::AddTexture(Texture tex, std::string name)
+{
+	this->m_textures[name] = tex;
+}
+
+Texture& AssetManager::GetTexturePropper(std::string name)
+{
+	return this->m_textures.at(name);
+}
+
+void AssetManager::BindTexturePropper(std::string name)
+{
+	m_textures.at(name).Bind();
+}
+
+unsigned int AssetManager::GetTextureId(std::string name)
+{
+	return m_textures.at(name).m_textureId;
+}
+
+int AssetManager::GetLoadedTextureCount()
+{
+	return m_texIdMap.size();
+}
+
+
+
+
+
+
+void AssetManager::LoadTexture(std::string name, std::string filename)
+{
+	unsigned char * m_data;
+	int m_width, m_height, m_bits;
+	unsigned int m_textureId;
+
+
+	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
+
+
+	GLCall(glGenTextures(1, &m_textureId));
+	m_texIdMap[name] = m_textureId;
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
+
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+	if (m_data) {
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
+	}
+	else
+	{
+		std::cout << "Failed to parse texture '" << filename << "'" << std::endl;
+	}
+}
+
+void AssetManager::BindTexture(std::string name)
+{
+	GLCall(glActiveTexture(GL_TEXTURE0));
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_texIdMap.at(name)));
+}
+
+unsigned int AssetManager::GetTexture(std::string name)
+{
+	return m_texIdMap.at(name);
+}
+
+
+
+AssetManager::AssetManager()
+{
+}
+
+AssetManager::AssetManager(const AssetManager & ass)
+{
 }

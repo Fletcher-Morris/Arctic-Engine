@@ -57,6 +57,12 @@
     <Filter Include="Header Files\editor">
       <UniqueIdentifier>{362d8bdc-2665-4414-98b0-7a4026250518}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\stb">
+      <UniqueIdentifier>{42ee93e9-a99d-4851-92b5-9e366dc0cbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\stb">
+      <UniqueIdentifier>{a0c89d0c-4574-4301-85c7-1a4fb2f66f96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -143,6 +149,15 @@
     <ClInclude Include="source\render\VertexBufferLayout.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="source\stb\stb_image.h">
+      <Filter>Header Files\stb</Filter>
+    </ClInclude>
+    <ClInclude Include="source\core\Texture.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\util\ConsoleColour.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -196,15 +211,15 @@
     <ClCompile Include="source\render\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\stb\stb_image.cpp">
+      <Filter>Source Files\stb</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\Texture.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\combo.shader">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="assets\shaders\fragment.frag">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="assets\shaders\vertex.vert">
       <Filter>Assets\shaders</Filter>
     </None>
   </ItemGroup>
