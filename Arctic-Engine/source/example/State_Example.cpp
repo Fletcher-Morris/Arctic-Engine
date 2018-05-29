@@ -22,6 +22,12 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
 	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.png");
 
+	o = AssetManager::Instance()->GetObj("teapot");
+
+	glGenBuffers(1, &vertBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
+	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
+
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
 }

@@ -121,7 +121,6 @@ void Game::Run()
 
 		GetCurrentState().Render(window);
 
-		rend.Clear(0.0f, 0.0f, 0.0f);
 		rend.Draw(va, ib, shad);
 
 		//	RENDER END
