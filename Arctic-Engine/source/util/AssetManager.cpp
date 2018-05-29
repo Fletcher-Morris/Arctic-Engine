@@ -150,19 +150,18 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 
 
 	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
-
-
+	
 	GLCall(glGenTextures(1, &m_textureId));
 	m_texIdMap[name] = m_textureId;
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
 
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
 	if (m_data) {
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
 		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
@@ -170,7 +169,44 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 	}
 	else
 	{
-		std::cout << "Failed to parse texture '" << filename << "'" << std::endl;
+		std::cout << "Failed to load texture '" << filename << "'" << std::endl;		
+		int size = 8;
+		m_width = size;
+		m_height = size;
+		m_bits = 3;
+		std::vector<unsigned char>errorTex(m_height * m_width * 3);
+		bool evenRow = false;
+		bool evenPixel = false;
+		for (int i = 0; i < m_width * m_height * m_bits; i += m_bits)
+		{
+			if (i % m_width == 0) { evenRow = !evenRow; }
+			if (evenRow)
+			{
+				if (i % 2 == 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+			else {
+				if (i % 2 != 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+		}
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, &errorTex[0]));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
 	}
 }
 
