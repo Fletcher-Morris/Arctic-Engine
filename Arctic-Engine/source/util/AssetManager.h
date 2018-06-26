@@ -29,6 +29,7 @@ public:
 
 	void LoadTexture(std::string name, std::string filename);
 	void BindTexture(std::string name);
+	void BindTexture(unsigned int id);
 	unsigned int GetTexture(std::string name);
 
 private:

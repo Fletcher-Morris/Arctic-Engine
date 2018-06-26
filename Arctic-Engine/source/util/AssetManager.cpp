@@ -215,6 +215,11 @@ void AssetManager::BindTexture(std::string name)
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_texIdMap.at(name)));
 }
+void AssetManager::BindTexture(unsigned int id)
+{
+	GLCall(glActiveTexture(GL_TEXTURE0));
+	GLCall(glBindTexture(GL_TEXTURE_2D, id));
+}
 
 unsigned int AssetManager::GetTexture(std::string name)
 {

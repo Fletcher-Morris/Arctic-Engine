@@ -69,12 +69,6 @@ bool Game::Init()
 
 void Game::Run()
 {
-	//AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
-	//AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
-	//AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
-	//AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
-	//AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
-
 	float positions[] =
 	{
 		-1.0f, -1.0f, 0.0f, 0.0f,

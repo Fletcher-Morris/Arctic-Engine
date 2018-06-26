@@ -5,9 +5,13 @@
 #include "../states/State_Splash.h"
 #include "../editor/imgui.h"
 #include "../core/Texture.h"
+#include "../entity/Entity.h"
 
 Obj o;
+Entity e;
 unsigned int vertBuffer;
+unsigned int uvBuffer;
+unsigned int useTexture;
 float color[3] = { 0.f, 0.f, 0.f };
 
 State_Example::State_Example(Game& game) : State(game) {
@@ -18,15 +22,26 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
-	AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
-	AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
+	AssetManager::Instance()->LoadTexture("error", "assets/textures/error.png");
 	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.png");
+	AssetManager::Instance()->LoadTexture("apt", "assets/textures/apt.jpg");
+	AssetManager::Instance()->LoadTexture("blur1", "assets/textures/blur1.jpg");
+	AssetManager::Instance()->LoadTexture("blur2", "assets/textures/blur2.jpg");
+	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
+	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
 	o = AssetManager::Instance()->GetObj("teapot");
+	e.SetMesh(&AssetManager::Instance()->GetObj("teapot"));
 
+	//	VERTEX BUFFER
 	glGenBuffers(1, &vertBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
 	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
+
+	//	UV BUFFER
+	glGenBuffers(1, &uvBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+	glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
@@ -90,7 +105,7 @@ void State_Example::GuiUpdate()
 			for (int i = 0; i < AssetManager::Instance()->GetLoadedTextureCount() + 2; i++)
 			{
 				GLCall(glBindTexture(GL_TEXTURE_2D, i));
-				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) {}
+				if (ImGui::ImageButton((GLuint*)i, ImVec2(50.0f, 50.0f), ImVec2(0, 0), ImVec2(1, 1), ImColor(255, 255, 255, 255), ImColor(255, 255, 255, 128))) { useTexture = i; }
 			}
 			ImGui::EndMenu();
 		}
@@ -106,11 +121,20 @@ void State_Example::Render(GLFWwindow* target) {
 	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//	VERTEX BUFFER
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
+	//	UV BUFFER
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
 	glDrawArrays(GL_TRIANGLES, 0, o.vertices.size());
 
+	AssetManager::Instance()->BindTexture(useTexture);
+
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 }
