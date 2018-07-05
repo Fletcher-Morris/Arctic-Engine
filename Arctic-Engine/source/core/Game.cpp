@@ -106,10 +106,22 @@ void Game::Run()
 
 	Renderer rend;
 
+
+	//	Delta Time Stuff
+	double currentFrameTime = glfwGetTime();
+	double lastFrameTime = currentFrameTime;
+	double deltaTime = currentFrameTime = lastFrameTime;
+
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
+		currentFrameTime = glfwGetTime();
+		deltaTime = currentFrameTime = lastFrameTime;
+		lastFrameTime = currentFrameTime;
+
 		glfwPollEvents();
 		ImGui_ImplGlfwGL3_NewFrame();
+
+		GetCurrentState().Update(deltaTime);
 
 		//	RENDER START
 
