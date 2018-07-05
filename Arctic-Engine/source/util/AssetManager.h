@@ -16,9 +16,9 @@ public:
 	static AssetManager* Instance();
 	virtual ~AssetManager();
 
-	void LoadObj(std::string name, std::string fileName);
-	Mesh &GetObj(std::string name);
-	std::vector<std::string> loadedObjs;
+	void LoadMesh(std::string name, std::string fileName);
+	Mesh &GetMesh(std::string name);
+	std::vector<std::string> loadedMeshes;
 
 	void LoadTexturePropper(std::string name, std::string fileName);
 	Texture &GetTexturePropper(std::string name);
@@ -35,7 +35,7 @@ public:
 	void DeleteAllTextures();
 
 private:
-	std::map<std::string, Mesh> m_objs;
+	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
 

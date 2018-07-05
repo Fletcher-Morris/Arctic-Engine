@@ -18,9 +18,9 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
-	AssetManager::Instance()->LoadObj("cube", "assets/models/cube.obj");
-	AssetManager::Instance()->LoadObj("teapot", "assets/models/teapot.obj");
-	AssetManager::Instance()->LoadObj("spring", "assets/models/spring.obj");
+	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
+	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
+	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -32,8 +32,8 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
-	o = AssetManager::Instance()->GetObj(useModel);
-	e.SetMesh(&AssetManager::Instance()->GetObj(useModel));
+	o = AssetManager::Instance()->GetMesh(useModel);
+	e.SetMesh(&AssetManager::Instance()->GetMesh(useModel));
 
 	//	VERTEX BUFFER
 	glGenBuffers(1, &vertBuffer);
@@ -115,12 +115,12 @@ void State_Example::GuiUpdate()
 			}
 			if (ImGui::BeginMenu("Models"))
 			{
-				for (int i = 0; i < AssetManager::Instance()->loadedObjs.size(); i++)
+				for (int i = 0; i < AssetManager::Instance()->loadedMeshes.size(); i++)
 				{
-					if (ImGui::Button(AssetManager::Instance()->loadedObjs[i].c_str()))
+					if (ImGui::Button(AssetManager::Instance()->loadedMeshes[i].c_str()))
 					{
-						useModel = AssetManager::Instance()->loadedObjs[i].c_str();
-						o = AssetManager::Instance()->GetObj(useModel);
+						useModel = AssetManager::Instance()->loadedMeshes[i].c_str();
+						o = AssetManager::Instance()->GetMesh(useModel);
 
 						//	VERTEX BUFFER
 						glGenBuffers(1, &vertBuffer);
@@ -140,8 +140,8 @@ void State_Example::GuiUpdate()
 		}
 		if(ImGui::Button("Reload Model"))
 		{
-			AssetManager::Instance()->LoadObj(useModel, "assets/models/" + useModel + ".obj");
-			o = AssetManager::Instance()->GetObj(useModel);
+			AssetManager::Instance()->LoadMesh(useModel, "assets/models/" + useModel + ".obj");
+			o = AssetManager::Instance()->GetMesh(useModel);
 
 			//	VERTEX BUFFER
 			glGenBuffers(1, &vertBuffer);

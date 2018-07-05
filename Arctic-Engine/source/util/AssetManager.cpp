@@ -17,7 +17,7 @@ AssetManager::~AssetManager()
 	m_instance = 0;
 }
 
-void AssetManager::LoadObj(std::string name, std::string fileName)
+void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -27,7 +27,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
-		std::cout << red << "Failed to load obj: " + fileName + "" << std::endl;
+		std::cout << red << "Failed to load mesh: " + fileName + "" << std::endl;
 		return;
 	}
 	else {
@@ -71,39 +71,39 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 			}
 		}
 
-		Mesh obj;
+		Mesh mesh;
 
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 			unsigned int vertexIndex = vertexIndices[i];
 			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-			obj.vertices.push_back(vertex);
+			mesh.vertices.push_back(vertex);
 		}
 		for (unsigned int i = 0; i < uvIndices.size(); i++) {
 			unsigned int uvIndex = uvIndices[i];
 			glm::vec2 uv = temp_uvs[uvIndex - 1];
-			obj.uvs.push_back(uv);
+			mesh.uvs.push_back(uv);
 		}
 		for (unsigned int i = 0; i < normalIndices.size(); i++) {
 			unsigned int normalIndex = normalIndices[i];
 			glm::vec3 normal = temp_normals[normalIndex - 1];
-			obj.normals.push_back(normal);
+			mesh.normals.push_back(normal);
 		}
 
-		this->m_objs[name] = obj;
+		this->m_meshes[name] = mesh;
 		
-		if(std::find(loadedObjs.begin(), loadedObjs.end(), name) == loadedObjs.end())
+		if(std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
 		{
-			this->loadedObjs.push_back(name);
+			this->loadedMeshes.push_back(name);
 		}
-		std::cout << "Loaded obj: " + fileName + "" << std::endl;
+		std::cout << "Loaded mesh: " + fileName + "" << std::endl;
 
 		return;
 	}
 }
 
-Mesh& AssetManager::GetObj(std::string name)
+Mesh& AssetManager::GetMesh(std::string name)
 {
-	return this->m_objs.at(name);
+	return this->m_meshes.at(name);
 }
 
 void AssetManager::LoadTexturePropper(std::string name, std::string fileName)
