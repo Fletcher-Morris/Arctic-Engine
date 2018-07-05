@@ -1,13 +1,12 @@
 #include "State_Example.h"
 #include "../core/Game.h"
-#include "../core/Obj.h"
 #include "../render/Shader.h"
 #include "../states/State_Splash.h"
 #include "../editor/imgui.h"
 #include "../core/Texture.h"
 #include "../entity/Entity.h"
 
-Obj o;
+Mesh o;
 Entity e;
 unsigned int vertBuffer;
 unsigned int uvBuffer;

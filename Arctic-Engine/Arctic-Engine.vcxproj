@@ -167,7 +167,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h" />
-    <ClInclude Include="source\core\Obj.h" />
     <ClInclude Include="source\core\Texture.h" />
     <ClInclude Include="source\editor\imconfig.h" />
     <ClInclude Include="source\editor\imgui.h" />
@@ -177,6 +176,7 @@
     <ClInclude Include="source\editor\stb_textedit.h" />
     <ClInclude Include="source\editor\stb_truetype.h" />
     <ClInclude Include="source\entity\Entity.h" />
+    <ClInclude Include="source\entity\Mesh.h" />
     <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\Camera.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
@@ -187,6 +187,7 @@
     <ClInclude Include="source\render\VertexArray.h" />
     <ClInclude Include="source\render\VertexBuffer.h" />
     <ClInclude Include="source\render\VertexBufferLayout.h" />
+    <ClInclude Include="source\scene\Scene.h" />
     <ClInclude Include="source\states\State.h" />
     <ClInclude Include="source\states\State_Splash.h" />
     <ClInclude Include="source\stb\stb_image.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="source\editor\imgui.cpp" />
     <ClCompile Include="source\editor\imgui_draw.cpp" />
     <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="source\entity\Mesh.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
     <ClCompile Include="source\render\Camera.cpp" />
     <ClCompile Include="source\render\IndexBuffer.cpp" />
@@ -213,6 +215,7 @@
     <ClCompile Include="source\render\Shader.cpp" />
     <ClCompile Include="source\render\VertexArray.cpp" />
     <ClCompile Include="source\render\VertexBuffer.cpp" />
+    <ClCompile Include="source\scene\Scene.cpp" />
     <ClCompile Include="source\states\State.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />
     <ClCompile Include="source\stb\stb_image.cpp" />

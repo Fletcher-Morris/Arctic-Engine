@@ -4,7 +4,7 @@
 #define ASSETMANAGER_H_INCLUDED
 
 #include <map>
-#include "../core/Obj.h"
+#include "../entity/Mesh.h"
 #include "../core/Texture.h"
 #include "ConsoleColour.h"
 #include <vector>
@@ -17,7 +17,7 @@ public:
 	virtual ~AssetManager();
 
 	void LoadObj(std::string name, std::string fileName);
-	Obj &GetObj(std::string name);
+	Mesh &GetObj(std::string name);
 	std::vector<std::string> loadedObjs;
 
 	void LoadTexturePropper(std::string name, std::string fileName);
@@ -35,7 +35,7 @@ public:
 	void DeleteAllTextures();
 
 private:
-	std::map<std::string, Obj> m_objs;
+	std::map<std::string, Mesh> m_objs;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
 

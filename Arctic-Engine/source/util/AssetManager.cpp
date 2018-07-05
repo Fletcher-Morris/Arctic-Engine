@@ -71,7 +71,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 			}
 		}
 
-		Obj obj;
+		Mesh obj;
 
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 			unsigned int vertexIndex = vertexIndices[i];
@@ -101,7 +101,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 	}
 }
 
-Obj& AssetManager::GetObj(std::string name)
+Mesh& AssetManager::GetObj(std::string name)
 {
 	return this->m_objs.at(name);
 }

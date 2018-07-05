@@ -2,15 +2,15 @@
 
 #include "../util/GlmTypedefs.h"
 #include "../util/OtherTypedefs.h"
-#include "../core/Obj.h"
+#include "Mesh.h"
 
 struct Entity
 {
 	string name;
 	Vector3 position;
 	Vector3 rotation;
-	Obj * mesh;
+	Mesh * mesh;
 
-	void SetMesh(Obj * newMesh) { mesh = newMesh; }
-	Obj * GetMesh() { return mesh; }
+	void SetMesh(Mesh * newMesh) { mesh = newMesh; }
+	Mesh * GetMesh() { return mesh; }
 };

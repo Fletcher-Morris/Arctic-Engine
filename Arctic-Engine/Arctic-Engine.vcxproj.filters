@@ -63,6 +63,12 @@
     <Filter Include="Source Files\stb">
       <UniqueIdentifier>{a0c89d0c-4574-4301-85c7-1a4fb2f66f96}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\scene">
+      <UniqueIdentifier>{8acd82c7-fb6b-4528-8a67-8038aab2cec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{ffd8b0b1-896e-40cd-8b4f-f2ac0d4afc79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -106,9 +112,6 @@
     </ClInclude>
     <ClInclude Include="source\example\State_Example.h">
       <Filter>Header Files\example</Filter>
-    </ClInclude>
-    <ClInclude Include="source\core\Obj.h">
-      <Filter>Header Files\core</Filter>
     </ClInclude>
     <ClInclude Include="source\render\Shader.h">
       <Filter>Header Files\render</Filter>
@@ -157,6 +160,12 @@
     </ClInclude>
     <ClInclude Include="source\util\ConsoleColour.h">
       <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene\Scene.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="source\entity\Mesh.h">
+      <Filter>Header Files\entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +225,12 @@
     </ClCompile>
     <ClCompile Include="source\render\VertexArray.cpp">
       <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene\Scene.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entity\Mesh.cpp">
+      <Filter>Source Files\entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
