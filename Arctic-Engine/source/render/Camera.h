@@ -6,6 +6,7 @@ class Camera : public Entity
 {
 public:
 	Camera(const CameraConfig& config);
+	Camera();
 	void Update();
 
 	const Matrix4& GetViewMatrix();
