@@ -4,9 +4,10 @@
 #define ASSETMANAGER_H_INCLUDED
 
 #include <map>
-#include "../core/Obj.h"
+#include "../entity/Mesh.h"
 #include "../core/Texture.h"
 #include "ConsoleColour.h"
+#include <vector>
 
 class AssetManager
 {
@@ -15,24 +16,26 @@ public:
 	static AssetManager* Instance();
 	virtual ~AssetManager();
 
-	void LoadObj(std::string name, std::string fileName);
-	Obj &GetObj(std::string name);
+	void LoadMesh(std::string name, std::string fileName);
+	Mesh &GetMesh(std::string name);
+	std::vector<std::string> loadedMeshes;
 
 	void LoadTexturePropper(std::string name, std::string fileName);
-	void AddTexture(std::string name, Texture tex);
-	void AddTexture(Texture tex, std::string name);
 	Texture &GetTexturePropper(std::string name);
 	void BindTexturePropper(std::string name);
 	unsigned int GetTextureId(std::string name);
 	int GetLoadedTextureCount();
-
-
 	void LoadTexture(std::string name, std::string filename);
+	void ReloadTexture(std::string name, std::string filename);
 	void BindTexture(std::string name);
+	void BindTexture(unsigned int id);
 	unsigned int GetTexture(std::string name);
+	void DeleteTexture(std::string name);
+	void DeleteTexture(unsigned int id);
+	void DeleteAllTextures();
 
 private:
-	std::map<std::string, Obj> m_objs;
+	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
 

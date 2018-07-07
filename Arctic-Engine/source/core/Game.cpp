@@ -29,6 +29,8 @@ Game::~Game()
 bool Game::Init()
 {
 	std::cout << "===============================================" << std::endl;
+	std::cout << "Initialising Arctic Engine " << ENGINE_CONFIG << std::endl;
+	std::cout << "===============================================" << std::endl;
 	//	GLFW
 	if (!glfwInit()) {
 		std::cout << red << "Failed to initialise GLFW!" << std::endl;
@@ -69,12 +71,6 @@ bool Game::Init()
 
 void Game::Run()
 {
-	//AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
-	//AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
-	//AssetManager::Instance()->LoadTexture("icon1", "assets/textures/icon.jpg");
-	//AssetManager::Instance()->LoadTexture("icon2", "assets/textures/icon.png");
-	//AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.jpg");
-
 	float positions[] =
 	{
 		-1.0f, -1.0f, 0.0f, 0.0f,
@@ -112,16 +108,27 @@ void Game::Run()
 
 	Renderer rend;
 
+
+	//	Delta Time Stuff
+	double currentFrameTime = glfwGetTime();
+	double lastFrameTime = currentFrameTime;
+	double deltaTime = currentFrameTime = lastFrameTime;
+
 	while (!glfwWindowShouldClose(window) && !m_states.empty())
 	{
+		currentFrameTime = glfwGetTime();
+		deltaTime = currentFrameTime = lastFrameTime;
+		lastFrameTime = currentFrameTime;
+
 		glfwPollEvents();
 		ImGui_ImplGlfwGL3_NewFrame();
+
+		GetCurrentState().Update(deltaTime);
 
 		//	RENDER START
 
 		GetCurrentState().Render(window);
 
-		rend.Clear(0.0f, 0.0f, 0.0f);
 		rend.Draw(va, ib, shad);
 
 		//	RENDER END

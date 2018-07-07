@@ -1,6 +1,5 @@
 #include "State_Splash.h"
 #include "../core/Game.h"
-#include "../core/Obj.h"
 #include "../example/State_Example.h"
 #include <iostream>
 

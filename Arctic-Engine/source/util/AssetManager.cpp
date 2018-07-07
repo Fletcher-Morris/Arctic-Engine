@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../render/Renderer.h"
 #include "../stb/stb_image.h"
+#include <vector>
 
 AssetManager * AssetManager::m_instance(0);
 
@@ -16,7 +17,7 @@ AssetManager::~AssetManager()
 	m_instance = 0;
 }
 
-void AssetManager::LoadObj(std::string name, std::string fileName)
+void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
@@ -26,7 +27,7 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
-		std::cout << red << "Failed to load obj: " + fileName + "" << std::endl;
+		std::cout << red << "Failed to load mesh: " + fileName + "" << std::endl;
 		return;
 	}
 	else {
@@ -70,33 +71,39 @@ void AssetManager::LoadObj(std::string name, std::string fileName)
 			}
 		}
 
-		Obj obj;
+		Mesh mesh;
 
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 			unsigned int vertexIndex = vertexIndices[i];
 			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-			obj.vertices.push_back(vertex);
+			mesh.vertices.push_back(vertex);
 		}
 		for (unsigned int i = 0; i < uvIndices.size(); i++) {
 			unsigned int uvIndex = uvIndices[i];
 			glm::vec2 uv = temp_uvs[uvIndex - 1];
-			obj.uvs.push_back(uv);
+			mesh.uvs.push_back(uv);
 		}
 		for (unsigned int i = 0; i < normalIndices.size(); i++) {
 			unsigned int normalIndex = normalIndices[i];
 			glm::vec3 normal = temp_normals[normalIndex - 1];
-			obj.normals.push_back(normal);
+			mesh.normals.push_back(normal);
 		}
 
-		this->m_objs[name] = obj;
-		std::cout << "Loaded obj: " + fileName + "" << std::endl;
+		this->m_meshes[name] = mesh;
+		
+		if(std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
+		{
+			this->loadedMeshes.push_back(name);
+		}
+		std::cout << "Loaded mesh: " + fileName + "" << std::endl;
+
 		return;
 	}
 }
 
-Obj& AssetManager::GetObj(std::string name)
+Mesh& AssetManager::GetMesh(std::string name)
 {
-	return this->m_objs.at(name);
+	return this->m_meshes.at(name);
 }
 
 void AssetManager::LoadTexturePropper(std::string name, std::string fileName)
@@ -107,41 +114,24 @@ void AssetManager::LoadTexturePropper(std::string name, std::string fileName)
 	std::cout << "Loaded texture: " + fileName + " , GLID = " << t.m_textureId << std::endl;
 	return;
 }
-
-void AssetManager::AddTexture(std::string name, Texture tex)
-{
-	AddTexture(tex, name);
-}
-void AssetManager::AddTexture(Texture tex, std::string name)
-{
-	this->m_textures[name] = tex;
-}
-
 Texture& AssetManager::GetTexturePropper(std::string name)
 {
 	return this->m_textures.at(name);
 }
-
 void AssetManager::BindTexturePropper(std::string name)
 {
 	m_textures.at(name).Bind();
 }
 
+
 unsigned int AssetManager::GetTextureId(std::string name)
 {
 	return m_textures.at(name).m_textureId;
 }
-
 int AssetManager::GetLoadedTextureCount()
 {
 	return m_texIdMap.size();
 }
-
-
-
-
-
-
 void AssetManager::LoadTexture(std::string name, std::string filename)
 {
 	unsigned char * m_data;
@@ -150,19 +140,18 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 
 
 	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
-
-
+	
 	GLCall(glGenTextures(1, &m_textureId));
 	m_texIdMap[name] = m_textureId;
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
 
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
-
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
-	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
-
 	if (m_data) {
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
 		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
 		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
@@ -170,21 +159,138 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 	}
 	else
 	{
-		std::cout << "Failed to parse texture '" << filename << "'" << std::endl;
+		std::cout << "Failed to load texture '" << filename << "'" << std::endl;		
+		int size = 8;
+		m_width = size;
+		m_height = size;
+		m_bits = 3;
+		std::vector<unsigned char>errorTex(m_height * m_width * 3);
+		bool evenRow = false;
+		bool evenPixel = false;
+		for (int i = 0; i < m_width * m_height * m_bits; i += m_bits)
+		{
+			if (i % m_width == 0) { evenRow = !evenRow; }
+			if (evenRow)
+			{
+				if (i % 2 == 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+			else {
+				if (i % 2 != 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+		}
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, &errorTex[0]));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
 	}
 }
+void AssetManager::ReloadTexture(std::string name, std::string filename)
+{
+	unsigned char * m_data;
+	int m_width, m_height, m_bits;
+	unsigned int m_textureId;
 
+
+	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
+
+	m_textureId = GetTextureId(name);
+	GLCall(glBindTexture(GL_TEXTURE_2D, m_textureId));
+
+	if (m_data) {
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_data));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
+	}
+	else
+	{
+		std::cout << "Failed to load texture '" << filename << "'" << std::endl;
+		int size = 8;
+		m_width = size;
+		m_height = size;
+		m_bits = 3;
+		std::vector<unsigned char>errorTex(m_height * m_width * 3);
+		bool evenRow = false;
+		bool evenPixel = false;
+		for (int i = 0; i < m_width * m_height * m_bits; i += m_bits)
+		{
+			if (i % m_width == 0) { evenRow = !evenRow; }
+			if (evenRow)
+			{
+				if (i % 2 == 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+			else {
+				if (i % 2 != 0) {
+					errorTex[i] = 255;
+					errorTex[i + 1] = 0;
+					errorTex[i + 2] = 255;
+				}
+			}
+		}
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+		GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+
+		GLCall(glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0));
+		GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, &errorTex[0]));
+		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
+		stbi_image_free(m_data);
+	}
+}
 void AssetManager::BindTexture(std::string name)
 {
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_texIdMap.at(name)));
 }
-
+void AssetManager::BindTexture(unsigned int id)
+{
+	GLCall(glActiveTexture(GL_TEXTURE0));
+	GLCall(glBindTexture(GL_TEXTURE_2D, id));
+}
 unsigned int AssetManager::GetTexture(std::string name)
 {
 	return m_texIdMap.at(name);
 }
 
+void AssetManager::DeleteTexture(std::string name)
+{
+}
+
+void AssetManager::DeleteTexture(unsigned int id)
+{
+}
+
+void AssetManager::DeleteAllTextures()
+{
+}
 
 
 AssetManager::AssetManager()
