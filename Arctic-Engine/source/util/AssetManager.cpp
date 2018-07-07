@@ -88,6 +88,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			glm::vec3 normal = temp_normals[normalIndex - 1];
 			mesh.normals.push_back(normal);
 		}
+		mesh.Recalculate();
 
 		this->m_meshes[name] = mesh;
 		

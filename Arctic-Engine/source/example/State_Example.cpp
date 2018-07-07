@@ -175,7 +175,7 @@ void State_Example::Render(GLFWwindow* target) {
 	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	glDrawArrays(GL_TRIANGLES, 0, o.vertices.size());
+	glDrawArrays(GL_TRIANGLES, 0, o.VertCount);
 
 	AssetManager::Instance()->BindTexture(useTexture);
 
