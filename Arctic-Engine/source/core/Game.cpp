@@ -29,6 +29,8 @@ Game::~Game()
 bool Game::Init()
 {
 	std::cout << "===============================================" << std::endl;
+	std::cout << "Initialising Arctic Engine " << ENGINE_CONFIG << std::endl;
+	std::cout << "===============================================" << std::endl;
 	//	GLFW
 	if (!glfwInit()) {
 		std::cout << red << "Failed to initialise GLFW!" << std::endl;
