@@ -167,6 +167,9 @@
     <ClInclude Include="source\entity\Mesh.h">
       <Filter>Header Files\entity</Filter>
     </ClInclude>
+    <ClInclude Include="source\core\EnginePrefs.h">
+      <Filter>Header Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -231,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="source\entity\Mesh.cpp">
       <Filter>Source Files\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="source\core\EnginePrefs.cpp">
+      <Filter>Source Files\core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
