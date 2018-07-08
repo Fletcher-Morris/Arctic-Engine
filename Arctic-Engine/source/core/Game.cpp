@@ -64,10 +64,10 @@ bool Game::Init()
 	std::cout << "Initialised ImGui (" << ImGui::GetVersion() << ")" << std::endl;
 
 	std::cout << "===============================================" << std::endl;
+	
+	EnginePrefs::Instance()->LoadPrefs();
 
-
-
-	//EnginePrefs::Instance
+	std::cout << "===============================================" << std::endl;
 
 	return true;
 }

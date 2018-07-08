@@ -13,10 +13,15 @@ unsigned int uvBuffer;
 unsigned int useTexture;
 std::string useModel = "spring";
 float color[3] = { 0.f, 0.f, 0.f };
+bool useDarkMode;
 
 State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
+
+	useDarkMode = EnginePrefs::Instance()->guiDark;
+	if (useDarkMode) ImGui::StyleColorsDark();
+	else ImGui::StyleColorsLight();
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
@@ -78,7 +83,6 @@ void State_Example::GuiUpdate()
 			ImGui::Separator();
 			if (ImGui::BeginMenu("Options"))
 			{
-				static bool useDarkMode = true;
 				ImGui::MenuItem("Dark Mode", "", &useDarkMode);
 				if(useDarkMode) ImGui::StyleColorsDark();
 				else ImGui::StyleColorsLight();
