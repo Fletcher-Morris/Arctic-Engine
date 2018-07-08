@@ -13,6 +13,10 @@ EnginePrefs::~EnginePrefs()
 	m_instance = 0;
 }
 
+void EnginePrefs::LoadPrefs()
+{
+}
+
 EnginePrefs::EnginePrefs()
 {
 }

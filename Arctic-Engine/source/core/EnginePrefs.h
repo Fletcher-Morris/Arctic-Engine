@@ -20,4 +20,11 @@ protected:
 	static EnginePrefs* m_instance;
 };
 
+struct EnginePrefData
+{
+	bool editor = true;
+	float guiScale = 1;
+	int guiSyle = 0;
+};
+
 #endif // !ENGINEPREFS_H_INCLUDED
