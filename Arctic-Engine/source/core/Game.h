@@ -4,12 +4,13 @@
 #include <memory>
 #include <vector>
 #include <iostream>
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <glfw3.h>
-#include "..\states\State.h"
+#include "../states/State.h"
 #include "../states/State_Splash.h"
 #include "../render/Shader.h"
 #include "../util/AssetManager.h"
+#include "EnginePrefs.h"
 
 class Game
 {
