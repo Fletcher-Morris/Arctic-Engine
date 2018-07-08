@@ -14,10 +14,14 @@ public:
 	static EnginePrefs* Instance();
 	virtual ~EnginePrefs();
 	void LoadPrefs();
+	void SaveDefaults();
 
 	bool editor = true;
 	float guiScale = 1;
 	bool guiDark = true;
+
+private:
+	std::string m_defaultsString;
 
 protected:
 	EnginePrefs();
