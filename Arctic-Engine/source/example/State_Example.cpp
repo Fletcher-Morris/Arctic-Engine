@@ -14,11 +14,13 @@ unsigned int useTexture;
 std::string useModel = "spring";
 float color[3] = { 0.f, 0.f, 0.f };
 bool useDarkMode;
+bool editor;
 
 State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << "\nEntered state: (State_Example)" << std::endl;
 
+	editor = EnginePrefs::Instance()->editor;
 	useDarkMode = EnginePrefs::Instance()->guiDark;
 	if (useDarkMode) ImGui::StyleColorsDark();
 	else ImGui::StyleColorsLight();
@@ -72,6 +74,8 @@ void State_Example::FixedUpdate(double fixedTime) {
 
 void State_Example::GuiUpdate()
 {
+	if (!editor) return;
+
 	if (ImGui::BeginMainMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))

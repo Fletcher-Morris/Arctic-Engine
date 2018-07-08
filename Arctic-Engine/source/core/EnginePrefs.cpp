@@ -72,7 +72,7 @@ EnginePrefs::EnginePrefs()
 	guiScale = 1;
 	guiDark = true;
 
-	m_defaultsString = "editor true\ngui_scale 1\ngui_dark false";
+	m_defaultsString = "editor true\ngui_scale 1\ngui_dark true";
 }
 
 EnginePrefs::EnginePrefs(const EnginePrefs & prefs)
