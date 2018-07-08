@@ -25,6 +25,8 @@ State_Example::State_Example(Game& game) : State(game) {
 	if (useDarkMode) ImGui::StyleColorsDark();
 	else ImGui::StyleColorsLight();
 
+	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
+
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
 	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
@@ -162,7 +164,7 @@ void State_Example::GuiUpdate()
 			glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 		}
 		ImGui::Separator();
-		ImGui::SameLine(ImGui::GetWindowWidth() - 80);
+		ImGui::SameLine(ImGui::GetWindowWidth() - (80 * EnginePrefs::Instance()->guiScale));
 		ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
 	}
