@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "../editor/imgui.h"
 #include "../editor/imgui_impl_glfw_gl3.h"
-
 #include "../render/VertexArray.h"
 #include "../render/VertexBufferLayout.h"
 #include "../render/IndexBuffer.h"
@@ -63,6 +62,10 @@ bool Game::Init()
 	ImGui_ImplGlfwGL3_Init(window, true);
 	ImGui::StyleColorsDark();
 	std::cout << "Initialised ImGui (" << ImGui::GetVersion() << ")" << std::endl;
+
+	std::cout << "===============================================" << std::endl;
+	
+	EnginePrefs::Instance()->LoadPrefs();
 
 	std::cout << "===============================================" << std::endl;
 

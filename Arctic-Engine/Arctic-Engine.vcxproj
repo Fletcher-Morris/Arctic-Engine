@@ -168,6 +168,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\core\EnginePrefs.h" />
     <ClInclude Include="source\core\Game.h" />
     <ClInclude Include="source\core\Texture.h" />
     <ClInclude Include="source\editor\imconfig.h" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arctic-Engine.cpp" />
+    <ClCompile Include="source\core\EnginePrefs.cpp" />
     <ClCompile Include="source\core\Game.cpp" />
     <ClCompile Include="source\core\Texture.cpp" />
     <ClCompile Include="source\editor\imgui.cpp" />
