@@ -28,6 +28,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
+	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
 	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
 
