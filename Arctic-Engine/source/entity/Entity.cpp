@@ -17,3 +17,8 @@ void Entity::Update(double deltaTime)
 void Entity::FixedUpdate(double fixedTime)
 {
 }
+
+void Entity::RenderMesh(unsigned int * vertBuffer, unsigned int * uvBuffer)
+{
+
+}
