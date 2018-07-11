@@ -9,3 +9,11 @@ Entity::Entity(std::string _name)
 {
 	name = _name;
 }
+
+void Entity::Update(double deltaTime)
+{
+}
+
+void Entity::FixedUpdate(double fixedTime)
+{
+}

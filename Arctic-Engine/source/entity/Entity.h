@@ -18,4 +18,7 @@ public:
 
 	void SetMesh(Mesh * newMesh) { mesh = newMesh; }
 	Mesh * GetMesh() { return mesh; }
+
+	void Update(double deltaTime);
+	void FixedUpdate(double fixedTime);
 };

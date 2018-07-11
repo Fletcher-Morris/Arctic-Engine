@@ -73,10 +73,20 @@ void State_Example::HandleInput(GLFWwindow* window) {
 
 void State_Example::Update(double deltaTime) {
 
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].Update(deltaTime);
+	}
 }
 
 void State_Example::FixedUpdate(double fixedTime) {
 
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].Update(fixedTime);
+	}
 }
 
 void State_Example::GuiUpdate()
@@ -179,6 +189,15 @@ void State_Example::Render(GLFWwindow* target) {
 
 	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].Update(fixedTime);
+	}
+
+
 
 	//	VERTEX BUFFER
 	glEnableVertexAttribArray(0);
