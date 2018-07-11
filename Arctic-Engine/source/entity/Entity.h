@@ -4,8 +4,13 @@
 #include "../util/OtherTypedefs.h"
 #include "Mesh.h"
 
-struct Entity
+class Entity
 {
+public:
+
+	Entity();
+	Entity(std::string _name);
+
 	string name;
 	Vector3 position;
 	Vector3 rotation;

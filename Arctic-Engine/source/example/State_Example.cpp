@@ -7,7 +7,6 @@
 #include "../entity/Entity.h"
 
 Mesh o;
-Entity e;
 unsigned int vertBuffer;
 unsigned int uvBuffer;
 unsigned int useTexture;
@@ -43,7 +42,6 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
 	o = AssetManager::Instance()->GetMesh(useModel);
-	e.SetMesh(&AssetManager::Instance()->GetMesh(useModel));
 
 	//	VERTEX BUFFER
 	glGenBuffers(1, &vertBuffer);
@@ -57,6 +55,12 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
+
+
+	currentScene.NewEntity("Cube");
+	currentScene.NewEntity("Sphere");
+	currentScene.NewEntity("Teapot");
+	currentScene.NewEntity("Spring");
 }
 
 void State_Example::HandleEvent(int e) {

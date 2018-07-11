@@ -238,6 +238,9 @@
     <ClCompile Include="source\core\EnginePrefs.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
+    <ClCompile Include="source\entity\Entity.cpp">
+      <Filter>Source Files\entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\combo.shader">
