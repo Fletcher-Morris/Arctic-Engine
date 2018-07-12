@@ -41,26 +41,30 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
-	o = AssetManager::Instance()->GetMesh(useModel);
+	//o = AssetManager::Instance()->GetMesh(useModel);
 
-	//	VERTEX BUFFER
-	glGenBuffers(1, &vertBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
+	////	VERTEX BUFFER
+	//glGenBuffers(1, &vertBuffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
+	//glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
 
-	//	UV BUFFER
-	glGenBuffers(1, &uvBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
+	////	UV BUFFER
+	//glGenBuffers(1, &uvBuffer);
+	//glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+	//glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
 
+	currentScene.NewEntity("cube");
 
-	currentScene.NewEntity("Cube");
-	currentScene.NewEntity("Sphere");
-	currentScene.NewEntity("Teapot");
-	currentScene.NewEntity("Spring");
+	std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		std::cout << "   " << currentScene.entVec[i].name << ": ";
+		std::cout << currentScene.entVec[i].mesh->VertCount << " verts" << std::endl;
+	}
 }
 
 void State_Example::HandleEvent(int e) {
@@ -144,18 +148,7 @@ void State_Example::GuiUpdate()
 				{
 					if (ImGui::Button(AssetManager::Instance()->loadedMeshes[i].c_str()))
 					{
-						useModel = AssetManager::Instance()->loadedMeshes[i].c_str();
-						o = AssetManager::Instance()->GetMesh(useModel);
 
-						//	VERTEX BUFFER
-						glGenBuffers(1, &vertBuffer);
-						glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-						glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-						//	UV BUFFER
-						glGenBuffers(1, &uvBuffer);
-						glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-						glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 					}
 				}
 
@@ -165,19 +158,9 @@ void State_Example::GuiUpdate()
 		}
 		if(ImGui::Button("Reload Model"))
 		{
-			AssetManager::Instance()->LoadMesh(useModel, "assets/models/" + useModel + ".obj");
-			o = AssetManager::Instance()->GetMesh(useModel);
 
-			//	VERTEX BUFFER
-			glGenBuffers(1, &vertBuffer);
-			glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-			glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-			//	UV BUFFER
-			glGenBuffers(1, &uvBuffer);
-			glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-			glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 		}
+
 		ImGui::Separator();
 		ImGui::SameLine(ImGui::GetWindowWidth() - (80 * EnginePrefs::Instance()->guiScale));
 		ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);

@@ -102,9 +102,9 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	}
 }
 
-Mesh& AssetManager::GetMesh(std::string name)
+Mesh * AssetManager::GetMesh(std::string name)
 {
-	return this->m_meshes.at(name);
+	return &m_meshes.at(name);
 }
 
 void AssetManager::LoadTexturePropper(std::string name, std::string fileName)

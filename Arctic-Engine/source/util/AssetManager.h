@@ -17,7 +17,7 @@ public:
 	virtual ~AssetManager();
 
 	void LoadMesh(std::string name, std::string fileName);
-	Mesh &GetMesh(std::string name);
+	Mesh * GetMesh(std::string name);
 	std::vector<std::string> loadedMeshes;
 
 	void LoadTexturePropper(std::string name, std::string fileName);
