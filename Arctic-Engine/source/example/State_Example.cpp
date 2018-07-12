@@ -131,6 +131,11 @@ void State_Example::GuiUpdate()
 			if (ImGui::MenuItem("Paste", "CTRL+V", false, false)) {}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Scene"))
+		{
+			if (ImGui::MenuItem("New Entity", "CTRL+N")) { currentScene.NewEntity("cube"); }
+			ImGui::EndMenu();
+		}
 		if (ImGui::BeginMenu("Assets"))
 		{
 			if (ImGui::BeginMenu("Textures"))

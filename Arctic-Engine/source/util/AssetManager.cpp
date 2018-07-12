@@ -72,7 +72,6 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		}
 
 		Mesh mesh;
-
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
 			unsigned int vertexIndex = vertexIndices[i];
 			glm::vec3 vertex = temp_vertices[vertexIndex - 1];

@@ -9,7 +9,6 @@ public:
 	Scene();
 	~Scene();
 
-	std::list<Entity> entList;
 	std::vector<Entity> entVec;
 	int entityCount;
 
