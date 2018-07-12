@@ -171,6 +171,18 @@ void State_Example::GuiUpdate()
 		ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
 	}
+
+	if (ImGui::BeginMenu("Entities", true))
+	{
+		for (int e = 0; e < currentScene.entityCount; e++)
+		{
+			if (ImGui::Button(currentScene.entVec[e].name.c_str()))
+			{
+				currentScene.entVec[e].doRender = !currentScene.entVec[e].doRender;
+			}
+		}
+		ImGui::EndMenu();
+	}
 }
 
 void State_Example::Render(GLFWwindow* target) {

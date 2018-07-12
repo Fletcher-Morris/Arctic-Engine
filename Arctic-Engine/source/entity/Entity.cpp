@@ -37,6 +37,8 @@ void Entity::FixedUpdate(double fixedTime)
 
 void Entity::RenderMesh(unsigned int * vertBuffer, unsigned int * uvBuffer)
 {
+	if (!doRender) return;
+
 	//	VERTEX BUFFER
 	glGenBuffers(1, vertBuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);

@@ -1,6 +1,5 @@
 #pragma once
 #include "../entity/Entity.h"
-#include <list>
 
 class Scene
 {

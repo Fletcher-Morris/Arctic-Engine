@@ -18,6 +18,8 @@ public:
 	Vector3 rotation;
 	Mesh * mesh;
 
+	bool doRender;
+
 	void SetMesh(Mesh * newMesh);
 	void SetMesh(std::string meshName);
 	Mesh * GetMesh() { return mesh; }
