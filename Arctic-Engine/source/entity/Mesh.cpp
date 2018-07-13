@@ -49,3 +49,13 @@ void Mesh::Init()
 
 	GLCall(glBindVertexArray(0));
 }
+
+void Mesh::Draw(Shader shader)
+{
+
+
+	//	Draw Mesh
+	GLCall(glBindVertexArray(VAO));
+	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
+	GLCall(glBindVertexArray(0));
+}
