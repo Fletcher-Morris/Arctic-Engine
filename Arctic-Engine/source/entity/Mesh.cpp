@@ -18,7 +18,7 @@ void Mesh::Render(unsigned int * vertBuffer, unsigned int * uvBuffer)
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces)
 {
 	this->vertices = vertices;
-	this->indeces = indeces;
+	this->indices = indeces;
 	Init();
 }
 
@@ -32,4 +32,7 @@ void Mesh::Init()
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
 
 	GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW));
+
+	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW));
 }
