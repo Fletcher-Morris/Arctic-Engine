@@ -187,6 +187,7 @@
     <ClInclude Include="source\render\MatrixMaths.h" />
     <ClInclude Include="source\render\Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />
+    <ClInclude Include="source\render\Vertex.h" />
     <ClInclude Include="source\render\VertexArray.h" />
     <ClInclude Include="source\render\VertexBuffer.h" />
     <ClInclude Include="source\render\VertexBufferLayout.h" />

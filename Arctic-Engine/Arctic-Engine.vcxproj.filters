@@ -170,6 +170,9 @@
     <ClInclude Include="source\core\EnginePrefs.h">
       <Filter>Header Files\core</Filter>
     </ClInclude>
+    <ClInclude Include="source\render\Vertex.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
