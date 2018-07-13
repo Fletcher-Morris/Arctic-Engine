@@ -172,16 +172,16 @@ void State_Example::GuiUpdate()
 		ImGui::EndMainMenuBar();
 	}
 
-	if (ImGui::BeginMenu("Entities", true))
+	if (ImGui::Button("NEW ENTITY"))
 	{
-		for (int e = 0; e < currentScene.entityCount; e++)
+		currentScene.NewEntity("cube");
+	}
+	for (int e = 0; e < currentScene.entityCount; e++)
+	{
+		if (ImGui::Button(currentScene.entVec[e].name.c_str()))
 		{
-			if (ImGui::Button(currentScene.entVec[e].name.c_str()))
-			{
-				currentScene.entVec[e].doRender = !currentScene.entVec[e].doRender;
-			}
+			currentScene.entVec[e].doRender = !currentScene.entVec[e].doRender;
 		}
-		ImGui::EndMenu();
 	}
 }
 
