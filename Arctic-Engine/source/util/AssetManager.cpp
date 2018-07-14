@@ -21,9 +21,11 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
 
 	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-	std::vector< glm::vec3 > temp_vertices;
+	std::vector< glm::vec3 > temp_positions;
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
+
+	std::vector<Vertex> temp_vertices;
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
@@ -37,9 +39,9 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			res = fscanf(file, "%s", lineHeader);
 
 			if (strcmp(lineHeader, "v") == 0) {
-				glm::vec3 vertex;
-				fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
-				temp_vertices.push_back(vertex);
+				glm::vec3 position;
+				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
+				temp_positions.push_back(position);
 			}
 			else if (strcmp(lineHeader, "vt") == 0) {
 				glm::vec2 uv;
@@ -59,6 +61,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
 					return;
 				}
+
 				vertexIndices.push_back(vertexIndex[0]);
 				vertexIndices.push_back(vertexIndex[1]);
 				vertexIndices.push_back(vertexIndex[2]);
@@ -71,25 +74,24 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			}
 		}
 
-		Mesh mesh;
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
-			unsigned int vertexIndex = vertexIndices[i];
-			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-			mesh.vertices.push_back(vertex);
-		}
-		for (unsigned int i = 0; i < uvIndices.size(); i++) {
-			unsigned int uvIndex = uvIndices[i];
-			glm::vec2 uv = temp_uvs[uvIndex - 1];
-			mesh.uvs.push_back(uv);
-		}
-		for (unsigned int i = 0; i < normalIndices.size(); i++) {
-			unsigned int normalIndex = normalIndices[i];
-			glm::vec3 normal = temp_normals[normalIndex - 1];
-			mesh.normals.push_back(normal);
-		}
-		mesh.Recalculate();
+			Vertex tempVertex;
 
-		this->m_meshes[name] = mesh;
+			unsigned int vertexIndex = vertexIndices[i];
+			tempVertex.position = temp_positions[vertexIndex - 1];
+
+			unsigned int normalIndex = normalIndices[i];
+			tempVertex.normal = temp_normals[normalIndex - 1];
+
+			unsigned int uvIndex = uvIndices[i];
+			tempVertex.uv = temp_uvs[uvIndex - 1];
+
+			temp_vertices.push_back(tempVertex);
+		}
+
+		Mesh newMesh(temp_vertices, vertexIndices);
+
+		this->m_meshes[name] = newMesh;
 		
 		if(std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
 		{

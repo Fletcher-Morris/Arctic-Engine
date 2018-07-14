@@ -6,7 +6,6 @@
 #include "../core/Texture.h"
 #include "../entity/Entity.h"
 
-Mesh o;
 unsigned int vertBuffer;
 unsigned int uvBuffer;
 unsigned int useTexture;
@@ -63,7 +62,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
 		std::cout << "   " << currentScene.entVec[i].name << ": ";
-		std::cout << currentScene.entVec[i].mesh->VertCount << " verts" << std::endl;
+		std::cout << currentScene.entVec[i].mesh->vertices.size() << " verts" << std::endl;
 	}
 }
 

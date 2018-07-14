@@ -39,15 +39,5 @@ void Entity::RenderMesh(unsigned int * vertBuffer, unsigned int * uvBuffer)
 {
 	if (!doRender) return;
 
-	//	VERTEX BUFFER
-	glGenBuffers(1, vertBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, *vertBuffer);
-	glBufferData(GL_ARRAY_BUFFER, mesh->vertices.size() * sizeof(Vector3), &mesh->vertices[0], GL_STATIC_DRAW);
-
-	//	UV BUFFER
-	glGenBuffers(1, uvBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, *uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, mesh->uvs.size() * sizeof(Vector2), &mesh->uvs[0], GL_STATIC_DRAW);
-
-	glDrawArrays(GL_TRIANGLES, 0, mesh->VertCount);
+	mesh->Render();
 }
