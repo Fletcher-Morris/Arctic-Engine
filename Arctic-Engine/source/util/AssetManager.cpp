@@ -69,7 +69,8 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					return;
 				}
 
-				allIndices.push_back(vertexIndex[0]);
+				//	v,u,n,v,u,n,v,u,n
+				/*allIndices.push_back(vertexIndex[0]);
 				allIndices.push_back(uvIndex[0]);
 				allIndices.push_back(normalIndex[0]);
 				allIndices.push_back(vertexIndex[1]);
@@ -77,6 +78,17 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				allIndices.push_back(normalIndex[1]);
 				allIndices.push_back(vertexIndex[2]);
 				allIndices.push_back(uvIndex[2]);
+				allIndices.push_back(normalIndex[2]);*/
+
+				//	v,v,v,u,u,u,n,n,n
+				allIndices.push_back(vertexIndex[0]);
+				allIndices.push_back(vertexIndex[1]);
+				allIndices.push_back(vertexIndex[2]);
+				allIndices.push_back(uvIndex[0]);
+				allIndices.push_back(uvIndex[1]);
+				allIndices.push_back(uvIndex[2]);
+				allIndices.push_back(normalIndex[0]);
+				allIndices.push_back(normalIndex[1]);
 				allIndices.push_back(normalIndex[2]);
 			}
 		}
