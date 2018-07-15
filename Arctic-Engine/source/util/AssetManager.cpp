@@ -75,6 +75,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		}
 
 		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
+
 			Vertex tempVertex;
 
 			unsigned int vertexIndex = vertexIndices[i];
@@ -90,6 +91,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		}
 
 		Mesh newMesh(temp_vertices, vertexIndices);
+		newMesh.Init();
 
 		this->m_meshes[name] = newMesh;
 		

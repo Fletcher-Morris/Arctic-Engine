@@ -35,9 +35,9 @@ void Entity::FixedUpdate(double fixedTime)
 {
 }
 
-void Entity::RenderMesh(unsigned int * vertBuffer, unsigned int * uvBuffer)
+void Entity::RenderMesh()
 {
 	if (!doRender) return;
 
-	mesh->Render();
+	mesh->Render(3);
 }

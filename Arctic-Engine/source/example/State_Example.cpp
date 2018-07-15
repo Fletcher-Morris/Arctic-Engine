@@ -6,6 +6,7 @@
 #include "../core/Texture.h"
 #include "../entity/Entity.h"
 
+Entity enty;
 unsigned int vertBuffer;
 unsigned int uvBuffer;
 unsigned int useTexture;
@@ -55,7 +56,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
 
-	currentScene.NewEntity("cube");
+	enty = Entity("cube");
+
+	//currentScene.NewEntity("cube");
 
 	std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
 	//	FOR EACH ENTITY IN SCENE
@@ -174,6 +177,14 @@ void State_Example::GuiUpdate()
 	if (ImGui::Button("NEW ENTITY"))
 	{
 		currentScene.NewEntity("cube");
+
+		std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
+		//	FOR EACH ENTITY IN SCENE
+		for (int i = 0; i < currentScene.entityCount; i++)
+		{
+			std::cout << "   " << currentScene.entVec[i].name << ": ";
+			std::cout << currentScene.entVec[i].mesh->vertices.size() << " verts" << std::endl;
+		}
 	}
 	for (int e = 0; e < currentScene.entityCount; e++)
 	{
@@ -193,8 +204,10 @@ void State_Example::Render(GLFWwindow* target) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entVec[i].RenderMesh(&vertBuffer, &uvBuffer);
+		currentScene.entVec[i].RenderMesh();
 	}
+
+	//enty.RenderMesh();
 
 	////	VERTEX BUFFER
 	//glEnableVertexAttribArray(0);

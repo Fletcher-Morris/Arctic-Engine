@@ -29,23 +29,23 @@ void Mesh::Init()
 
 	//	Position
 	GLCall(glEnableVertexAttribArray(0));
-	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0));
+	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0));
 	//	Normal
-	GLCall(glEnableVertexAttribArray(1));
-	GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
+	//GLCall(glEnableVertexAttribArray(1));
+	//GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
 	//	Tex Coords
 	GLCall(glEnableVertexAttribArray(2));
-	GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv)));
+	GLCall(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv)));
 
 	GLCall(glBindVertexArray(0));
 }
 
-void Mesh::Render()
+void Mesh::Render(unsigned int shader)
 {
-
+	GLCall(glUseProgram(shader));
 
 	//	Draw Mesh
 	GLCall(glBindVertexArray(VAO));
-	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
+	GLCall(glDrawElements(GL_TRIANGLES, vertices.size(), GL_UNSIGNED_INT, 0));
 	GLCall(glBindVertexArray(0));
 }

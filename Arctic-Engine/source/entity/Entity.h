@@ -26,5 +26,5 @@ public:
 
 	void Update(double deltaTime);
 	void FixedUpdate(double fixedTime);
-	void RenderMesh(unsigned int * vertBuffer, unsigned int * uvBuffer);
+	void RenderMesh();
 };
