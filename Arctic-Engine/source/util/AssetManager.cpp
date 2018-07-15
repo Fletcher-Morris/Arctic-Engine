@@ -20,7 +20,7 @@ AssetManager::~AssetManager()
 void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
 
-	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
+	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices, allIndices;
 	std::vector< glm::vec3 > temp_positions;
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
@@ -69,15 +69,15 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					return;
 				}
 
-				vertexIndices.push_back(vertexIndex[0]);
-				vertexIndices.push_back(vertexIndex[1]);
-				vertexIndices.push_back(vertexIndex[2]);
-				uvIndices.push_back(uvIndex[0]);
-				uvIndices.push_back(uvIndex[1]);
-				uvIndices.push_back(uvIndex[2]);
-				normalIndices.push_back(normalIndex[0]);
-				normalIndices.push_back(normalIndex[1]);
-				normalIndices.push_back(normalIndex[2]);
+				allIndices.push_back(vertexIndex[0]);
+				allIndices.push_back(uvIndex[0]);
+				allIndices.push_back(normalIndex[0]);
+				allIndices.push_back(vertexIndex[1]);
+				allIndices.push_back(uvIndex[1]);
+				allIndices.push_back(normalIndex[1]);
+				allIndices.push_back(vertexIndex[2]);
+				allIndices.push_back(uvIndex[2]);
+				allIndices.push_back(normalIndex[2]);
 			}
 		}
 
@@ -99,7 +99,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		}
 
 
-		Mesh newMesh(temp_vertices, vertexIndices);
+		Mesh newMesh(temp_vertices, allIndices);
 
 		std::cout << newMesh.vertices.size() << " Vertices:" << std::endl;
 		for (int i = 0; i < newMesh.vertices.size(); i++)
@@ -109,7 +109,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		}
 		std::cout << std::endl;
 
-		std::cout << newMesh.indices.size() << " Indices:" << std::endl;
+		std::cout << newMesh.indices.size()/3 << " Indices:" << std::endl;
 		for (int i = 0; i < newMesh.indices.size(); i++)
 		{
 			int ind = newMesh.indices[i];

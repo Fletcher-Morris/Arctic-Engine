@@ -31,8 +31,8 @@ void Mesh::Init()
 	GLCall(glEnableVertexAttribArray(0));
 	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0));
 	//	Normal
-	//GLCall(glEnableVertexAttribArray(1));
-	//GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
+	GLCall(glEnableVertexAttribArray(1));
+	GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
 	//	Tex Coords
 	GLCall(glEnableVertexAttribArray(2));
 	GLCall(glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv)));
