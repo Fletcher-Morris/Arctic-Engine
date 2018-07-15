@@ -25,6 +25,10 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
 
+	int posCount = 0;
+	int normCount = 0;
+	int uvCount = 0;
+
 	std::vector<Vertex> temp_vertices;
 
 	FILE * file = fopen(fileName.c_str(),"r");
@@ -42,16 +46,19 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				glm::vec3 position;
 				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
 				temp_positions.push_back(position);
+				posCount++;
 			}
 			else if (strcmp(lineHeader, "vt") == 0) {
 				glm::vec2 uv;
 				fscanf(file, "%f %f\n", &uv.x, &uv.y);
 				temp_uvs.push_back(uv);
+				uvCount++;
 			}
 			else if (strcmp(lineHeader, "vn") == 0) {
 				glm::vec3 normal;
 				fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 				temp_normals.push_back(normal);
+				normCount++;
 			}
 			else if (strcmp(lineHeader, "f") == 0) {
 				std::string vertex1, vertex2, vertex3;
@@ -74,23 +81,43 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			}
 		}
 
-		for (unsigned int i = 0; i < vertexIndices.size(); i++) {
+		int maxVertSize = posCount;
+		if (uvCount > maxVertSize) maxVertSize = uvCount;
+		if (normCount > maxVertSize) maxVertSize = normCount;
 
+		for (int i = 0; i < maxVertSize; i++)
+		{
 			Vertex tempVertex;
-
-			unsigned int vertexIndex = vertexIndices[i];
-			tempVertex.position = temp_positions[vertexIndex - 1];
-
-			unsigned int normalIndex = normalIndices[i];
-			tempVertex.normal = temp_normals[normalIndex - 1];
-
-			unsigned int uvIndex = uvIndices[i];
-			tempVertex.uv = temp_uvs[uvIndex - 1];
+			if (posCount > i){tempVertex.position = temp_positions[i];}
+			else { tempVertex.position = Vector3{ 0,0,0 }; }
+			if (uvCount > i){tempVertex.uv = temp_uvs[i];}
+			else { tempVertex.uv = Vector2{ 0,0 }; }
+			if (normCount > i){tempVertex.normal = temp_normals[i];}
+			else { tempVertex.normal = Vector3{ 0,0,0 }; }
 
 			temp_vertices.push_back(tempVertex);
 		}
 
+
 		Mesh newMesh(temp_vertices, vertexIndices);
+
+		std::cout << newMesh.vertices.size() << " Vertices:" << std::endl;
+		for (int i = 0; i < newMesh.vertices.size(); i++)
+		{
+			Vertex vert = newMesh.vertices[i];
+			std::cout << vert.position.x << ", " << vert.position.y << ", " << vert.position.z << std::endl;
+		}
+		std::cout << std::endl;
+
+		std::cout << newMesh.indices.size() << " Indices:" << std::endl;
+		for (int i = 0; i < newMesh.indices.size(); i++)
+		{
+			int ind = newMesh.indices[i];
+			std::cout << ind << ", ";
+		}
+		std::cout<<std::endl;
+
+
 		newMesh.Init();
 
 		this->m_meshes[name] = newMesh;

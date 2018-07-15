@@ -27,9 +27,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
-	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
+	/*AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
-	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
+	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");*/
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -62,6 +62,7 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
 	//	FOR EACH ENTITY IN SCENE
+
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
 		std::cout << "   " << currentScene.entVec[i].name << ": ";
