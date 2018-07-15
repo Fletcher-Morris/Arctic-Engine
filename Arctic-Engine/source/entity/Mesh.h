@@ -11,7 +11,7 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces);
-	void Render(unsigned int shader);
+	void Render();
 	void Init();
 private:
 	unsigned int VAO, VBO, EBO;

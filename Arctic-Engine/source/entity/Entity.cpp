@@ -39,5 +39,5 @@ void Entity::RenderMesh()
 {
 	if (!doRender) return;
 
-	mesh->Render(3);
+	mesh->Render();
 }

@@ -40,12 +40,11 @@ void Mesh::Init()
 	GLCall(glBindVertexArray(0));
 }
 
-void Mesh::Render(unsigned int shader)
+void Mesh::Render()
 {
-	GLCall(glUseProgram(shader));
 
 	//	Draw Mesh
 	GLCall(glBindVertexArray(VAO));
-	GLCall(glDrawElements(GL_TRIANGLES, vertices.size(), GL_UNSIGNED_INT, 0));
+	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
 	GLCall(glBindVertexArray(0));
 }
