@@ -6,11 +6,7 @@
 #include "../core/Texture.h"
 #include "../entity/Entity.h"
 
-Entity enty;
-unsigned int vertBuffer;
-unsigned int uvBuffer;
 unsigned int useTexture;
-std::string useModel = "spring";
 float color[3] = { 0.f, 0.f, 0.f };
 bool useDarkMode;
 bool editor;
@@ -27,9 +23,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
-	/*AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
-	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
-	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");*/
+	//AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
+	//AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
+	//AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -41,33 +37,11 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
-	//o = AssetManager::Instance()->GetMesh(useModel);
 
-	////	VERTEX BUFFER
-	//glGenBuffers(1, &vertBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-	////	UV BUFFER
-	//glGenBuffers(1, &uvBuffer);
-	//glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	//glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
-
-	Shader shad("assets/shaders/combo.shader");
-	shad.Bind();
-
-	enty = Entity("cube");
-
-	//currentScene.NewEntity("cube");
-
-	std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
-	//	FOR EACH ENTITY IN SCENE
-
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		std::cout << "   " << currentScene.entVec[i].name << ": ";
-		std::cout << currentScene.entVec[i].mesh->vertices.size() << " verts" << std::endl;
-	}
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 }
 
 void State_Example::HandleEvent(int e) {
@@ -208,22 +182,5 @@ void State_Example::Render(GLFWwindow* target) {
 		currentScene.entVec[i].RenderMesh();
 	}
 
-	//enty.RenderMesh();
-
-	////	VERTEX BUFFER
-	//glEnableVertexAttribArray(0);
-	//glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	////	UV BUFFER
-	//glEnableVertexAttribArray(1);
-	//glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	//glDrawArrays(GL_TRIANGLES, 0, o.VertCount);
-
 	AssetManager::Instance()->BindTexture(useTexture);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 }

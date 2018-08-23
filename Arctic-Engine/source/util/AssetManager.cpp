@@ -100,9 +100,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			}
 		}
 
-		int maxVertSize = posCount;
-		if (uvCount > maxVertSize) maxVertSize = uvCount;
-		if (normCount > maxVertSize) maxVertSize = normCount;
+		int maxVertSize = allIndices.size() / 9;
 
 		for (int i = 0; i < maxVertSize; i++)
 		{
@@ -119,28 +117,6 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 
 
 		Mesh newMesh(temp_vertices, allIndices);
-
-		//std::cout << newMesh.vertices.size() << " Vertices:" << std::endl;
-
-		for (int i = 0; i < newMesh.vertices.size(); i++)
-		{
-			Vertex vert = newMesh.vertices[i];
-
-			//std::cout << vert.position.x << ", " << vert.position.y << ", " << vert.position.z << std::endl;
-		}
-
-		//std::cout << std::endl;
-
-		//std::cout << newMesh.indices.size()/3 << " Indices:" << std::endl;
-
-		for (int i = 0; i < newMesh.indices.size(); i++)
-		{
-			int ind = newMesh.indices[i];
-
-			//std::cout << ind << ", ";
-		}
-
-		//std::cout<<std::endl;
 
 		newMesh.Init();
 
