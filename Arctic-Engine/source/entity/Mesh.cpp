@@ -17,10 +17,21 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces)
 		float z = vertices[i].position.z;
 		std::cout << "Positions: " << x << "," << y << "," << z << std::endl;
 
+		x = vertices[i].normal.x;
+		y = vertices[i].normal.y;
+		z = vertices[i].normal.z;
+		std::cout << "Normals: " << x << "," << y << "," << z << std::endl;
+
 		x = vertices[i].uv.x;
 		y = vertices[i].uv.y;
 		std::cout << "UV: " << x << "," << y << std::endl << std::endl;
 	}
+
+	for (int i = 0; i < indices.size(); i++)
+	{
+		std::cout << indeces[i] << ",";
+	}
+	std::cout << std::endl;
 
 	Init();
 }
