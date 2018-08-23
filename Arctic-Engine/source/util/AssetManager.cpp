@@ -69,27 +69,34 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					return;
 				}
 
-				//	v,u,n,v,u,n,v,u,n
-				/*allIndices.push_back(vertexIndex[0]);
-				allIndices.push_back(uvIndex[0]);
-				allIndices.push_back(normalIndex[0]);
-				allIndices.push_back(vertexIndex[1]);
-				allIndices.push_back(uvIndex[1]);
-				allIndices.push_back(normalIndex[1]);
-				allIndices.push_back(vertexIndex[2]);
-				allIndices.push_back(uvIndex[2]);
-				allIndices.push_back(normalIndex[2]);*/
+				int method = 1;
 
-				//	v,v,v,u,u,u,n,n,n
-				allIndices.push_back(vertexIndex[0]);
-				allIndices.push_back(vertexIndex[1]);
-				allIndices.push_back(vertexIndex[2]);
-				allIndices.push_back(uvIndex[0]);
-				allIndices.push_back(uvIndex[1]);
-				allIndices.push_back(uvIndex[2]);
-				allIndices.push_back(normalIndex[0]);
-				allIndices.push_back(normalIndex[1]);
-				allIndices.push_back(normalIndex[2]);
+				if (method == 0)
+				{
+					//	v,u,n,v,u,n,v,u,n
+					allIndices.push_back(vertexIndex[0] - 1);
+					allIndices.push_back(uvIndex[0] - 1);
+					allIndices.push_back(normalIndex[0] - 1);
+					allIndices.push_back(vertexIndex[1] - 1);
+					allIndices.push_back(uvIndex[1] - 1);
+					allIndices.push_back(normalIndex[1] - 1);
+					allIndices.push_back(vertexIndex[2] - 1);
+					allIndices.push_back(uvIndex[2] - 1);
+					allIndices.push_back(normalIndex[2] - 1);
+				}
+				else if (method == 1)
+				{
+					//	v,v,v,u,u,u,n,n,n
+					allIndices.push_back(vertexIndex[0] - 1);
+					allIndices.push_back(vertexIndex[1] - 1);
+					allIndices.push_back(vertexIndex[2] - 1);
+					allIndices.push_back(uvIndex[0] - 1);
+					allIndices.push_back(uvIndex[1] - 1);
+					allIndices.push_back(uvIndex[2] - 1);
+					allIndices.push_back(normalIndex[0] - 1);
+					allIndices.push_back(normalIndex[1] - 1);
+					allIndices.push_back(normalIndex[2] - 1);
+				}
 			}
 		}
 
@@ -113,22 +120,27 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 
 		Mesh newMesh(temp_vertices, allIndices);
 
-		std::cout << newMesh.vertices.size() << " Vertices:" << std::endl;
+		//std::cout << newMesh.vertices.size() << " Vertices:" << std::endl;
+
 		for (int i = 0; i < newMesh.vertices.size(); i++)
 		{
 			Vertex vert = newMesh.vertices[i];
-			std::cout << vert.position.x << ", " << vert.position.y << ", " << vert.position.z << std::endl;
-		}
-		std::cout << std::endl;
 
-		std::cout << newMesh.indices.size()/3 << " Indices:" << std::endl;
+			//std::cout << vert.position.x << ", " << vert.position.y << ", " << vert.position.z << std::endl;
+		}
+
+		//std::cout << std::endl;
+
+		//std::cout << newMesh.indices.size()/3 << " Indices:" << std::endl;
+
 		for (int i = 0; i < newMesh.indices.size(); i++)
 		{
 			int ind = newMesh.indices[i];
-			std::cout << ind << ", ";
-		}
-		std::cout<<std::endl;
 
+			//std::cout << ind << ", ";
+		}
+
+		//std::cout<<std::endl;
 
 		newMesh.Init();
 
@@ -138,6 +150,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		{
 			this->loadedMeshes.push_back(name);
 		}
+
 		std::cout << "Loaded mesh: " + fileName + "" << std::endl;
 
 		return;

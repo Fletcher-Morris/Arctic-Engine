@@ -14,6 +14,9 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces)
 
 void Mesh::Init()
 {
+	size = indices.size();
+	std::cout << "SIZE IS : " << size << std::endl;
+
 	GLCall(glGenVertexArrays(1, &VAO));
 	GLCall(glGenBuffers(1, &VBO));
 	GLCall(glGenBuffers(1, &EBO));
@@ -24,7 +27,7 @@ void Mesh::Init()
 	GLCall(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW));
 
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO));
-	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW));
+	GLCall(glBufferData(GL_ELEMENT_ARRAY_BUFFER, size * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW));
 
 
 	//	Position
@@ -45,6 +48,6 @@ void Mesh::Render()
 
 	//	Draw Mesh
 	GLCall(glBindVertexArray(VAO));
-	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
+	GLCall(glDrawElements(GL_TRIANGLES, size, GL_UNSIGNED_INT, 0));
 	GLCall(glBindVertexArray(0));
 }

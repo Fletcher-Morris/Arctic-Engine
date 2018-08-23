@@ -15,4 +15,6 @@ public:
 	void Init();
 private:
 	unsigned int VAO, VBO, EBO;
+
+	int size = 0;
 };
