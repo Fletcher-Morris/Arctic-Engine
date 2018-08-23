@@ -19,17 +19,13 @@ AssetManager::~AssetManager()
 
 void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
-
-	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices, allIndices;
 	std::vector< glm::vec3 > temp_positions;
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
 
-	int posCount = 0;
-	int normCount = 0;
-	int uvCount = 0;
-
 	std::vector<Vertex> temp_vertices;
+
+	std::vector<unsigned int> allIndices;
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
@@ -46,19 +42,16 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				glm::vec3 position;
 				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
 				temp_positions.push_back(position);
-				posCount++;
 			}
 			else if (strcmp(lineHeader, "vt") == 0) {
 				glm::vec2 uv;
 				fscanf(file, "%f %f\n", &uv.x, &uv.y);
 				temp_uvs.push_back(uv);
-				uvCount++;
 			}
 			else if (strcmp(lineHeader, "vn") == 0) {
 				glm::vec3 normal;
 				fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 				temp_normals.push_back(normal);
-				normCount++;
 			}
 			else if (strcmp(lineHeader, "f") == 0) {
 				std::string vertex1, vertex2, vertex3;
@@ -68,51 +61,62 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
 					return;
 				}
+				
+				vertexIndex[0] -= 1;
+				vertexIndex[1] -= 1;
+				vertexIndex[2] -= 1;
+				normalIndex[0] -= 1;
+				normalIndex[1] -= 1;
+				normalIndex[2] -= 1;
+				uvIndex[0] -= 1;
+				uvIndex[1] -= 1;
+				uvIndex[2] -= 1;
 
-				int method = 1;
+
+
+				Vertex temp_vertex;
+
+				temp_vertex.position = temp_positions[vertexIndex[0]];
+				temp_vertex.normal = temp_normals[normalIndex[0]];
+				temp_vertex.uv = temp_uvs[uvIndex[0]];
+				if (!VertexExists(temp_vertices, temp_vertex)) temp_vertices.push_back(temp_vertex);
+
+				temp_vertex.position = temp_positions[vertexIndex[1]];
+				temp_vertex.normal = temp_normals[normalIndex[1]];
+				temp_vertex.uv = temp_uvs[uvIndex[1]];
+				if (!VertexExists(temp_vertices, temp_vertex)) temp_vertices.push_back(temp_vertex);
+
+				temp_vertex.position = temp_positions[vertexIndex[2]];
+				temp_vertex.normal = temp_normals[normalIndex[2]];
+				temp_vertex.uv = temp_uvs[uvIndex[2]];
+
+				int method = 0;
 
 				if (method == 0)
 				{
-					//	v,u,n,v,u,n,v,u,n
-					allIndices.push_back(vertexIndex[0] - 1);
-					allIndices.push_back(uvIndex[0] - 1);
-					allIndices.push_back(normalIndex[0] - 1);
-					allIndices.push_back(vertexIndex[1] - 1);
-					allIndices.push_back(uvIndex[1] - 1);
-					allIndices.push_back(normalIndex[1] - 1);
-					allIndices.push_back(vertexIndex[2] - 1);
-					allIndices.push_back(uvIndex[2] - 1);
-					allIndices.push_back(normalIndex[2] - 1);
+					allIndices.push_back(vertexIndex[0]);
+					allIndices.push_back(vertexIndex[1]);
+					allIndices.push_back(vertexIndex[2]);
+					allIndices.push_back(normalIndex[0]);
+					allIndices.push_back(normalIndex[1]);
+					allIndices.push_back(normalIndex[2]);
+					allIndices.push_back(uvIndex[0]);
+					allIndices.push_back(uvIndex[1]);
+					allIndices.push_back(uvIndex[2]);
 				}
-				else if (method == 1)
+				else
 				{
-					//	v,v,v,u,u,u,n,n,n
-					allIndices.push_back(vertexIndex[0] - 1);
-					allIndices.push_back(vertexIndex[1] - 1);
-					allIndices.push_back(vertexIndex[2] - 1);
-					allIndices.push_back(uvIndex[0] - 1);
-					allIndices.push_back(uvIndex[1] - 1);
-					allIndices.push_back(uvIndex[2] - 1);
-					allIndices.push_back(normalIndex[0] - 1);
-					allIndices.push_back(normalIndex[1] - 1);
-					allIndices.push_back(normalIndex[2] - 1);
+					allIndices.push_back(vertexIndex[0]);
+					allIndices.push_back(normalIndex[0]);
+					allIndices.push_back(uvIndex[0]);
+					allIndices.push_back(vertexIndex[1]);
+					allIndices.push_back(normalIndex[1]);
+					allIndices.push_back(uvIndex[1]);
+					allIndices.push_back(vertexIndex[2]);
+					allIndices.push_back(normalIndex[2]);
+					allIndices.push_back(uvIndex[2]);
 				}
 			}
-		}
-
-		int maxVertSize = allIndices.size() / 9;
-
-		for (int i = 0; i < maxVertSize; i++)
-		{
-			Vertex tempVertex;
-			if (posCount > i){tempVertex.position = temp_positions[i];}
-			else { tempVertex.position = Vector3{ 0,0,0 }; }
-			if (uvCount > i){tempVertex.uv = temp_uvs[i];}
-			else { tempVertex.uv = Vector2{ 0,0 }; }
-			if (normCount > i){tempVertex.normal = temp_normals[i];}
-			else { tempVertex.normal = Vector3{ 0,0,0 }; }
-
-			temp_vertices.push_back(tempVertex);
 		}
 
 
@@ -324,6 +328,18 @@ void AssetManager::DeleteAllTextures()
 {
 }
 
+
+bool AssetManager::VertexExists(std::vector<Vertex> searchArea, Vertex searchfor)
+{
+	for (int i = 0; i < searchArea.size(); i++)
+	{
+		if (searchArea[i].position == searchfor.position
+			&& searchArea[i].normal == searchfor.normal
+			&& searchArea[i].uv == searchfor.uv) return true;
+	}
+
+	return false;
+}
 
 AssetManager::AssetManager()
 {

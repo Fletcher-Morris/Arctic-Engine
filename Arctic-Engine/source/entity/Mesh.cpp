@@ -5,12 +5,12 @@ Mesh::Mesh()
 {
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces)
+Mesh::Mesh(std::vector<Vertex> newVertices, std::vector<unsigned int> newIndices)
 {
-	this->vertices = vertices;
-	this->indices = indeces;
+	this->vertices = newVertices;
+	this->indices = newIndices;
 
-	for (int i = 0; i < vertices.size(); i++)
+	/*for (int i = 0; i < vertices.size(); i++)
 	{
 		float x = vertices[i].position.x;
 		float y = vertices[i].position.y;
@@ -31,7 +31,8 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces)
 	{
 		std::cout << indeces[i] << ",";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
+
 
 	Init();
 }
@@ -52,23 +53,25 @@ void Mesh::Init()
 
 
 	//	Position
-	GLCall(glEnableVertexAttribArray(0));
+	
 	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0));
+	GLCall(glEnableVertexAttribArray(0));
 	//	Normals
-	GLCall(glEnableVertexAttribArray(1));
-	GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
-	//	Tex Coords
-	GLCall(glEnableVertexAttribArray(2));
-	GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv)));
 
+	GLCall(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal)));
+	GLCall(glEnableVertexAttribArray(1));
+	//	Tex Coords
+
+	GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv)));
+	GLCall(glEnableVertexAttribArray(2));
+
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	GLCall(glBindVertexArray(0));
 }
 
 void Mesh::Render()
 {
-
 	//	Draw Mesh
 	GLCall(glBindVertexArray(VAO));
 	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
-	GLCall(glBindVertexArray(0));
 }

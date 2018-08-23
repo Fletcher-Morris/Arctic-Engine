@@ -11,7 +11,7 @@ uniform mat4 u_MVP;
 
 void main()
 {
-	gl_Position = position;
+	gl_Position = vec4(position.x, position.y, position.z, 1.0);
 	v_TexCoord = texCoord;
 }
 

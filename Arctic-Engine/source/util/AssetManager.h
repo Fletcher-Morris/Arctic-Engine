@@ -39,6 +39,8 @@ private:
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
 
+	bool VertexExists(std::vector<Vertex> searchArea, Vertex searchfor);
+
 protected:
 	AssetManager();
 	AssetManager(const AssetManager& ass);

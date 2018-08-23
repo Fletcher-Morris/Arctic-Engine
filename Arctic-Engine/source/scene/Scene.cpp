@@ -17,3 +17,9 @@ void Scene::NewEntity(std::string _name)
 	entityCount++;
 	std::cout << "Created new entity '" << _name << "'" << std::endl;
 }
+
+void Scene::ClearEntities()
+{
+	entVec.clear();
+	entityCount = 0;
+}

@@ -12,4 +12,5 @@ public:
 	int entityCount;
 
 	void NewEntity(std::string _name);
+	void ClearEntities();
 };

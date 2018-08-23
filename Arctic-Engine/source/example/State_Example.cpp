@@ -23,9 +23,10 @@ State_Example::State_Example(Game& game) : State(game) {
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
-	//AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
-	//AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
-	//AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
+	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
+	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
+	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
+	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -110,7 +111,8 @@ void State_Example::GuiUpdate()
 		}
 		if (ImGui::BeginMenu("Scene"))
 		{
-			if (ImGui::MenuItem("New Entity", "CTRL+N")) { currentScene.NewEntity("cube"); }
+			if (ImGui::MenuItem("New Cube", "CTRL+N")) { currentScene.NewEntity("cube"); }
+			if (ImGui::MenuItem("New Teapot", "CTRL+N")) { currentScene.NewEntity("teapot"); }
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Assets"))
@@ -149,24 +151,30 @@ void State_Example::GuiUpdate()
 		ImGui::EndMainMenuBar();
 	}
 
-	if (ImGui::Button("NEW ENTITY"))
+	if (ImGui::Button("CUBE"))
 	{
+		currentScene.ClearEntities();
 		currentScene.NewEntity("cube");
-
-		std::cout << currentScene.entityCount << " entities in scene:" << std::endl;
-		//	FOR EACH ENTITY IN SCENE
-		for (int i = 0; i < currentScene.entityCount; i++)
-		{
-			std::cout << "   " << currentScene.entVec[i].name << ": ";
-			std::cout << currentScene.entVec[i].mesh->vertices.size() << " verts" << std::endl;
-		}
 	}
-	for (int e = 0; e < currentScene.entityCount; e++)
+	if (ImGui::Button("TEAPOT"))
 	{
-		if (ImGui::Button(currentScene.entVec[e].name.c_str()))
-		{
-			currentScene.entVec[e].doRender = !currentScene.entVec[e].doRender;
-		}
+		currentScene.ClearEntities();
+		currentScene.NewEntity("teapot");
+	}
+	if (ImGui::Button("SPHERE"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("sphere");
+	}
+	if (ImGui::Button("QUAD"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("quad");
+	}
+	if (ImGui::Button("SPRING"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("spring");
 	}
 }
 
