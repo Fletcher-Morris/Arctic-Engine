@@ -74,11 +74,6 @@ bool Game::Init()
 
 void Game::Run()
 {
-
-	Shader shad("assets/shaders/combo.shader");
-	shad.Bind();
-
-
 	//	Delta Time Stuff
 	double currentFrameTime = glfwGetTime();
 	double lastFrameTime = currentFrameTime;

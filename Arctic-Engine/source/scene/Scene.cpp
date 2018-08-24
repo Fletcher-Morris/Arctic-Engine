@@ -21,5 +21,6 @@ void Scene::NewEntity(std::string _name)
 void Scene::ClearEntities()
 {
 	entVec.clear();
+	std::cout << "Cleared " << entityCount << " entities" << std::endl;
 	entityCount = 0;
 }

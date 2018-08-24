@@ -73,7 +73,6 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				uvIndex[2] -= 1;
 
 
-
 				Vertex temp_vertex;
 
 				temp_vertex.position = temp_positions[vertexIndex[0]];

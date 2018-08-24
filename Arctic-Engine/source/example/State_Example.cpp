@@ -7,7 +7,7 @@
 #include "../entity/Entity.h"
 
 unsigned int useTexture;
-float color[3] = { 0.f, 0.f, 0.f };
+float color[3] = { 0.f, 0.5f, 1.0f };
 bool useDarkMode;
 bool editor;
 
@@ -21,6 +21,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	else ImGui::StyleColorsLight();
 
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
+
+	Shader shad("assets/shaders/combo.shader");
+	shad.Bind();
 
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
