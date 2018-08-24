@@ -38,6 +38,8 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			char lineHeader[128];
 			res = fscanf(file, "%s", lineHeader);
 
+			Vertex temp_vertex;
+
 			if (strcmp(lineHeader, "v") == 0) {
 				glm::vec3 position;
 				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
