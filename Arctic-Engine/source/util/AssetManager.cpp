@@ -3,6 +3,7 @@
 #include "../render/Renderer.h"
 #include "../stb/stb_image.h"
 #include <vector>
+#include <chrono>
 
 AssetManager * AssetManager::m_instance(0);
 
@@ -19,6 +20,8 @@ AssetManager::~AssetManager()
 
 void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
+	auto startTime = std::chrono::high_resolution_clock::now();
+
 	std::vector< glm::vec3 > input_positions;
 	std::vector< glm::vec2 > input_uvs;
 	std::vector< glm::vec3 > input_normals;
@@ -109,7 +112,9 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			this->loadedMeshes.push_back(name);
 		}
 
-		std::cout << "Loaded mesh: " + fileName + "" << std::endl;
+		auto endTime = std::chrono::high_resolution_clock::now();
+		double loadTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+		std::cout << "Loaded mesh: " + fileName + " in " << loadTime << "ms" << std::endl;
 
 		return;
 	}
@@ -160,10 +165,11 @@ int AssetManager::GetLoadedTextureCount()
 }
 void AssetManager::LoadTexture(std::string name, std::string filename)
 {
+	auto  startTime = std::chrono::high_resolution_clock::now();
+
 	unsigned char * m_data;
 	int m_width, m_height, m_bits;
 	unsigned int m_textureId;
-
 
 	m_data = stbi_load(filename.c_str(), &m_width, &m_height, &m_bits, 4);
 	
@@ -224,6 +230,10 @@ void AssetManager::LoadTexture(std::string name, std::string filename)
 		GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 		stbi_image_free(m_data);
 	}
+
+	auto endTime = std::chrono::high_resolution_clock::now();
+	double loadTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+	std::cout << "Loaded texture: " << filename.c_str() << " in " << loadTime << "ms" << std::endl;
 }
 void AssetManager::ReloadTexture(std::string name, std::string filename)
 {
