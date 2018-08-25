@@ -91,7 +91,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				newVert.normal = tempNorm;
 
 				output_vertices.push_back(newVert);
-				ind = output_vertices.size();
+				ind = output_vertices.size() - 1;
 			}
 			else
 			{

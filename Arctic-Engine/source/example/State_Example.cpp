@@ -43,10 +43,10 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
 
-	//// Enable depth test
-	//glEnable(GL_DEPTH_TEST);
-	//// Accept fragment if it closer to the camera than the former one
-	//glDepthFunc(GL_LESS);
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 }
 
 void State_Example::HandleEvent(int e) {
