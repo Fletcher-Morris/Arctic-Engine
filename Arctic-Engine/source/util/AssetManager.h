@@ -19,6 +19,7 @@ public:
 	void LoadMesh(std::string name, std::string fileName);
 	Mesh * GetMesh(std::string name);
 	std::vector<std::string> loadedMeshes;
+	void WriteMeshFile(Mesh mesh, std::string fileName);
 
 	void LoadTexturePropper(std::string name, std::string fileName);
 	Texture &GetTexturePropper(std::string name);
