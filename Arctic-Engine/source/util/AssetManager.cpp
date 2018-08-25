@@ -22,9 +22,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	std::vector< glm::vec3 > input_positions;
 	std::vector< glm::vec2 > input_uvs;
 	std::vector< glm::vec3 > input_normals;
-	std::vector<unsigned int> input_indices;
 	std::vector<IndexTriplet> input_triplets;
-
 	std::vector<Vertex> output_vertices;
 	std::vector<unsigned int> output_indices;
 
