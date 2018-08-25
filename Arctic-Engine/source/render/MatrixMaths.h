@@ -2,7 +2,7 @@
 
 #include "../util/GlmTypedefs.h"
 
-struct Entity;
+class Entity;
 class Camera;
 struct CameraConfig;
 

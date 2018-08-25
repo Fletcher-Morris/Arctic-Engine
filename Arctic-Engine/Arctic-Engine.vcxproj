@@ -187,6 +187,7 @@
     <ClInclude Include="source\render\MatrixMaths.h" />
     <ClInclude Include="source\render\Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />
+    <ClInclude Include="source\render\Vertex.h" />
     <ClInclude Include="source\render\VertexArray.h" />
     <ClInclude Include="source\render\VertexBuffer.h" />
     <ClInclude Include="source\render\VertexBufferLayout.h" />
@@ -210,6 +211,7 @@
     <ClCompile Include="source\editor\imgui.cpp" />
     <ClCompile Include="source\editor\imgui_draw.cpp" />
     <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="source\entity\Entity.cpp" />
     <ClCompile Include="source\entity\Mesh.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
     <ClCompile Include="source\render\Camera.cpp" />

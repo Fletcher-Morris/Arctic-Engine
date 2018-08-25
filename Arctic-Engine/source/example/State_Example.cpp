@@ -6,15 +6,11 @@
 #include "../core/Texture.h"
 #include "../entity/Entity.h"
 
-Mesh o;
-Entity e;
-unsigned int vertBuffer;
-unsigned int uvBuffer;
 unsigned int useTexture;
-std::string useModel = "spring";
-float color[3] = { 0.f, 0.f, 0.f };
+float color[3] = { 0.f, 0.5f, 1.0f };
 bool useDarkMode;
 bool editor;
+int renderMethod = 0;
 
 State_Example::State_Example(Game& game) : State(game) {
 
@@ -27,10 +23,14 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
+	Shader shad("assets/shaders/combo.shader");
+	shad.Bind();
+
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
 	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
+	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -42,21 +42,11 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
-	o = AssetManager::Instance()->GetMesh(useModel);
-	e.SetMesh(&AssetManager::Instance()->GetMesh(useModel));
 
-	//	VERTEX BUFFER
-	glGenBuffers(1, &vertBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-	//	UV BUFFER
-	glGenBuffers(1, &uvBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
-
-	Shader shad("assets/shaders/combo.shader");
-	shad.Bind();
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
 }
 
 void State_Example::HandleEvent(int e) {
@@ -69,10 +59,20 @@ void State_Example::HandleInput(GLFWwindow* window) {
 
 void State_Example::Update(double deltaTime) {
 
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].Update(deltaTime);
+	}
 }
 
 void State_Example::FixedUpdate(double fixedTime) {
 
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].Update(fixedTime);
+	}
 }
 
 void State_Example::GuiUpdate()
@@ -113,6 +113,12 @@ void State_Example::GuiUpdate()
 			if (ImGui::MenuItem("Paste", "CTRL+V", false, false)) {}
 			ImGui::EndMenu();
 		}
+		if (ImGui::BeginMenu("Scene"))
+		{
+			if (ImGui::MenuItem("New Cube", "CTRL+N")) { currentScene.NewEntity("cube"); }
+			if (ImGui::MenuItem("New Teapot", "CTRL+N")) { currentScene.NewEntity("teapot"); }
+			ImGui::EndMenu();
+		}
 		if (ImGui::BeginMenu("Assets"))
 		{
 			if (ImGui::BeginMenu("Textures"))
@@ -130,18 +136,7 @@ void State_Example::GuiUpdate()
 				{
 					if (ImGui::Button(AssetManager::Instance()->loadedMeshes[i].c_str()))
 					{
-						useModel = AssetManager::Instance()->loadedMeshes[i].c_str();
-						o = AssetManager::Instance()->GetMesh(useModel);
 
-						//	VERTEX BUFFER
-						glGenBuffers(1, &vertBuffer);
-						glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-						glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-						//	UV BUFFER
-						glGenBuffers(1, &uvBuffer);
-						glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-						glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 					}
 				}
 
@@ -151,23 +146,52 @@ void State_Example::GuiUpdate()
 		}
 		if(ImGui::Button("Reload Model"))
 		{
-			AssetManager::Instance()->LoadMesh(useModel, "assets/models/" + useModel + ".obj");
-			o = AssetManager::Instance()->GetMesh(useModel);
 
-			//	VERTEX BUFFER
-			glGenBuffers(1, &vertBuffer);
-			glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-			glBufferData(GL_ARRAY_BUFFER, o.vertices.size() * sizeof(Vector3), &o.vertices[0], GL_STATIC_DRAW);
-
-			//	UV BUFFER
-			glGenBuffers(1, &uvBuffer);
-			glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-			glBufferData(GL_ARRAY_BUFFER, o.uvs.size() * sizeof(Vector2), &o.uvs[0], GL_STATIC_DRAW);
 		}
+
 		ImGui::Separator();
 		ImGui::SameLine(ImGui::GetWindowWidth() - (80 * EnginePrefs::Instance()->guiScale));
 		ImGui::Text("(%.0f FPS)", ImGui::GetIO().Framerate);
 		ImGui::EndMainMenuBar();
+	}
+
+	if (ImGui::Button("CUBE"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("cube");
+	}
+	if (ImGui::Button("TEAPOT"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("teapot");
+	}
+	if (ImGui::Button("SPHERE"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("sphere");
+	}
+	if (ImGui::Button("QUAD"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("quad");
+	}
+	if (ImGui::Button("SPRING"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("spring");
+	}
+
+	if (ImGui::Button("FACES"))
+	{
+		renderMethod = 0;
+	}
+	if (ImGui::Button("LINES"))
+	{
+		renderMethod = 1;
+	}
+	if (ImGui::Button("POINTS"))
+	{
+		renderMethod = 2;
 	}
 }
 
@@ -176,20 +200,12 @@ void State_Example::Render(GLFWwindow* target) {
 	glClearColor(color[0], color[1], color[2], 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//	VERTEX BUFFER
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertBuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-	//	UV BUFFER
-	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-
-	glDrawArrays(GL_TRIANGLES, 0, o.VertCount);
+	//	FOR EACH ENTITY IN SCENE
+	for (int i = 0; i < currentScene.entityCount; i++)
+	{
+		currentScene.entVec[i].RenderMesh(renderMethod);
+	}
 
 	AssetManager::Instance()->BindTexture(useTexture);
-
-	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
 }

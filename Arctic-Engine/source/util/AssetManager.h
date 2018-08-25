@@ -17,7 +17,7 @@ public:
 	virtual ~AssetManager();
 
 	void LoadMesh(std::string name, std::string fileName);
-	Mesh &GetMesh(std::string name);
+	Mesh * GetMesh(std::string name);
 	std::vector<std::string> loadedMeshes;
 
 	void LoadTexturePropper(std::string name, std::string fileName);
@@ -38,6 +38,8 @@ private:
 	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
+
+	int FindExistingVertex(std::vector<Vertex> searchArea, Vector3 position, Vector2 uv, Vector3 normal);
 
 protected:
 	AssetManager();

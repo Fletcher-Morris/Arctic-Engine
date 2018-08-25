@@ -74,44 +74,6 @@ bool Game::Init()
 
 void Game::Run()
 {
-	float positions[] =
-	{
-		-1.0f, -1.0f, 0.0f, 0.0f,
-		1.0f, -1.f, 1.0f, 0.0f,
-		1.0f, 1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 0.0f, 1.0f
-	};
-
-	unsigned int indeces[] =
-	{
-		0,1,2,
-		2,3,0
-	};
-
-	VertexArray va;
-	VertexBuffer vb(positions, 4 * 4 * sizeof(float));
-
-	VertexBufferLayout layout;
-	layout.Push<float>(2);
-	layout.Push<float>(2);
-	va.AddBuffer(vb, layout);
-
-	IndexBuffer ib(indeces, 6);
-
-	Shader shad("assets/shaders/combo.shader");
-	shad.Bind();
-	shad.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
-
-	shad.SetUniform1i("u_Texture", 0);
-
-	va.Unbind();
-	vb.Unbind();
-	ib.Unbind();
-	shad.Unbind();
-
-	Renderer rend;
-
-
 	//	Delta Time Stuff
 	double currentFrameTime = glfwGetTime();
 	double lastFrameTime = currentFrameTime;
@@ -131,8 +93,6 @@ void Game::Run()
 		//	RENDER START
 
 		GetCurrentState().Render(window);
-
-		rend.Draw(va, ib, shad);
 
 		//	RENDER END
 
