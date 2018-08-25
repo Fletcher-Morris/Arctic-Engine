@@ -10,6 +10,7 @@ unsigned int useTexture;
 float color[3] = { 0.f, 0.5f, 1.0f };
 bool useDarkMode;
 bool editor;
+int renderMethod = 0;
 
 State_Example::State_Example(Game& game) : State(game) {
 
@@ -42,10 +43,10 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
 
-	// Enable depth test
-	glEnable(GL_DEPTH_TEST);
-	// Accept fragment if it closer to the camera than the former one
-	glDepthFunc(GL_LESS);
+	//// Enable depth test
+	//glEnable(GL_DEPTH_TEST);
+	//// Accept fragment if it closer to the camera than the former one
+	//glDepthFunc(GL_LESS);
 }
 
 void State_Example::HandleEvent(int e) {
@@ -179,6 +180,19 @@ void State_Example::GuiUpdate()
 		currentScene.ClearEntities();
 		currentScene.NewEntity("spring");
 	}
+
+	if (ImGui::Button("FACES"))
+	{
+		renderMethod = 0;
+	}
+	if (ImGui::Button("LINES"))
+	{
+		renderMethod = 1;
+	}
+	if (ImGui::Button("POINTS"))
+	{
+		renderMethod = 2;
+	}
 }
 
 void State_Example::Render(GLFWwindow* target) {
@@ -190,7 +204,7 @@ void State_Example::Render(GLFWwindow* target) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entVec[i].RenderMesh();
+		currentScene.entVec[i].RenderMesh(renderMethod);
 	}
 
 	AssetManager::Instance()->BindTexture(useTexture);

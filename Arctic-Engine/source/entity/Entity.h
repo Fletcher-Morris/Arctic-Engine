@@ -26,5 +26,5 @@ public:
 
 	void Update(double deltaTime);
 	void FixedUpdate(double fixedTime);
-	void RenderMesh();
+	void RenderMesh(int method);
 };

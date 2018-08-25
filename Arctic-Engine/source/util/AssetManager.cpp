@@ -19,13 +19,14 @@ AssetManager::~AssetManager()
 
 void AssetManager::LoadMesh(std::string name, std::string fileName)
 {
-	std::vector< glm::vec3 > temp_positions;
-	std::vector< glm::vec2 > temp_uvs;
-	std::vector< glm::vec3 > temp_normals;
+	std::vector< glm::vec3 > input_positions;
+	std::vector< glm::vec2 > input_uvs;
+	std::vector< glm::vec3 > input_normals;
+	std::vector<unsigned int> input_indices;
+	std::vector<IndexTriplet> input_triplets;
 
-	std::vector<Vertex> temp_vertices;
-
-	std::vector<unsigned int> allIndices;
+	std::vector<Vertex> output_vertices;
+	std::vector<unsigned int> output_indices;
 
 	FILE * file = fopen(fileName.c_str(),"r");
 	if (file == NULL) {
@@ -41,87 +42,65 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			Vertex temp_vertex;
 
 			if (strcmp(lineHeader, "v") == 0) {
-				glm::vec3 position;
+				Vector3 position;
 				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
-				temp_positions.push_back(position);
+				input_positions.push_back(position);
 			}
 			else if (strcmp(lineHeader, "vt") == 0) {
-				glm::vec2 uv;
+				Vector2 uv;
 				fscanf(file, "%f %f\n", &uv.x, &uv.y);
-				temp_uvs.push_back(uv);
+				input_uvs.push_back(uv);
 			}
 			else if (strcmp(lineHeader, "vn") == 0) {
-				glm::vec3 normal;
+				Vector3 normal;
 				fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-				temp_normals.push_back(normal);
+				input_normals.push_back(normal);
 			}
 			else if (strcmp(lineHeader, "f") == 0) {
-				std::string vertex1, vertex2, vertex3;
-				unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+				IndexTriplet trip[3];
+				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &trip[0].pos, &trip[0].uv, &trip[0].norm, &trip[1].pos, &trip[1].uv, &trip[1].norm, &trip[2].pos, &trip[2].uv, &trip[2].norm);
 				if (matches != 9) {
 					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
 					return;
 				}
-				
-				vertexIndex[0] -= 1;
-				vertexIndex[1] -= 1;
-				vertexIndex[2] -= 1;
-				normalIndex[0] -= 1;
-				normalIndex[1] -= 1;
-				normalIndex[2] -= 1;
-				uvIndex[0] -= 1;
-				uvIndex[1] -= 1;
-				uvIndex[2] -= 1;
 
-
-				Vertex temp_vertex;
-
-				temp_vertex.position = temp_positions[vertexIndex[0]];
-				temp_vertex.normal = temp_normals[normalIndex[0]];
-				temp_vertex.uv = temp_uvs[uvIndex[0]];
-				if (!VertexExists(temp_vertices, temp_vertex)) temp_vertices.push_back(temp_vertex);
-
-				temp_vertex.position = temp_positions[vertexIndex[1]];
-				temp_vertex.normal = temp_normals[normalIndex[1]];
-				temp_vertex.uv = temp_uvs[uvIndex[1]];
-				if (!VertexExists(temp_vertices, temp_vertex)) temp_vertices.push_back(temp_vertex);
-
-				temp_vertex.position = temp_positions[vertexIndex[2]];
-				temp_vertex.normal = temp_normals[normalIndex[2]];
-				temp_vertex.uv = temp_uvs[uvIndex[2]];
-
-				int method = 0;
-
-				if (method == 0)
+				for (int i = 0; i < 3; i++)
 				{
-					allIndices.push_back(vertexIndex[0]);
-					allIndices.push_back(vertexIndex[1]);
-					allIndices.push_back(vertexIndex[2]);
-					allIndices.push_back(normalIndex[0]);
-					allIndices.push_back(normalIndex[1]);
-					allIndices.push_back(normalIndex[2]);
-					allIndices.push_back(uvIndex[0]);
-					allIndices.push_back(uvIndex[1]);
-					allIndices.push_back(uvIndex[2]);
-				}
-				else
-				{
-					allIndices.push_back(vertexIndex[0]);
-					allIndices.push_back(normalIndex[0]);
-					allIndices.push_back(uvIndex[0]);
-					allIndices.push_back(vertexIndex[1]);
-					allIndices.push_back(normalIndex[1]);
-					allIndices.push_back(uvIndex[1]);
-					allIndices.push_back(vertexIndex[2]);
-					allIndices.push_back(normalIndex[2]);
-					allIndices.push_back(uvIndex[2]);
+					trip[i].pos--;
+					trip[i].uv--;
+					trip[i].norm--;
+
+					input_triplets.push_back(trip[i]);
 				}
 			}
 		}
 
+		for (int i = 0; i < input_triplets.size(); i++)
+		{
+			Vector3 tempPos = input_positions[input_triplets[i].pos];
+			Vector2 tempUv = input_uvs[input_triplets[i].uv];
+			Vector3 tempNorm = input_normals[input_triplets[i].norm];
 
-		Mesh newMesh(temp_vertices, allIndices);
+			int ind = FindExistingVertex(output_vertices, tempPos, tempUv, tempNorm);
+			if (ind == -1)
+			{
+				//	Does not exist
+				Vertex newVert;
+				newVert.position = tempPos;
+				newVert.uv = tempUv;
+				newVert.normal = tempNorm;
+
+				output_vertices.push_back(newVert);
+				ind = output_vertices.size();
+			}
+			else
+			{
+				//	Does exist
+			}
+			output_indices.push_back(ind);
+		}
+
+		Mesh newMesh(output_vertices, output_indices);
 
 		newMesh.Init();
 
@@ -136,6 +115,18 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 
 		return;
 	}
+}
+
+int AssetManager::FindExistingVertex(std::vector<Vertex> searchArea, Vector3 position, Vector2 uv, Vector3 normal)
+{
+	for (int i = 0; i < searchArea.size(); i++)
+	{
+		if (searchArea[i].position == position
+			&& searchArea[i].normal == normal
+			&& searchArea[i].uv == uv) return i;
+	}
+
+	return -1;
 }
 
 Mesh * AssetManager::GetMesh(std::string name)
@@ -327,19 +318,6 @@ void AssetManager::DeleteTexture(unsigned int id)
 
 void AssetManager::DeleteAllTextures()
 {
-}
-
-
-bool AssetManager::VertexExists(std::vector<Vertex> searchArea, Vertex searchfor)
-{
-	for (int i = 0; i < searchArea.size(); i++)
-	{
-		if (searchArea[i].position == searchfor.position
-			&& searchArea[i].normal == searchfor.normal
-			&& searchArea[i].uv == searchfor.uv) return true;
-	}
-
-	return false;
 }
 
 AssetManager::AssetManager()

@@ -69,9 +69,21 @@ void Mesh::Init()
 	GLCall(glBindVertexArray(0));
 }
 
-void Mesh::Render()
+void Mesh::Render(int method)
 {
 	//	Draw Mesh
 	GLCall(glBindVertexArray(VAO));
-	GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
+
+	if (method == 0)
+	{
+		GLCall(glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0));
+	}
+	else if (method == 1)
+	{
+		GLCall(glDrawElements(GL_LINES, indices.size(), GL_UNSIGNED_INT, 0));
+	}
+	else if (method == 2)
+	{
+		GLCall(glDrawElements(GL_POINTS, indices.size(), GL_UNSIGNED_INT, 0));
+	}
 }

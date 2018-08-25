@@ -35,9 +35,9 @@ void Entity::FixedUpdate(double fixedTime)
 {
 }
 
-void Entity::RenderMesh()
+void Entity::RenderMesh(int method)
 {
 	if (!doRender) return;
 
-	mesh->Render();
+	mesh->Render(method);
 }
