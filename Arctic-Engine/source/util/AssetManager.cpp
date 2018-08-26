@@ -29,96 +29,127 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	std::vector<Vertex> output_vertices;
 	std::vector<unsigned int> output_indices;
 
-	FILE * file = fopen(fileName.c_str(),"r");
-	if (file == NULL) {
-		std::cout << red << "Failed to load mesh: " + fileName + "" << std::endl;
-		return;
-	}
-	else {
+	std::fstream f(fileName + ".mesh");
+	if (f.good())
+	{
+		FILE * file = fopen((fileName + ".mesh").c_str(), "r");
+
 		int res = 0;
 		while (res != EOF) {
 			char lineHeader[128];
 			res = fscanf(file, "%s", lineHeader);
 
-			Vertex temp_vertex;
-
 			if (strcmp(lineHeader, "v") == 0) {
+				Vertex newVertex;
 				Vector3 position;
-				fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
-				input_positions.push_back(position);
-			}
-			else if (strcmp(lineHeader, "vt") == 0) {
-				Vector2 uv;
-				fscanf(file, "%f %f\n", &uv.x, &uv.y);
-				input_uvs.push_back(uv);
-			}
-			else if (strcmp(lineHeader, "vn") == 0) {
 				Vector3 normal;
-				fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-				input_normals.push_back(normal);
+				Vector2 uv;
+				fscanf(file, "%f %f %f %f %f %f %f %f", &position.x, &position.y, &position.z, &normal.x, &normal.y, &normal.z, &uv.x, &uv.y);
+				newVertex.position = position;
+				newVertex.normal = normal;
+				newVertex.uv = uv;
+				output_vertices.push_back(newVertex);
 			}
-			else if (strcmp(lineHeader, "f") == 0) {
-				IndexTriplet trip[3];
-				int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &trip[0].pos, &trip[0].uv, &trip[0].norm, &trip[1].pos, &trip[1].uv, &trip[1].norm, &trip[2].pos, &trip[2].uv, &trip[2].norm);
-				if (matches != 9) {
-					std::cout << red << "Error parsing obj file: " << fileName << std::endl;
-					return;
-				}
-
-				for (int i = 0; i < 3; i++)
-				{
-					trip[i].pos--;
-					trip[i].uv--;
-					trip[i].norm--;
-
-					input_triplets.push_back(trip[i]);
-				}
+			else if (strcmp(lineHeader, "i") == 0) {
+				int ind[1];
+				fscanf(file, "%d", &ind[0]);
+				output_indices.push_back(ind[0]);
 			}
-		}
-
-		for (int i = 0; i < input_triplets.size(); i++)
-		{
-			Vector3 tempPos = input_positions[input_triplets[i].pos];
-			Vector2 tempUv = input_uvs[input_triplets[i].uv];
-			Vector3 tempNorm = input_normals[input_triplets[i].norm];
-
-			int ind = FindExistingVertex(output_vertices, tempPos, tempUv, tempNorm);
-			if (ind == -1)
-			{
-				//	Does not exist
-				Vertex newVert;
-				newVert.position = tempPos;
-				newVert.uv = tempUv;
-				newVert.normal = tempNorm;
-
-				output_vertices.push_back(newVert);
-				ind = output_vertices.size() - 1;
-			}
-			else
-			{
-				//	Does exist
-			}
-			output_indices.push_back(ind);
 		}
 
 		Mesh newMesh(output_vertices, output_indices);
-		WriteMeshFile(newMesh, fileName);
-
 		newMesh.Init();
-
-		this->m_meshes[name] = newMesh;
-		
-		if(std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
+		if (std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
 		{
 			this->loadedMeshes.push_back(name);
 		}
-
-		auto endTime = std::chrono::high_resolution_clock::now();
-		double loadTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
-		std::cout << "Loaded mesh: " + fileName + " in " << loadTime << "ms" << std::endl;
-
-		return;
 	}
+	
+	{
+		FILE * file = fopen(fileName.c_str(), "r");
+		if (file == NULL) {
+			std::cout << red << "Failed to load mesh: " + fileName + "" << std::endl;
+			return;
+		}
+		else {
+			int res = 0;
+			while (res != EOF) {
+				char lineHeader[128];
+				res = fscanf(file, "%s", lineHeader);
+
+				Vertex temp_vertex;
+
+				if (strcmp(lineHeader, "v") == 0) {
+					Vector3 position;
+					fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
+					input_positions.push_back(position);
+				}
+				else if (strcmp(lineHeader, "vt") == 0) {
+					Vector2 uv;
+					fscanf(file, "%f %f\n", &uv.x, &uv.y);
+					input_uvs.push_back(uv);
+				}
+				else if (strcmp(lineHeader, "vn") == 0) {
+					Vector3 normal;
+					fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
+					input_normals.push_back(normal);
+				}
+				else if (strcmp(lineHeader, "f") == 0) {
+					IndexTriplet trip[3];
+					int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &trip[0].pos, &trip[0].uv, &trip[0].norm, &trip[1].pos, &trip[1].uv, &trip[1].norm, &trip[2].pos, &trip[2].uv, &trip[2].norm);
+					if (matches != 9) {
+						std::cout << red << "Error parsing obj file: " << fileName << std::endl;
+						return;
+					}
+
+					for (int i = 0; i < 3; i++)
+					{
+						trip[i].pos--;
+						trip[i].uv--;
+						trip[i].norm--;
+
+						input_triplets.push_back(trip[i]);
+					}
+				}
+			}
+
+			for (int i = 0; i < input_triplets.size(); i++)
+			{
+				Vector3 tempPos = input_positions[input_triplets[i].pos];
+				Vector2 tempUv = input_uvs[input_triplets[i].uv];
+				Vector3 tempNorm = input_normals[input_triplets[i].norm];
+
+				int ind = FindExistingVertex(output_vertices, tempPos, tempUv, tempNorm);
+				if (ind == -1)
+				{
+					//	Does not exist
+					Vertex newVert;
+					newVert.position = tempPos;
+					newVert.uv = tempUv;
+					newVert.normal = tempNorm;
+
+					output_vertices.push_back(newVert);
+					ind = output_vertices.size() - 1;
+				}
+				else
+				{
+					//	Does exist
+				}
+				output_indices.push_back(ind);
+			}
+
+			Mesh newMesh(output_vertices, output_indices);
+			WriteMeshFile(newMesh, fileName);
+			newMesh.Init();
+			if (std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
+			{
+				this->loadedMeshes.push_back(name);
+			}
+		}
+	}
+	auto endTime = std::chrono::high_resolution_clock::now();
+	double loadTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
+	std::cout << "Loaded mesh: " + fileName + " in " << loadTime << "ms" << std::endl;
 }
 
 int AssetManager::FindExistingVertex(std::vector<Vertex> searchArea, Vector3 position, Vector2 uv, Vector3 normal)
@@ -152,18 +183,18 @@ void AssetManager::WriteMeshFile(Mesh mesh, std::string fileName)
 	int v = 0;
 	while (v < mesh.vertices.size())
 	{
-		fileData.append("\nv ");
-		fileData.append(std::to_string(mesh.vertices[v].position.x) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].position.y) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].position.z) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].normal.x) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].normal.y) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].normal.z) + ",");
-		fileData.append(std::to_string(mesh.vertices[v].uv.x) + ",");
+		fileData.append("v ");
+		fileData.append(std::to_string(mesh.vertices[v].position.x) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].position.y) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].position.z) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].normal.x) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].normal.y) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].normal.z) + " ");
+		fileData.append(std::to_string(mesh.vertices[v].uv.x) + " ");
 		fileData.append(std::to_string(mesh.vertices[v].uv.y));
+		fileData.append("\n");
 		v++;
 	}
-	fileData.append("\n");
 	int i = 0;
 	while (i < mesh.indices.size())
 	{
