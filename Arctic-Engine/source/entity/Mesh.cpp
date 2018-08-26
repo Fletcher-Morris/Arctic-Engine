@@ -9,31 +9,6 @@ Mesh::Mesh(std::vector<Vertex> newVertices, std::vector<unsigned int> newIndices
 {
 	this->vertices = newVertices;
 	this->indices = newIndices;
-
-	/*for (int i = 0; i < vertices.size(); i++)
-	{
-		float x = vertices[i].position.x;
-		float y = vertices[i].position.y;
-		float z = vertices[i].position.z;
-		std::cout << "Positions: " << x << "," << y << "," << z << std::endl;
-
-		x = vertices[i].normal.x;
-		y = vertices[i].normal.y;
-		z = vertices[i].normal.z;
-		std::cout << "Normals: " << x << "," << y << "," << z << std::endl;
-
-		x = vertices[i].uv.x;
-		y = vertices[i].uv.y;
-		std::cout << "UV: " << x << "," << y << std::endl << std::endl;
-	}
-
-	for (int i = 0; i < indices.size(); i++)
-	{
-		std::cout << indeces[i] << ",";
-	}
-	std::cout << std::endl;*/
-
-
 	Init();
 }
 
