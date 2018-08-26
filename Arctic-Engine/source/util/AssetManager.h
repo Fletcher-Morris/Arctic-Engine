@@ -39,7 +39,7 @@ private:
 	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
-
+	int currentMeshRevision = 1;
 	int FindExistingVertex(std::vector<Vertex> searchArea, Vector3 position, Vector2 uv, Vector3 normal);
 
 protected:

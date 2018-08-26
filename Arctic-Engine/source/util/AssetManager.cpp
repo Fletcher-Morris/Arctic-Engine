@@ -37,7 +37,16 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 		while (res != EOF) {
 			char lineHeader[128];
 			res = fscanf(file, "%s", lineHeader);
-			if (strcmp(lineHeader, "v") == 0) {
+			if (strcmp(lineHeader, "r") == 0) {
+				int rev;
+				fscanf(file, "%d", &rev);
+				if (rev != currentMeshRevision)
+				{
+					std::cout << currentMeshRevision << " != " << rev << std::endl;
+					std::cout << red << "Mesh: " + fileName + " does not match current revision" << white << std::endl;
+				}
+			}
+			else if (strcmp(lineHeader, "v") == 0) {
 				Vertex newVertex;
 				Vector3 position;
 				Vector3 normal;
@@ -49,9 +58,9 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 				output_vertices.push_back(newVertex);
 			}
 			else if (strcmp(lineHeader, "i") == 0) {
-				int ind[1];
-				fscanf(file, "%d", &ind[0]);
-				output_indices.push_back(ind[0]);
+				int ind;
+				fscanf(file, "%d", &ind);
+				output_indices.push_back(ind);
 			}
 		}
 
@@ -168,7 +177,9 @@ void AssetManager::WriteMeshFile(Mesh mesh, std::string fileName)
 
 	std::string fileData;
 
-	fileData.append("r 1\n\n");
+	fileData.append("r ");
+	fileData.append(std::to_string(currentMeshRevision));
+	fileData.append("\n\n");
 
 	int v = 0;
 	while (v < mesh.vertices.size())
