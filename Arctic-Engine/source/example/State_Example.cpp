@@ -26,11 +26,12 @@ State_Example::State_Example(Game& game) : State(game) {
 	Shader shad("assets/shaders/combo.shader");
 	shad.Bind();
 
+	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
-	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
 	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
-	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
+	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
+	AssetManager::Instance()->LoadMesh("dragon", "assets/models/dragonsmall.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
@@ -155,31 +156,37 @@ void State_Example::GuiUpdate()
 		ImGui::EndMainMenuBar();
 	}
 
+	if (ImGui::Button("QUAD"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("quad");
+	}
 	if (ImGui::Button("CUBE"))
 	{
 		currentScene.ClearEntities();
 		currentScene.NewEntity("cube");
-	}
-	if (ImGui::Button("TEAPOT"))
-	{
-		currentScene.ClearEntities();
-		currentScene.NewEntity("teapot");
 	}
 	if (ImGui::Button("SPHERE"))
 	{
 		currentScene.ClearEntities();
 		currentScene.NewEntity("sphere");
 	}
-	if (ImGui::Button("QUAD"))
-	{
-		currentScene.ClearEntities();
-		currentScene.NewEntity("quad");
-	}
 	if (ImGui::Button("SPRING"))
 	{
 		currentScene.ClearEntities();
 		currentScene.NewEntity("spring");
 	}
+	if (ImGui::Button("TEAPOT"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("teapot");
+	}
+	if (ImGui::Button("DRAGON"))
+	{
+		currentScene.ClearEntities();
+		currentScene.NewEntity("dragon");
+	}
+	
 
 	if (ImGui::Button("FACES"))
 	{
