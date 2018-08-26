@@ -29,16 +29,14 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	std::vector<Vertex> output_vertices;
 	std::vector<unsigned int> output_indices;
 
-	struct stat buffer;
-	if (stat((fileName + ".mesh").c_str(), &buffer) == 0)
+	struct stat f;
+	if (stat((fileName + ".mesh").c_str(), &f) == 0)
 	{
 		FILE * file = fopen((fileName + ".mesh").c_str(), "r");
-
 		int res = 0;
 		while (res != EOF) {
 			char lineHeader[128];
 			res = fscanf(file, "%s", lineHeader);
-
 			if (strcmp(lineHeader, "v") == 0) {
 				Vertex newVertex;
 				Vector3 position;
@@ -59,6 +57,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 
 		Mesh newMesh(output_vertices, output_indices);
 		newMesh.Init();
+		this->m_meshes[name] = newMesh;
 		if (std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
 		{
 			this->loadedMeshes.push_back(name);
@@ -68,7 +67,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 	{
 		FILE * file = fopen(fileName.c_str(), "r");
 		if (file == NULL) {
-			std::cout << red << "Failed to load mesh: " + fileName + "" << std::endl;
+			std::cout << red << "Failed to load obj: " + fileName + "" << white << std::endl;
 			return;
 		}
 		else {
@@ -76,9 +75,7 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			while (res != EOF) {
 				char lineHeader[128];
 				res = fscanf(file, "%s", lineHeader);
-
 				Vertex temp_vertex;
-
 				if (strcmp(lineHeader, "v") == 0) {
 					Vector3 position;
 					fscanf(file, "%f %f %f\n", &position.x, &position.y, &position.z);
@@ -98,31 +95,26 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					IndexTriplet trip[3];
 					int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &trip[0].pos, &trip[0].uv, &trip[0].norm, &trip[1].pos, &trip[1].uv, &trip[1].norm, &trip[2].pos, &trip[2].uv, &trip[2].norm);
 					if (matches != 9) {
-						std::cout << red << "Error parsing obj file: " << fileName << std::endl;
+						std::cout << red << "Error parsing obj file: " << fileName << white << std::endl;
 						return;
 					}
-
 					for (int i = 0; i < 3; i++)
 					{
 						trip[i].pos--;
 						trip[i].uv--;
 						trip[i].norm--;
-
 						input_triplets.push_back(trip[i]);
 					}
 				}
 			}
-
 			for (int i = 0; i < input_triplets.size(); i++)
 			{
 				Vector3 tempPos = input_positions[input_triplets[i].pos];
 				Vector2 tempUv = input_uvs[input_triplets[i].uv];
 				Vector3 tempNorm = input_normals[input_triplets[i].norm];
-
 				int ind = FindExistingVertex(output_vertices, tempPos, tempUv, tempNorm);
 				if (ind == -1)
 				{
-					//	Does not exist
 					Vertex newVert;
 					newVert.position = tempPos;
 					newVert.uv = tempUv;
@@ -131,16 +123,12 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 					output_vertices.push_back(newVert);
 					ind = output_vertices.size() - 1;
 				}
-				else
-				{
-					//	Does exist
-				}
 				output_indices.push_back(ind);
 			}
-
 			Mesh newMesh(output_vertices, output_indices);
 			WriteMeshFile(newMesh, fileName);
 			newMesh.Init();
+			this->m_meshes[name] = newMesh;
 			if (std::find(loadedMeshes.begin(), loadedMeshes.end(), name) == loadedMeshes.end())
 			{
 				this->loadedMeshes.push_back(name);
@@ -160,7 +148,6 @@ int AssetManager::FindExistingVertex(std::vector<Vertex> searchArea, Vector3 pos
 			&& searchArea[i].normal == normal
 			&& searchArea[i].uv == uv) return i;
 	}
-
 	return -1;
 }
 
