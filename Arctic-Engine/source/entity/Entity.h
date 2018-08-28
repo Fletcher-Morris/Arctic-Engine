@@ -2,6 +2,7 @@
 
 #include "../util/GlmTypedefs.h"
 #include "../util/OtherTypedefs.h"
+#include "Component.h"
 #include "Mesh.h"
 #include "../util/AssetManager.h"
 

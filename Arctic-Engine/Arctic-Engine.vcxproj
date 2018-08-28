@@ -178,6 +178,7 @@
     <ClInclude Include="source\editor\stb_rect_pack.h" />
     <ClInclude Include="source\editor\stb_textedit.h" />
     <ClInclude Include="source\editor\stb_truetype.h" />
+    <ClInclude Include="source\entity\Component.h" />
     <ClInclude Include="source\entity\Entity.h" />
     <ClInclude Include="source\entity\Mesh.h" />
     <ClInclude Include="source\example\State_Example.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="source\editor\imgui.cpp" />
     <ClCompile Include="source\editor\imgui_draw.cpp" />
     <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="source\entity\Component.cpp" />
     <ClCompile Include="source\entity\Entity.cpp" />
     <ClCompile Include="source\entity\Mesh.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
