@@ -11,6 +11,11 @@ public:
 	const Matrix4& GetProjectionMatrix();
 	const Matrix4& GetProjectionViewMatrix();
 
+	void DoAThing()
+	{
+		std::cout << "DID A THING" << std::endl;
+	}
+
 	Vector3 position;
 	Vector3 rotation;
 
