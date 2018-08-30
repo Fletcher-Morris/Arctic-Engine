@@ -37,11 +37,11 @@ void Camera::OnInit()
 	Configure(m_config);
 }
 
-void Camera::OnUpdate()
+void Camera::OnUpdate(double deltaTime)
 {
 }
 
-void Camera::OnFixedUpdate()
+void Camera::OnFixedUpdate(double fixedTime)
 {
 }
 
