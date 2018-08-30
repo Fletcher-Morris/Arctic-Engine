@@ -8,7 +8,7 @@ public:
 	Scene();
 	~Scene();
 
-	std::vector<Entity> entVec;
+	std::vector<Entity> entities;
 	int entityCount;
 
 	void NewEntity(std::string _name);

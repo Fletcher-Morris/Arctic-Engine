@@ -48,6 +48,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
+
+	currentScene.NewEntity("cube");
+	currentScene.entities[0].AttachComponent<Camera>();
 }
 
 void State_Example::HandleEvent(int e) {
@@ -63,7 +66,7 @@ void State_Example::Update(double deltaTime) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entVec[i].Update(deltaTime);
+		currentScene.entities[i].Update(deltaTime);
 	}
 }
 
@@ -72,7 +75,7 @@ void State_Example::FixedUpdate(double fixedTime) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entVec[i].Update(fixedTime);
+		currentScene.entities[i].Update(fixedTime);
 	}
 }
 
@@ -211,7 +214,7 @@ void State_Example::Render(GLFWwindow* target) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entVec[i].RenderMesh(renderMethod);
+		currentScene.entities[i].RenderMesh(renderMethod);
 	}
 
 	AssetManager::Instance()->BindTexture(useTexture);

@@ -8,6 +8,9 @@
 
 class Entity
 {
+private:
+	std::vector<Component*> m_components;
+
 public:
 
 	Entity();
@@ -28,4 +31,11 @@ public:
 	void Update(double deltaTime);
 	void FixedUpdate(double fixedTime);
 	void RenderMesh(int method);
+
+	template<class T>
+	void AttachComponent()
+	{
+		m_components.push_back(new T);
+		std::cout << "Added " << typeid(T).name() << " to entity " << name << std::endl;
+	}
 };
