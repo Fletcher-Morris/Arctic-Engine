@@ -52,8 +52,6 @@ State_Example::State_Example(Game& game) : State(game) {
 	currentScene.NewEntity("cube");
 	currentScene.entities[0].AttachComponent<Camera>();
 	currentScene.entities[0].GetComponent<Camera>()->DoAThing();
-	currentScene.entities[0].DetachComponent<Camera>();
-	currentScene.entities[0].GetComponent<Camera>()->DoAThing();
 }
 
 void State_Example::HandleEvent(int e) {
@@ -78,7 +76,7 @@ void State_Example::FixedUpdate(double fixedTime) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entities[i].Update(fixedTime);
+		currentScene.entities[i].FixedUpdate(fixedTime);
 	}
 }
 
