@@ -51,6 +51,7 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	currentScene.NewEntity("cube");
 	currentScene.entities[0].AttachComponent<Camera>();
+	currentScene.entities[0].DetachComponent<Camera>();
 }
 
 void State_Example::HandleEvent(int e) {

@@ -5,6 +5,7 @@
 #include "Component.h"
 #include "Mesh.h"
 #include "../util/AssetManager.h"
+#include <typeinfo>
 
 class Entity
 {
@@ -36,6 +37,19 @@ public:
 	void AttachComponent()
 	{
 		m_components.push_back(new T);
-		std::cout << "Added " << typeid(T).name() << " to entity " << name << std::endl;
+		std::cout << "Attached '" << typeid(T).name() << "' to entity '" << name << "'" << std::endl;
+	}
+
+	template<class T>
+	void DetachComponent()
+	{
+		for (int i = 0; i < m_components.size(); i++)
+		{
+			if (typeid(*m_components[i]).name() == typeid(T).name())
+			{
+				std::cout << "Detached '" << typeid(T).name() << "' from entity '" << name << "'" << std::endl;
+				m_components.erase(m_components.begin() + i);
+			}
+		}
 	}
 };
