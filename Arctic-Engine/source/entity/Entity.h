@@ -28,6 +28,12 @@ public:
 	template<class T>
 	void AttachComponent()
 	{
+		Component * newComp(new T);
+		if (&newComp->uniquePerEntity && this->HasComponent<T>())
+		{
+			std::cout << "Component '" << typeid(T).name() << "' is already attached to entity '" << name << "'" << std::endl;
+			return;
+		}
 		m_components.push_back(new T);
 		std::cout << "Attached '" << typeid(T).name() << "' to entity '" << name << "'" << std::endl;
 	}
@@ -62,5 +68,18 @@ public:
 			}
 		}
 		std::cout << "Could not find '" << typeid(T).name() << "' on entity '" << name << "'" << std::endl;
+	}
+
+	template<class T>
+	bool HasComponent()
+	{
+		for (int i = 0; i < m_components.size(); i++)
+		{
+			if (typeid(*m_components[i]).name() == typeid(T).name())
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 };

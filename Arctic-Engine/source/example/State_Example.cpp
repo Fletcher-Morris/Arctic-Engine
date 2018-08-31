@@ -49,9 +49,10 @@ State_Example::State_Example(Game& game) : State(game) {
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
 
-	currentScene.NewEntity("cube");
+	currentScene.NewEntity("CamObject");
 	currentScene.entities[0].AttachComponent<Camera>();
 	currentScene.entities[0].GetComponent<Camera>()->DoAThing();
+	currentScene.entities[0].AttachComponent<Camera>();
 }
 
 void State_Example::HandleEvent(int e) {

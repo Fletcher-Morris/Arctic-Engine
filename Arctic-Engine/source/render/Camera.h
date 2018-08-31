@@ -32,4 +32,5 @@ private:
 	virtual void OnRender(int method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
+	bool uniquePerEntity = true;
 };

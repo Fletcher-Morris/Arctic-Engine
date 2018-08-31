@@ -13,4 +13,5 @@ public:
 	virtual void OnRender(int method) = 0;
 	virtual void OnEnable() = 0;
 	virtual void OnDisable() = 0;
+	bool uniquePerEntity = false;
 };
