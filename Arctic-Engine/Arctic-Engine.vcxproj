@@ -182,6 +182,7 @@
     <ClInclude Include="source\entity\component\MeshRenderer.h" />
     <ClInclude Include="source\entity\Entity.h" />
     <ClInclude Include="source\entity\Mesh.h" />
+    <ClInclude Include="source\entity\Transform.h" />
     <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\Camera.h" />
     <ClInclude Include="source\render\CameraConfig.h" />

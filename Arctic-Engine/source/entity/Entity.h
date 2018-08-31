@@ -1,9 +1,9 @@
 #pragma once
 
 #include <typeinfo>
-#include "../util/GlmTypedefs.h"
 #include "../util/OtherTypedefs.h"
 #include "../util/AssetManager.h"
+#include "Transform.h"
 
 #include "component\MeshRenderer.h"
 
