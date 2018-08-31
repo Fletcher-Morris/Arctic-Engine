@@ -10,7 +10,7 @@ public:
 	void SetMesh(std::string meshName);
 	Mesh * GetMesh() { return mesh; }
 
-	bool doRender;
+	bool doRender = true;
 
 	// Inherited via Component
 	virtual void OnInit() override;
@@ -19,7 +19,4 @@ public:
 	virtual void OnRender(int method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
-
-private:
-	void RenderMesh(int method);
 };
