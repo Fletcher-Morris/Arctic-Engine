@@ -45,7 +45,7 @@ void Camera::OnFixedUpdate(double fixedTime)
 {
 }
 
-void Camera::OnRender()
+void Camera::OnRender(int method)
 {
 }
 

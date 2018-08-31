@@ -29,7 +29,7 @@ private:
 	virtual void OnInit() override;
 	virtual void OnUpdate(double deltaTime) override;
 	virtual void OnFixedUpdate(double fixedTime) override;
-	virtual void OnRender() override;
+	virtual void OnRender(int method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
 };

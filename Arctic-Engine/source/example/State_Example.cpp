@@ -163,32 +163,32 @@ void State_Example::GuiUpdate()
 	if (ImGui::Button("QUAD"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("quad");
+		currentScene.NewEntity("quad", "quad");
 	}
 	if (ImGui::Button("CUBE"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("cube");
+		currentScene.NewEntity("cube", "cube");
 	}
 	if (ImGui::Button("SPHERE"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("sphere");
+		currentScene.NewEntity("sphere", "sphere");
 	}
 	if (ImGui::Button("SPRING"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("spring");
+		currentScene.NewEntity("spring", "spring");
 	}
 	if (ImGui::Button("TEAPOT"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("teapot");
+		currentScene.NewEntity("teapot", "teapot");
 	}
 	if (ImGui::Button("DRAGON"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("dragon");
+		currentScene.NewEntity("dragon", "dragon");
 	}
 	
 
@@ -215,7 +215,7 @@ void State_Example::Render(GLFWwindow* target) {
 	//	FOR EACH ENTITY IN SCENE
 	for (int i = 0; i < currentScene.entityCount; i++)
 	{
-		currentScene.entities[i].RenderMesh(renderMethod);
+		currentScene.entities[i].Render(renderMethod);
 	}
 
 	AssetManager::Instance()->BindTexture(useTexture);

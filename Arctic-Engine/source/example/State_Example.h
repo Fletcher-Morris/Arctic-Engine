@@ -16,6 +16,5 @@ public:
 	void GuiUpdate()							override;
 	void Render			(GLFWwindow* target)	override;
 
-	Camera ediCam;
 	Scene currentScene;
 };
