@@ -18,8 +18,7 @@ public:
 	Entity(std::string _name);
 
 	string name;
-	Vector3 position;
-	Vector3 rotation;
+	Transform transform;
 
 	void Update(double deltaTime);
 	void FixedUpdate(double fixedTime);
@@ -34,7 +33,7 @@ public:
 			std::cout << "Component '" << typeid(T).name() << "' is already attached to entity '" << name << "'" << std::endl;
 			return;
 		}
-		m_components.push_back(new T);
+		m_components.push_back(newComp);
 		std::cout << "Attached '" << typeid(T).name() << "' to entity '" << name << "'" << std::endl;
 	}
 
