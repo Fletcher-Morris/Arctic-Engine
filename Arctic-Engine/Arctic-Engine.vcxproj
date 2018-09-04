@@ -23,7 +23,7 @@
     <ProjectGuid>{5900C84C-3CEA-4387-A1FE-94F79C592186}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ArcticEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
     <ProjectName>Arctic-Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
