@@ -43,9 +43,10 @@ public:
 
 	void SetName(std::string newName);
 	std::string GetName();
-	void Update(double deltaTime);
-	void FixedUpdate(double fixedTime);
-	void Render(int method);
+
+	void Update(double deltaTime) { for (auto& comp : components)comp->OnUpdate(deltaTime); }
+	void FixedUpdate(double fixedTime) { for (auto& comp : components)comp->OnFixedUpdate(fixedTime); }
+	void Render(int method) { for (auto& comp : components)comp->OnRender(method); };
 };
 
 class EcsComponent
