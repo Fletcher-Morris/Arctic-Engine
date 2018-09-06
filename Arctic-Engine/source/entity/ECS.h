@@ -25,6 +25,29 @@ inline CompID GetCompID() noexcept
 	return id;
 }
 
+
+class EcsEntity
+{
+private:
+
+	bool enabled = true;
+	bool destroy = false;
+
+	std::vector<std::unique_ptr<EcsComponent>> components;
+	CompArray componentArray;
+	CompBits componentBits;
+
+public:
+
+	std::string name;
+
+	void SetName(std::string newName);
+	std::string GetName();
+	void Update(double deltaTime);
+	void FixedUpdate(double fixedTime);
+	void Render(int method);
+};
+
 class EcsComponent
 {
 public:
