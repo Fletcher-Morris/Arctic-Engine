@@ -9,15 +9,16 @@ class Entity;
 class Component;
 
 constexpr std::size_t MAX_ENTITY_COMPONENTS = 16;
+using CompID = std::size_t;
 
-inline std::size_t GetCompId()
+inline CompID GetCompID()
 {
-	static std::size_t prevId = 0;
+	static CompID prevId = 0;
 	return prevId++;
 }
 template <typename T>
-inline std::size_t GetCompId() noexcept
+inline CompID GetCompID() noexcept
 {
-	static std::size_t id = GetCompId();
+	static CompID id = GetCompID();
 	return id;
 }
