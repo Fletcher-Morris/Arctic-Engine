@@ -32,17 +32,18 @@ private:
 
 	bool enabled = true;
 	bool destroy = false;
-
+	std::string name;
 	std::vector<std::unique_ptr<EcsComponent>> components;
 	CompArray componentArray;
 	CompBits componentBits;
 
 public:
 
-	std::string name;
-
 	void SetName(std::string newName);
-	std::string GetName();
+	std::string GetName() { return name; }
+
+	bool IsEnabled() const { return enabled; }
+	void Destroy() { destroy = true; }
 
 	void Update(double deltaTime) { for (auto& comp : components)comp->OnUpdate(deltaTime); }
 	void FixedUpdate(double fixedTime) { for (auto& comp : components)comp->OnFixedUpdate(fixedTime); }
