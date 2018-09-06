@@ -67,13 +67,29 @@ public:
 		newComponent->OnInit();
 		return *newComponent;
 	}
+
+	template<typename T>
+	T& GetComponent()
+	{
+		auto ptr(componentArray[GetCompID<T>()]);
+		return *static_cast<T*>(ptr);
+	}
 };
 
 class EcsComponent
 {
+private:
+
+	bool enabled = true;
+	bool uniquePerEntity = false;
+
 public:
+
 	EcsEntity * entity;
 	virtual ~EcsComponent();
+
+	void Enable() { if (!enabled) { enabled = true; OnEnable(); } }
+	void Disable() { if (enabled) { enabled = false; OnDisable(); } }
 
 	virtual void OnInit();
 	virtual void OnUpdate(double deltaTime);
@@ -81,6 +97,4 @@ public:
 	virtual void OnRender(int method);
 	virtual void OnEnable();
 	virtual void OnDisable();
-
-	bool uniquePerEntity;
 };
