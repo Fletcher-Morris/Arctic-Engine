@@ -2,6 +2,7 @@
 #include "../Component.h"
 #include "../../util/AssetManager.h"
 
+class Entity;
 
 class MeshRenderer : public Component
 {

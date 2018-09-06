@@ -1,4 +1,5 @@
 #include "MeshRenderer.h"
+#include "../Entity.h"
 
 void MeshRenderer::SetMesh(Mesh * newMesh)
 {
@@ -16,7 +17,7 @@ void MeshRenderer::OnInit()
 
 void MeshRenderer::OnUpdate(double deltaTime)
 {
-	std::cout << "MAH NAM IS ";
+	std::cout << "MAH NAM IS " << entity->name;
 }
 
 void MeshRenderer::OnFixedUpdate(double fixedTime)

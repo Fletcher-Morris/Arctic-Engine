@@ -4,6 +4,8 @@
 #include "../util/OtherTypedefs.h"
 #include "../util/AssetManager.h"
 #include "Transform.h"
+
+#include "Component.h"
 #include "component/MeshRenderer.h"
 
 class Entity

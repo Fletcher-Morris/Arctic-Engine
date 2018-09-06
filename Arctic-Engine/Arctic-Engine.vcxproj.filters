@@ -182,11 +182,11 @@
     <ClInclude Include="source\entity\Component.h">
       <Filter>Header Files\entity</Filter>
     </ClInclude>
-    <ClInclude Include="source\entity\component\MeshRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\entity\Transform.h">
       <Filter>Header Files\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="source\entity\component\MeshRenderer.h">
+      <Filter>Header Files\entity\component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,10 +260,10 @@
       <Filter>Source Files\entity</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\Component.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\entity</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\component\MeshRenderer.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\entity\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
