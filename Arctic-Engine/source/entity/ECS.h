@@ -5,11 +5,13 @@
 #include <array>
 #include <bitset>
 
-class Entity;
-class Component;
+class EcsEntity;
+class EcsComponent;
 
-constexpr std::size_t MAX_ENTITY_COMPONENTS = 16;
 using CompID = std::size_t;
+constexpr CompID MAX_ENTITY_COMPONENTS = 16;
+using CompBits = std::bitset<MAX_ENTITY_COMPONENTS>;
+using CompArray = std::array<EcsComponent*, MAX_ENTITY_COMPONENTS>;
 
 inline CompID GetCompID()
 {
@@ -22,3 +24,8 @@ inline CompID GetCompID() noexcept
 	static CompID id = GetCompID();
 	return id;
 }
+
+class EcsComponent
+{
+
+};
