@@ -42,12 +42,18 @@ public:
 	void SetName(std::string newName);
 	std::string GetName() { return name; }
 
-	bool IsEnabled() const { return enabled; }
+	bool IsEnabled() { return enabled; }
 	void Destroy() { destroy = true; }
 
 	void Update(double deltaTime) { for (auto& comp : components)comp->OnUpdate(deltaTime); }
 	void FixedUpdate(double fixedTime) { for (auto& comp : components)comp->OnFixedUpdate(fixedTime); }
 	void Render(int method) { for (auto& comp : components)comp->OnRender(method); };
+
+	template<typename T>
+	bool HasComponent()
+	{
+		return compBits[GetCompID<T>];
+	}
 };
 
 class EcsComponent
