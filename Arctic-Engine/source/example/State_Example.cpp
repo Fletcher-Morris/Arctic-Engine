@@ -51,7 +51,6 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	currentScene.NewEntity("CamObject");
 	currentScene.entities[0].AttachComponent<Camera>();
-	currentScene.entities[0].GetComponent<Camera>()->DoAThing();
 	currentScene.entities[0].AttachComponent<Camera>();
 }
 

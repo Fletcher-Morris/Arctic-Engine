@@ -4,8 +4,7 @@
 #include "../util/OtherTypedefs.h"
 #include "../util/AssetManager.h"
 #include "Transform.h"
-
-#include "component\MeshRenderer.h"
+#include "component/MeshRenderer.h"
 
 class Entity
 {
@@ -20,6 +19,8 @@ public:
 	string name;
 	Transform transform;
 
+	void SetName(std::string newName);
+	std::string GetName();
 	void Update(double deltaTime);
 	void FixedUpdate(double fixedTime);
 	void Render(int method);
@@ -33,6 +34,7 @@ public:
 			std::cout << "Component '" << typeid(T).name() << "' is already attached to entity '" << name << "'" << std::endl;
 			return;
 		}
+		newComp->entity = this;
 		m_components.push_back(newComp);
 		std::cout << "Attached '" << typeid(T).name() << "' to entity '" << name << "'" << std::endl;
 	}

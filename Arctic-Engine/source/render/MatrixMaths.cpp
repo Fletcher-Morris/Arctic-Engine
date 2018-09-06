@@ -1,14 +1,15 @@
 #include "MatrixMaths.h"
 #include "Camera.h"
+#include "../entity/Transform.h"
 
-Matrix4 CreateModelMatrix(const Entity & entity)
+Matrix4 CreateModelMatrix(const Transform & transform)
 {
 	Matrix4 matrix;
 
-	matrix = glm::rotate(matrix, glm::radians(entity.transform.rotation.x), { 1,0,0 });
-	matrix = glm::rotate(matrix, glm::radians(entity.transform.rotation.y), { 0,1,0 });
-	matrix = glm::rotate(matrix, glm::radians(entity.transform.rotation.z), { 0,0,1 });
-	matrix = glm::translate(matrix, entity.transform.position);
+	matrix = glm::rotate(matrix, glm::radians(transform.rotation.x), { 1,0,0 });
+	matrix = glm::rotate(matrix, glm::radians(transform.rotation.y), { 0,1,0 });
+	matrix = glm::rotate(matrix, glm::radians(transform.rotation.z), { 0,0,1 });
+	matrix = glm::translate(matrix, transform.position);
 
 	return matrix;
 }

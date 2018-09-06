@@ -1,6 +1,8 @@
 #pragma once
 #include <typeinfo>
 
+class Entity;
+
 class Component
 {
 public:
@@ -14,4 +16,6 @@ public:
 	virtual void OnEnable() = 0;
 	virtual void OnDisable() = 0;
 	bool uniquePerEntity = false;
+
+	Entity * entity;
 };

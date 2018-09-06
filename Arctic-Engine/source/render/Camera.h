@@ -1,6 +1,6 @@
-#include "../entity/Entity.h"
 #include "../util/GlmTypedefs.h"
 #include "CameraConfig.h"
+#include "../entity/Component.h"
 
 class Camera : public Component
 {
@@ -11,11 +11,6 @@ public:
 	const Matrix4& GetProjectionMatrix();
 	const Matrix4& GetProjectionViewMatrix();
 
-	void DoAThing()
-	{
-		std::cout << "DID A THING" << std::endl;
-	}
-
 	Vector3 position;
 	Vector3 rotation;
 
@@ -25,12 +20,18 @@ private:
 	Matrix4 m_viewMatrix;
 	Matrix4 m_projViewMatrix;
 
+
 	// Inherited via Component
 	virtual void OnInit() override;
+
 	virtual void OnUpdate(double deltaTime) override;
+
 	virtual void OnFixedUpdate(double fixedTime) override;
+
 	virtual void OnRender(int method) override;
+
 	virtual void OnEnable() override;
+
 	virtual void OnDisable() override;
-	bool uniquePerEntity = true;
+
 };

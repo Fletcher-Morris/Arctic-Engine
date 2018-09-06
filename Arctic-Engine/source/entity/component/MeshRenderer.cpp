@@ -16,6 +16,7 @@ void MeshRenderer::OnInit()
 
 void MeshRenderer::OnUpdate(double deltaTime)
 {
+	std::cout << "MAH NAM IS ";
 }
 
 void MeshRenderer::OnFixedUpdate(double fixedTime)
