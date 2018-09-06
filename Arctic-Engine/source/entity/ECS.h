@@ -54,6 +54,19 @@ public:
 	{
 		return compBits[GetCompID<T>];
 	}
+
+	template<typename T, typename... args>
+	T& AttachComponent(args&&... mArguments)
+	{
+		T* newComponent(new T(std::forward<args>(mArguments)...));
+		newComponent->entity = this;
+		std::unique_ptr<EcsComponent> uniquePtr{ newComponent };
+		components.emplace_back(std::move(uniquePtr));
+		componentArray[GetCompID<T>()] = newComponent;
+		componentBits[GetCompID<T>()] = true;
+		newComponent->OnInit();
+		return *newComponent;
+	}
 };
 
 class EcsComponent
