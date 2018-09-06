@@ -27,5 +27,16 @@ inline CompID GetCompID() noexcept
 
 class EcsComponent
 {
+public:
+	EcsEntity * entity;
+	virtual ~EcsComponent();
 
+	virtual void OnInit();
+	virtual void OnUpdate(double deltaTime);
+	virtual void OnFixedUpdate(double fixedTime);
+	virtual void OnRender(int method);
+	virtual void OnEnable();
+	virtual void OnDisable();
+
+	bool uniquePerEntity;
 };
