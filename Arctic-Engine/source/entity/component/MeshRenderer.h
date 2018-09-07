@@ -1,10 +1,8 @@
 #include "../Mesh.h"
-#include "../Component.h"
 #include "../../util/AssetManager.h"
+#include "../ECS.h"
 
-class Entity;
-
-class MeshRenderer : public Component
+class MeshRenderer : public EcsComponent
 {
 public:
 	Mesh * mesh;

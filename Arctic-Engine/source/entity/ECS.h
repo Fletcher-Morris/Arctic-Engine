@@ -4,6 +4,8 @@
 #include <vector>
 #include <array>
 #include <bitset>
+#include <algorithm>
+#include <iostream>
 
 class EcsEntity;
 class EcsComponent;
@@ -39,7 +41,7 @@ private:
 
 public:
 
-	void SetName(std::string newName);
+	void SetName(std::string newName) { name = newName; }
 	std::string GetName() { return name; }
 
 	bool IsEnabled() { return enabled; }

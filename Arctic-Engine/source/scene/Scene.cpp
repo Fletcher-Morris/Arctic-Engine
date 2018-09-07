@@ -28,7 +28,7 @@ void Scene::NewEntity(std::string _name, std::string _meshName)
 
 void Scene::ClearEntities()
 {
-	entities.clear();
+	for (auto& ent : entities) ent->Destroy();
 	std::cout << "Cleared " << entityCount << " entities" << std::endl;
 	entityCount = 0;
 }

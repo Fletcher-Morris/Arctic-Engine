@@ -188,6 +188,9 @@
     <ClInclude Include="source\entity\component\MeshRenderer.h">
       <Filter>Header Files\entity\component</Filter>
     </ClInclude>
+    <ClInclude Include="source\entity\ECS.h">
+      <Filter>Header Files\entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">

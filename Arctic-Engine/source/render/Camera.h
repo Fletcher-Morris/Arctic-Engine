@@ -1,8 +1,8 @@
 #include "../util/GlmTypedefs.h"
 #include "CameraConfig.h"
-#include "../entity/Component.h"
+#include "../entity/ECS.h"
 
-class Camera : public Component
+class Camera : public EcsComponent
 {
 public:
 	void Configure(const CameraConfig& config);
@@ -20,18 +20,11 @@ private:
 	Matrix4 m_viewMatrix;
 	Matrix4 m_projViewMatrix;
 
-
 	// Inherited via Component
 	virtual void OnInit() override;
-
 	virtual void OnUpdate(double deltaTime) override;
-
 	virtual void OnFixedUpdate(double fixedTime) override;
-
 	virtual void OnRender(int method) override;
-
 	virtual void OnEnable() override;
-
 	virtual void OnDisable() override;
-
 };
