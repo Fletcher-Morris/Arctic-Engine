@@ -45,12 +45,12 @@ public:
 	void Enable() { if (!enabled) { enabled = true; OnEnable(); } }
 	void Disable() { if (enabled) { enabled = false; OnDisable(); } }
 
-	virtual void OnInit();
-	virtual void OnUpdate(double deltaTime);
-	virtual void OnFixedUpdate(double fixedTime);
-	virtual void OnRender(int method);
-	virtual void OnEnable();
-	virtual void OnDisable();
+	virtual void OnInit() = 0;
+	virtual void OnUpdate(double deltaTime) = 0;
+	virtual void OnFixedUpdate(double fixedTime) = 0;
+	virtual void OnRender(int method) = 0;
+	virtual void OnEnable() = 0;
+	virtual void OnDisable() = 0;
 };
 
 
