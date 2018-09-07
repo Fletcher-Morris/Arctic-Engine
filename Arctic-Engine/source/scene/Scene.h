@@ -9,7 +9,6 @@ public:
 	~Scene();
 
 	std::vector<std::unique_ptr<EcsEntity>> entities;
-	int entityCount;
 
 	EcsEntity& NewEntity(std::string _name)
 	{
@@ -33,7 +32,7 @@ public:
 		return *newEntity;
 	}
 
-	void ClearEntities();
+	void ClearEntities() { for (auto& ent : entities) ent->Destroy(); }
 
 	void RefreshECS()
 	{
