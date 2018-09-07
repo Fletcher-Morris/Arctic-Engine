@@ -31,9 +31,6 @@ inline CompID GetCompID() noexcept
 class EcsEntity
 {
 private:
-
-	bool enabled = true;
-	bool destroy = false;
 	std::string name;
 	std::vector<std::unique_ptr<EcsComponent>> components;
 	CompArray componentArray;
@@ -44,6 +41,8 @@ public:
 	void SetName(std::string newName) { name = newName; }
 	std::string GetName() { return name; }
 
+	bool enabled = true;
+	bool destroy = false;
 	bool IsEnabled() { return enabled; }
 	void Destroy() { destroy = true; }
 

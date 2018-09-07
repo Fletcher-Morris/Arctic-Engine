@@ -64,20 +64,13 @@ void State_Example::HandleInput(GLFWwindow* window) {
 
 void State_Example::Update(double deltaTime) {
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entities[i].Update(deltaTime);
-	}
+	currentScene.RefreshECS();
+	for (auto& ent : currentScene.entities) ent->Update(deltaTime);
 }
 
 void State_Example::FixedUpdate(double fixedTime) {
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entities[i].FixedUpdate(fixedTime);
-	}
+	for (auto& ent : currentScene.entities) ent->FixedUpdate(fixedTime);
 }
 
 void State_Example::GuiUpdate()
@@ -212,11 +205,7 @@ void State_Example::Render(GLFWwindow* target) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entities[i].Render(renderMethod);
-	}
+	for (auto& ent : currentScene.entities) ent->Render(renderMethod);
 
 	AssetManager::Instance()->BindTexture(useTexture);
 }
