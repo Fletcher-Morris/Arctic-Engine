@@ -98,9 +98,6 @@
     <ClInclude Include="source\util\GlmTypedefs.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="source\entity\Entity.h">
-      <Filter>Header Files\entity</Filter>
-    </ClInclude>
     <ClInclude Include="source\util\OtherTypedefs.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
@@ -176,12 +173,6 @@
     <ClInclude Include="source\render\Vertex.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
-    <ClInclude Include="source\render\Camera.h">
-      <Filter>Header Files\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="source\entity\Component.h">
-      <Filter>Header Files\entity</Filter>
-    </ClInclude>
     <ClInclude Include="source\entity\Transform.h">
       <Filter>Header Files\entity</Filter>
     </ClInclude>
@@ -190,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="source\entity\ECS.h">
       <Filter>Header Files\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="source\render\Camera.h">
+      <Filter>Header Files\entity\component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -258,12 +252,6 @@
     </ClCompile>
     <ClCompile Include="source\core\EnginePrefs.cpp">
       <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="source\entity\Entity.cpp">
-      <Filter>Source Files\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="source\entity\Component.cpp">
-      <Filter>Source Files\entity</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\component\MeshRenderer.cpp">
       <Filter>Source Files\entity\component</Filter>

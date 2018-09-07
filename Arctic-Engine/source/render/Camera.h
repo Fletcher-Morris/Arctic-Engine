@@ -11,15 +11,6 @@ public:
 	const Matrix4& GetProjectionMatrix();
 	const Matrix4& GetProjectionViewMatrix();
 
-	Vector3 position;
-	Vector3 rotation;
-
-private:
-	CameraConfig m_config;
-	Matrix4 m_projMatrix;
-	Matrix4 m_viewMatrix;
-	Matrix4 m_projViewMatrix;
-
 	// Inherited via Component
 	virtual void OnInit() override;
 	virtual void OnUpdate(double deltaTime) override;
@@ -27,4 +18,10 @@ private:
 	virtual void OnRender(int method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
+
+private:
+	CameraConfig m_config;
+	Matrix4 m_projMatrix;
+	Matrix4 m_viewMatrix;
+	Matrix4 m_projViewMatrix;
 };

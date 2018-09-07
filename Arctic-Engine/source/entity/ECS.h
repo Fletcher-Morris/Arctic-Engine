@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <iostream>
 
+#include "Transform.h"
+
 class EcsEntity;
 class EcsComponent;
 
@@ -28,6 +30,30 @@ inline CompID GetCompID() noexcept
 }
 
 
+class EcsComponent
+{
+private:
+
+	bool enabled = true;
+	bool uniquePerEntity = false;
+
+public:
+
+	EcsEntity * entity;
+	virtual ~EcsComponent();
+
+	void Enable() { if (!enabled) { enabled = true; OnEnable(); } }
+	void Disable() { if (enabled) { enabled = false; OnDisable(); } }
+
+	virtual void OnInit();
+	virtual void OnUpdate(double deltaTime);
+	virtual void OnFixedUpdate(double fixedTime);
+	virtual void OnRender(int method);
+	virtual void OnEnable();
+	virtual void OnDisable();
+};
+
+
 class EcsEntity
 {
 private:
@@ -46,7 +72,12 @@ public:
 	bool IsEnabled() { return enabled; }
 	void Destroy() { destroy = true; }
 
-	void Update(double deltaTime) { for (auto& comp : components)comp->OnUpdate(deltaTime); }
+	Transform transform;
+
+	void Update(double deltaTime)
+	{
+		for (auto& comp : components)comp->OnUpdate(deltaTime);
+	}
 	void FixedUpdate(double fixedTime) { for (auto& comp : components)comp->OnFixedUpdate(fixedTime); }
 	void Render(int method) { for (auto& comp : components)comp->OnRender(method); };
 
@@ -75,27 +106,4 @@ public:
 		auto ptr(componentArray[GetCompID<T>()]);
 		return *static_cast<T*>(ptr);
 	}
-};
-
-class EcsComponent
-{
-private:
-
-	bool enabled = true;
-	bool uniquePerEntity = false;
-
-public:
-
-	EcsEntity * entity;
-	virtual ~EcsComponent();
-
-	void Enable() { if (!enabled) { enabled = true; OnEnable(); } }
-	void Disable() { if (enabled) { enabled = false; OnDisable(); } }
-
-	virtual void OnInit();
-	virtual void OnUpdate(double deltaTime);
-	virtual void OnFixedUpdate(double fixedTime);
-	virtual void OnRender(int method);
-	virtual void OnEnable();
-	virtual void OnDisable();
 };
