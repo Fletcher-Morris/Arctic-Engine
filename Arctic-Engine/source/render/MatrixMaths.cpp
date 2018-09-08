@@ -1,6 +1,5 @@
 #include "MatrixMaths.h"
-#include "Camera.h"
-#include "../entity/Transform.h"
+#include "../entity/component/CameraComponent.h"
 
 Matrix4 CreateModelMatrix(const Transform & transform)
 {
@@ -14,7 +13,7 @@ Matrix4 CreateModelMatrix(const Transform & transform)
 	return matrix;
 }
 
-Matrix4 CreateViewMatrix(const Camera & camera)
+Matrix4 CreateViewMatrix(const CameraComponent & camera)
 {
 	Matrix4 matrix;
 

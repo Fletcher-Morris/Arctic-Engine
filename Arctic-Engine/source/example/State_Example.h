@@ -1,8 +1,6 @@
 #pragma once
 #include "../states/State.h"
-
 #include "../scene/Scene.h"
-#include "../render/Camera.h"
 
 class State_Example : public State {
 

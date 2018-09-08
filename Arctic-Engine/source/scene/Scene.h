@@ -1,6 +1,8 @@
 #pragma once
 #include "../entity/ECS.h"
 #include "../entity/component/MeshComponent.h"
+#include "../entity/component/CameraComponent.h"
+
 
 class Scene
 {
@@ -9,6 +11,7 @@ public:
 	~Scene();
 
 	std::vector<std::unique_ptr<EcsEntity>> entities;
+	EcsEntity * mainCamera;
 
 	EcsEntity& NewEntity(std::string _name)
 	{
