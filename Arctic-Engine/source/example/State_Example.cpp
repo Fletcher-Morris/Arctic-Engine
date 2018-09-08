@@ -4,6 +4,7 @@
 #include "../states/State_Splash.h"
 #include "../editor/imgui.h"
 #include "../core/Texture.h"
+#include "../entity/component/MeshComponent.h"
 
 unsigned int useTexture;
 float color[3] = { 0.f, 0.5f, 1.0f };

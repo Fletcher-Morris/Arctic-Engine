@@ -3,7 +3,6 @@
 
 #include "../scene/Scene.h"
 #include "../render/Camera.h"
-#include "../entity/component/MeshRenderer.h"
 
 class State_Example : public State {
 

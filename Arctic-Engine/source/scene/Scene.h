@@ -1,6 +1,6 @@
 #pragma once
 #include "../entity/ECS.h"
-#include "../entity/component/MeshRenderer.h"
+#include "../entity/component/MeshComponent.h"
 
 class Scene
 {
@@ -24,8 +24,8 @@ public:
 	{
 		EcsEntity* newEntity = new EcsEntity();
 		newEntity->SetName(_name);
-		newEntity->AttachComponent<MeshRenderer>();
-		newEntity->GetComponent<MeshRenderer>().SetMesh(_meshName);
+		newEntity->AttachComponent<MeshComponent>();
+		newEntity->GetComponent<MeshComponent>().SetMesh(_meshName);
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };
 		entities.emplace_back(std::move(uniquePtr));
 		std::cout << "Created new mesh entity '" << _name << "'" << std::endl;

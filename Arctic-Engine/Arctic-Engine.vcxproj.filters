@@ -185,6 +185,9 @@
     <ClInclude Include="source\render\Camera.h">
       <Filter>Header Files\entity\component</Filter>
     </ClInclude>
+    <ClInclude Include="source\entity\component\MeshComponent.h">
+      <Filter>Header Files\entity\component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -254,6 +257,9 @@
       <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\component\MeshRenderer.cpp">
+      <Filter>Source Files\entity\component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entity\component\MeshComponent.cpp">
       <Filter>Source Files\entity\component</Filter>
     </ClCompile>
   </ItemGroup>
