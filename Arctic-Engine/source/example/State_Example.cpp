@@ -51,7 +51,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	glDepthFunc(GL_LESS);
 
 	currentScene.mainCamera = &currentScene.NewEntity("Main Camera");
-	currentScene.mainCamera->AttachComponent<TestComponent>();
+	currentScene.mainCamera->AttachComponent<CameraComponent>();
 }
 
 void State_Example::HandleEvent(int e) {

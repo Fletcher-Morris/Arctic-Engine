@@ -6,8 +6,6 @@ void MeshComponent::OnInit()
 
 void MeshComponent::OnUpdate(double deltaTime)
 {
-	std::cout << "MAH NAM IS " << entity->GetName() << std::endl;
-
 }
 
 void MeshComponent::OnFixedUpdate(double fixedTime)
