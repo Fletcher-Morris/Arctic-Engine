@@ -1,11 +1,11 @@
 Arctic Engine Code Convention
 
 
-public variables : camalCase
-private variables : m_camalCase
-protected variables : p_camalCase
+public variables : camelCase
+private variables : m_camelCase
+protected variables : p_camelCase
 
-class names : CapitalisedNoUnderscore
+class names : PascalCaseNoUnderscore
 namespaces : simple
 
 (some if statement){some single method}
