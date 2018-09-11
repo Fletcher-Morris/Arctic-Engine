@@ -1,5 +1,7 @@
 #include "MeshComponent.h"
 
+int yeet = 0;
+
 void MeshComponent::OnInit()
 {
 }
@@ -14,6 +16,13 @@ void MeshComponent::OnFixedUpdate(double fixedTime)
 
 void MeshComponent::OnRender(int method)
 {
+	yeet++;
+	if (yeet >= 50)
+	{
+		doRender = !doRender;
+		yeet = 0;
+	}
+
 	if (!doRender) return;
 	if (mesh == nullptr) return;
 	mesh->Render(method);

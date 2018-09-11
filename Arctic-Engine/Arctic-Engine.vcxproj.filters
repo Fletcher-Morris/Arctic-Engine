@@ -269,7 +269,7 @@
       <Filter>Source Files\entity\component</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\component\CameraComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\entity\component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
