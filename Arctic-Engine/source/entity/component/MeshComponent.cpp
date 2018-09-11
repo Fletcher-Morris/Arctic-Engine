@@ -24,8 +24,8 @@ void MeshComponent::OnRender(int method)
 	}
 
 	if (!doRender) return;
-	if (mesh == nullptr) return;
-	mesh->Render(method);
+	if (m_mesh == nullptr) return;
+	m_mesh->Render(method);
 }
 
 void MeshComponent::OnEnable()
@@ -38,11 +38,11 @@ void MeshComponent::OnDisable()
 
 void MeshComponent::SetMesh(Mesh * newMesh)
 {
-	mesh = newMesh;
+	m_mesh = newMesh;
 
 }
 
 void MeshComponent::SetMesh(std::string meshName)
 {
-	mesh = AssetManager::Instance()->GetMesh(meshName);
+	m_mesh = AssetManager::Instance()->GetMesh(meshName);
 }

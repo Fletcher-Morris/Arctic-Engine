@@ -10,11 +10,14 @@ public:
 	Mesh();
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
-	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indeces);
-	void Render(int method);
+	Mesh(std::vector<Vertex> _vertices, std::vector<unsigned int> _indeces);
+	void Render(int _method);
 	void Init();
+
 private:
 	unsigned int VAO, VBO, EBO;
 
-	int size = 0;
+	int m_vertexCount = 0;
+	int m_indexCount = 0;
+	unsigned long long m_sizeOfVertex;
 };

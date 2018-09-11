@@ -10,15 +10,17 @@ public:
 
 	// Inherited via EcsComponent
 	virtual void OnInit() override;
-	virtual void OnUpdate(double deltaTime) override;
-	virtual void OnFixedUpdate(double fixedTime) override;
-	virtual void OnRender(int method) override;
+	virtual void OnUpdate(double _deltaTime) override;
+	virtual void OnFixedUpdate(double _fixedTime) override;
+	virtual void OnRender(int _method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
 
-	Mesh * mesh;
-	void SetMesh(Mesh * newMesh);
-	void SetMesh(std::string meshName);
-	Mesh * GetMesh() { return mesh; }
+	void SetMesh(Mesh * _mesh);
+	void SetMesh(std::string _name);
+	Mesh * GetMesh() { return m_mesh; }
 	bool doRender = true;
+
+private:
+	Mesh * m_mesh;
 };
