@@ -1,0 +1,18 @@
+Arctic Engine Code Convention
+
+
+public variables : camalCase
+private variables : m_camalCase
+protected variables : p_camalCase
+
+class names : CapitalisedNoUnderscore
+namespaces : simple
+
+(some if statement){some single method}
+
+(some if statement)
+{
+some
+multiple
+methods
+}

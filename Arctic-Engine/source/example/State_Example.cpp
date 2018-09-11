@@ -4,7 +4,8 @@
 #include "../states/State_Splash.h"
 #include "../editor/imgui.h"
 #include "../core/Texture.h"
-#include "../entity/Entity.h"
+
+#include "../entity/component/MeshComponent.h"
 
 unsigned int useTexture;
 float color[3] = { 0.f, 0.5f, 1.0f };
@@ -48,6 +49,9 @@ State_Example::State_Example(Game& game) : State(game) {
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one
 	glDepthFunc(GL_LESS);
+
+	currentScene.mainCamera = &currentScene.NewEntity("Main Camera");
+	currentScene.mainCamera->AttachComponent<CameraComponent>();
 }
 
 void State_Example::HandleEvent(int e) {
@@ -60,20 +64,13 @@ void State_Example::HandleInput(GLFWwindow* window) {
 
 void State_Example::Update(double deltaTime) {
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entVec[i].Update(deltaTime);
-	}
+	currentScene.RefreshECS();
+	for (auto& ent : currentScene.entities) ent->Update(deltaTime);
 }
 
 void State_Example::FixedUpdate(double fixedTime) {
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entVec[i].Update(fixedTime);
-	}
+	for (auto& ent : currentScene.entities) ent->FixedUpdate(fixedTime);
 }
 
 void State_Example::GuiUpdate()
@@ -159,32 +156,32 @@ void State_Example::GuiUpdate()
 	if (ImGui::Button("QUAD"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("quad");
+		currentScene.NewEntity("quad", "quad");
 	}
 	if (ImGui::Button("CUBE"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("cube");
+		currentScene.NewEntity("cube", "cube");
 	}
 	if (ImGui::Button("SPHERE"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("sphere");
+		currentScene.NewEntity("sphere", "sphere");
 	}
 	if (ImGui::Button("SPRING"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("spring");
+		currentScene.NewEntity("spring", "spring");
 	}
 	if (ImGui::Button("TEAPOT"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("teapot");
+		currentScene.NewEntity("teapot", "teapot");
 	}
 	if (ImGui::Button("DRAGON"))
 	{
 		currentScene.ClearEntities();
-		currentScene.NewEntity("dragon");
+		currentScene.NewEntity("dragon", "dragon");
 	}
 	
 
@@ -208,11 +205,7 @@ void State_Example::Render(GLFWwindow* target) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-	//	FOR EACH ENTITY IN SCENE
-	for (int i = 0; i < currentScene.entityCount; i++)
-	{
-		currentScene.entVec[i].RenderMesh(renderMethod);
-	}
+	for (auto& ent : currentScene.entities) ent->Render(renderMethod);
 
 	AssetManager::Instance()->BindTexture(useTexture);
 }

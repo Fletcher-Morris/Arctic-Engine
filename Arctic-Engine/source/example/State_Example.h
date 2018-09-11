@@ -1,6 +1,5 @@
 #pragma once
 #include "../states/State.h"
-#include "../render/Camera.h"
 #include "../scene/Scene.h"
 
 class State_Example : public State {
@@ -16,6 +15,5 @@ public:
 	void GuiUpdate()							override;
 	void Render			(GLFWwindow* target)	override;
 
-	Camera ediCam;
 	Scene currentScene;
 };
