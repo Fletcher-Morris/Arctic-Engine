@@ -1,9 +1,6 @@
 #include "Game.h"
 #include "../editor/imgui.h"
 #include "../editor/imgui_impl_glfw_gl3.h"
-#include "../render/VertexArray.h"
-#include "../render/VertexBufferLayout.h"
-#include "../render/IndexBuffer.h"
 #include "Texture.h"
 #include "../util/ConsoleColour.h"
 

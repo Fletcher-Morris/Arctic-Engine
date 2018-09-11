@@ -186,14 +186,10 @@
     <ClInclude Include="source\entity\Transform.h" />
     <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
-    <ClInclude Include="source\render\IndexBuffer.h" />
     <ClInclude Include="source\render\MatrixMaths.h" />
     <ClInclude Include="source\render\Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />
     <ClInclude Include="source\render\Vertex.h" />
-    <ClInclude Include="source\render\VertexArray.h" />
-    <ClInclude Include="source\render\VertexBuffer.h" />
-    <ClInclude Include="source\render\VertexBufferLayout.h" />
     <ClInclude Include="source\scene\Scene.h" />
     <ClInclude Include="source\states\State.h" />
     <ClInclude Include="source\states\State_Splash.h" />
@@ -219,12 +215,9 @@
     <ClCompile Include="source\entity\component\TestComponent.cpp" />
     <ClCompile Include="source\entity\Mesh.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
-    <ClCompile Include="source\render\IndexBuffer.cpp" />
     <ClCompile Include="source\render\MatrixMaths.cpp" />
     <ClCompile Include="source\render\Renderer.cpp" />
     <ClCompile Include="source\render\Shader.cpp" />
-    <ClCompile Include="source\render\VertexArray.cpp" />
-    <ClCompile Include="source\render\VertexBuffer.cpp" />
     <ClCompile Include="source\scene\Scene.cpp" />
     <ClCompile Include="source\states\State.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />
