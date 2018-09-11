@@ -12,20 +12,17 @@
 class EcsEntity;
 class EcsComponent;
 
-using CompID = std::size_t;
-constexpr CompID MAX_ENTITY_COMPONENTS = 16;
-using CompBits = std::bitset<MAX_ENTITY_COMPONENTS>;
-using CompArray = std::array<EcsComponent*, MAX_ENTITY_COMPONENTS>;
+constexpr std::size_t MAX_ENTITY_COMPONENTS = 16;
 
-inline CompID GetCompID()
+inline std::size_t GetCompID()
 {
-	static CompID prevId = 0;
+	static std::size_t prevId = 0;
 	return prevId++;
 }
 template <typename T>
-inline CompID GetCompID() noexcept
+inline std::size_t GetCompID() noexcept
 {
-	static CompID id = GetCompID();
+	static std::size_t id = GetCompID();
 	return id;
 }
 
@@ -34,21 +31,23 @@ class EcsComponent
 {
 private:
 
-	bool enabled = true;
-	bool uniquePerEntity = false;
+	bool m_enabled = true;
+	bool m_uniquePreEntity = false;
 
 public:
 
 	EcsEntity * entity;
 	virtual ~EcsComponent() {}
 
-	void Enable() { if (!enabled) { enabled = true; OnEnable(); } }
-	void Disable() { if (enabled) { enabled = false; OnDisable(); } }
+	bool IsEnabled() { return m_enabled; }
+	void Enable() { if (!m_enabled) { m_enabled = true; OnEnable(); } }
+	void Disable() { if (m_enabled) { m_enabled = false; OnDisable(); } }
+	bool IsUnique() { return m_uniquePreEntity; }
 
 	virtual void OnInit() {}
-	virtual void OnUpdate(double deltaTime) {}
-	virtual void OnFixedUpdate(double fixedTime) {}
-	virtual void OnRender(int method) {}
+	virtual void OnUpdate(double _deltaTime) {}
+	virtual void OnFixedUpdate(double _fixedTime) {}
+	virtual void OnRender(int _method) {}
 	virtual void OnEnable() {}
 	virtual void OnDisable() {}
 };
@@ -57,45 +56,42 @@ public:
 class EcsEntity
 {
 private:
-	std::string name;
-	std::vector<std::unique_ptr<EcsComponent>> components;
-	CompArray componentArray;
-	CompBits componentBits;
+	std::string m_name;
+	bool m_destroy = false;
+	bool m_enabled = true;
+	std::vector<std::unique_ptr<EcsComponent>> m_components;
+	std::array<EcsComponent*, MAX_ENTITY_COMPONENTS> m_componentArray;
+	std::bitset<MAX_ENTITY_COMPONENTS> m_componentBits;
 
 public:
-
-	void SetName(std::string newName) { name = newName; }
-	std::string GetName() { return name; }
-
-	bool enabled = true;
-	bool destroy = false;
-	bool IsEnabled() { return enabled; }
-	void Destroy() { destroy = true; }
-
 	Transform transform;
 
-	void Update(double deltaTime)
-	{
-		for (auto& comp : components)comp->OnUpdate(deltaTime);
-	}
-	void FixedUpdate(double fixedTime) { for (auto& comp : components)comp->OnFixedUpdate(fixedTime); }
-	void Render(int method) { for (auto& comp : components)comp->OnRender(method); };
+	void SetName(std::string _name) { m_name = _name; }
+	std::string GetName() { return m_name; }
+	
+	bool IsEnabled() { return m_enabled; }
+	void Destroy() { m_destroy = true; }
+	bool IsDestroyed() { return m_destroy; }
+
+	void Update(double _deltaTime) { for (auto& comp : m_components)comp->OnUpdate(_deltaTime); }
+	void FixedUpdate(double _fixedTime) { for (auto& comp : m_components)comp->OnFixedUpdate(_fixedTime); }
+	void Render(int _method) { for (auto& comp : m_components)comp->OnRender(_method); };
 
 	template<typename T>
 	bool HasComponent()
 	{
-		return componentBits[GetCompID<T>];
+		return m_componentBits[GetCompID<T>];
 	}
 
 	template<typename T, typename... args>
-	T& AttachComponent(args&&... mArguments)
+	T& AttachComponent(args&&... _args)
 	{
-		T* newComponent(new T(std::forward<args>(mArguments)...));
+		T* newComponent(new T(std::forward<args>(_args)...));
 		newComponent->entity = this;
 		std::unique_ptr<EcsComponent> uniquePtr{ newComponent };
-		components.emplace_back(std::move(uniquePtr));
-		componentArray[GetCompID<T>()] = newComponent;
-		componentBits[GetCompID<T>()] = true;
+		m_components.emplace_back(std::move(uniquePtr));
+		m_componentArray[GetCompID<T>()] = newComponent;
+		m_componentBits[GetCompID<T>()] = true;
 		newComponent->OnInit();
 		return *newComponent;
 	}
@@ -103,7 +99,7 @@ public:
 	template<typename T>
 	T& GetComponent()
 	{
-		auto ptr(componentArray[GetCompID<T>()]);
+		auto ptr(m_componentArray[GetCompID<T>()]);
 		return *static_cast<T*>(ptr);
 	}
 };
