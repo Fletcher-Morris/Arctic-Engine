@@ -27,7 +27,7 @@ protected:
 	EnginePrefs();
 	EnginePrefs(const EnginePrefs& prefs);
 	EnginePrefs& operator=(const EnginePrefs& prefs);
-	static EnginePrefs* m_instance;
+	static EnginePrefs* p_instance;
 };
 
 #endif // !ENGINEPREFS_H_INCLUDED

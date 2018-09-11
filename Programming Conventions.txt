@@ -4,6 +4,7 @@ Arctic Engine Code Convention
 public variables : camelCase
 private variables : m_camelCase
 protected variables : p_camelCase
+method parameters : _camelCase
 
 class names : PascalCaseNoUnderscore
 namespaces : simple
