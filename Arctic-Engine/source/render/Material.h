@@ -20,6 +20,6 @@ public:
 
 	void ConfigShader(Shader& _shader)
 	{
-
+		_shader.SetUniform3f("colour", this->colour);
 	}
 };
