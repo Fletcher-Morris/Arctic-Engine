@@ -8,4 +8,4 @@ x;\
 ASSERT(GLLog(#x, __FILE__, __LINE__))
 
 void GLClearError();
-bool GLLog(const char* function, const char* file, int line);
+bool GLLog(const char* _function, const char* _file, int _line);
