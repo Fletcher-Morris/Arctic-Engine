@@ -20,8 +20,10 @@ public:
 	void SetBool		(const std::string& _name, bool _value) const;
 	void SetInt			(const std::string& _name, int _value) const;
 	void SetFloat		(const std::string& _name, float _value) const;
-	void SetUniform4f	(const std::string& _name, float f0, float f1, float f2, float f3);
 	void SetUniform1f	(const std::string& _name, float _value);
+	void SetUniform2f(const std::string& _name, float f0, float f1);
+	void SetUniform3f(const std::string& _name, float f0, float f1, float f2);
+	void SetUniform4f(const std::string& _name, float f0, float f1, float f2, float f3);
 	void SetUniform1i	(const std::string& _name, int _value);
 
 private:

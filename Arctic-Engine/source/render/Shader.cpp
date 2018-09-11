@@ -78,40 +78,50 @@ void Shader::Unbind() const
 	GLCall(glUseProgram(0))
 }
 
-void Shader::SetBool(const std::string & name, bool value) const
+void Shader::SetBool(const std::string & _name, bool _value) const
 {
-	glUniform1i(glGetUniformLocation(shaderId, name.c_str()), (int)value);
+	glUniform1i(glGetUniformLocation(shaderId, _name.c_str()), (int)_value);
 }
 
-void Shader::SetInt(const std::string & name, int value) const
+void Shader::SetInt(const std::string & _name, int _value) const
 {
-	glUniform1i(glGetUniformLocation(shaderId, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(shaderId, _name.c_str()), _value);
 }
 
-void Shader::SetFloat(const std::string & name, float value) const
+void Shader::SetFloat(const std::string & _name, float _value) const
 {
-	glUniform1i(glGetUniformLocation(shaderId, name.c_str()), value);
+	glUniform1i(glGetUniformLocation(shaderId, _name.c_str()), _value);
 }
 
-void Shader::SetUniform4f(const std::string & name, float v0, float v1, float v2, float v3)
+void Shader::SetUniform1f(const std::string & _name, float _value)
 {
-	GLCall(glUniform4f(GetUniformLocation(name), v0, v1, v2, v3));
+	GLCall(glUniform1f(GetUniformLocation(_name), _value));
 }
 
-void Shader::SetUniform1f(const std::string & name, float value)
+void Shader::SetUniform2f(const std::string & _name, float f0, float f1)
 {
-	GLCall(glUniform1f(GetUniformLocation(name), value));
+	GLCall(glUniform2f(GetUniformLocation(_name), f0, f1));
 }
 
-void Shader::SetUniform1i(const std::string & name, int value)
+void Shader::SetUniform3f(const std::string & _name, float f0, float f1, float f2)
 {
-	GLCall(glUniform1i(GetUniformLocation(name), value));
+	GLCall(glUniform3f(GetUniformLocation(_name), f0, f1, f2));
 }
 
-void Shader::Compile(std::string vert, std::string frag)
+void Shader::SetUniform4f(const std::string & _name, float f0, float f1, float f2, float f3)
 {
-	const char* vertShader = vert.c_str();
-	const char* fragShader = frag.c_str();
+	GLCall(glUniform4f(GetUniformLocation(_name), f0, f1, f2, f3));
+}
+
+void Shader::SetUniform1i(const std::string & _name, int _value)
+{
+	GLCall(glUniform1i(GetUniformLocation(_name), _value));
+}
+
+void Shader::Compile(std::string _vert, std::string _frag)
+{
+	const char* vertShader = _vert.c_str();
+	const char* fragShader = _frag.c_str();
 
 	unsigned int vertex, fragment;
 	int success;
@@ -156,16 +166,16 @@ void Shader::Compile(std::string vert, std::string frag)
 	GLCall(glDeleteShader(fragment));
 }
 
-unsigned int Shader::GetUniformLocation(const std::string & name)
+unsigned int Shader::GetUniformLocation(const std::string & _name)
 {
-	if (m_locations.find(name) != m_locations.end()) {
-		return m_locations[name];
+	if (m_locations.find(_name) != m_locations.end()) {
+		return m_locations[_name];
 	}
 
-	GLCall(int location = glGetUniformLocation(shaderId, name.c_str()));
+	GLCall(int location = glGetUniformLocation(shaderId, _name.c_str()));
 	if (location == -1) {
-		std::cout << "Error: uniform '" << name << "' does not exist!" << std::endl;
+		std::cout << "Error: uniform '" << _name << "' does not exist!" << std::endl;
 	}
-	m_locations[name] = location;
+	m_locations[_name] = location;
 	return location;
 }
