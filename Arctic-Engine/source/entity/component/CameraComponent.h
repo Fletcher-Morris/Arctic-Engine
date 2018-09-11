@@ -9,12 +9,12 @@ class CameraComponent : public EcsComponent
 public:
 
 	// Inherited via EcsComponent
-	virtual void OnInit() override;
-	virtual void OnUpdate(double deltaTime) override;
-	virtual void OnFixedUpdate(double fixedTime) override;
-	virtual void OnRender(int method) override;
-	virtual void OnEnable() override;
-	virtual void OnDisable() override;
+	void OnInit() override;
+	void OnUpdate(double deltaTime) override;
+	void OnFixedUpdate(double fixedTime) override;
+	void OnRender(int method) override;
+	void OnEnable() override;
+	void OnDisable() override;
 
 	void Configure(const CameraConfig& config);
 	const Matrix4& GetViewMatrix() { return m_viewMatrix; }

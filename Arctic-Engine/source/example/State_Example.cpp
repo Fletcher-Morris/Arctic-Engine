@@ -5,7 +5,7 @@
 #include "../editor/imgui.h"
 #include "../core/Texture.h"
 
-#include "../entity/component/CameraComponent.h"
+#include "../entity/component/MeshComponent.h"
 
 unsigned int useTexture;
 float color[3] = { 0.f, 0.5f, 1.0f };
@@ -51,7 +51,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	glDepthFunc(GL_LESS);
 
 	currentScene.mainCamera = &currentScene.NewEntity("Main Camera");
-	currentScene.mainCamera->AttachComponent<CameraComponent>();
+	currentScene.mainCamera->AttachComponent<TestComponent>();
 }
 
 void State_Example::HandleEvent(int e) {

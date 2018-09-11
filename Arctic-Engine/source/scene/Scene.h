@@ -2,6 +2,7 @@
 #include "../entity/ECS.h"
 #include "../entity/component/MeshComponent.h"
 #include "../entity/component/CameraComponent.h"
+#include "../entity/component/TestComponent.h"
 
 
 class Scene
