@@ -98,9 +98,6 @@
     <ClInclude Include="source\util\GlmTypedefs.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="source\util\OtherTypedefs.h">
-      <Filter>Header Files\util</Filter>
-    </ClInclude>
     <ClInclude Include="source\render\CameraConfig.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>

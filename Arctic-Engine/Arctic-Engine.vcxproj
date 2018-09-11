@@ -197,7 +197,6 @@
     <ClInclude Include="source\util\AssetManager.h" />
     <ClInclude Include="source\util\ConsoleColour.h" />
     <ClInclude Include="source\util\GlmTypedefs.h" />
-    <ClInclude Include="source\util\OtherTypedefs.h" />
     <ClInclude Include="source\util\Random.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
