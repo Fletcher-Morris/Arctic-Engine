@@ -8,17 +8,17 @@ class Game;
 class State
 {
 public:
-	State(Game& game) :m_pGame(&game) {}
+	State(Game& _game) :p_game(&_game) {}
 
 	virtual ~State() = default;
 
-	virtual void HandleEvent	(int e) = 0;
-	virtual void HandleInput	(GLFWwindow* window) = 0;
-	virtual void Update			(double deltaTime) = 0;
-	virtual void FixedUpdate	(double fixedTime) = 0;
+	virtual void HandleEvent	(int _event) = 0;
+	virtual void HandleInput	(GLFWwindow* _window) = 0;
+	virtual void Update			(double _deltaTime) = 0;
+	virtual void FixedUpdate	(double _fixedTime) = 0;
 	virtual void GuiUpdate		();
-	virtual void Render			(GLFWwindow* target) = 0;
+	virtual void Render			(GLFWwindow* _target) = 0;
 
 protected:
-	Game * m_pGame;
+	Game * p_game;
 };
