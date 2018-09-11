@@ -40,9 +40,9 @@ void AssetManager::LoadMesh(std::string name, std::string fileName)
 			if (strcmp(lineHeader, "r") == 0) {
 				int rev;
 				fscanf(file, "%d", &rev);
-				if (rev != currentMeshRevision)
+				if (rev != m_currentMeshRevision)
 				{
-					std::cout << currentMeshRevision << " != " << rev << std::endl;
+					std::cout << m_currentMeshRevision << " != " << rev << std::endl;
 					std::cout << red << "Mesh: " + fileName + " does not match current revision" << white << std::endl;
 				}
 			}
@@ -178,7 +178,7 @@ void AssetManager::WriteMeshFile(Mesh mesh, std::string fileName)
 	std::string fileData;
 
 	fileData.append("r ");
-	fileData.append(std::to_string(currentMeshRevision));
+	fileData.append(std::to_string(m_currentMeshRevision));
 	fileData.append("\n\n");
 
 	int v = 0;

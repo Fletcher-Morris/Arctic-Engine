@@ -98,9 +98,6 @@
     <ClInclude Include="source\util\GlmTypedefs.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="source\util\OtherTypedefs.h">
-      <Filter>Header Files\util</Filter>
-    </ClInclude>
     <ClInclude Include="source\render\CameraConfig.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
@@ -137,19 +134,7 @@
     <ClInclude Include="source\editor\imgui_impl_glfw_gl3.h">
       <Filter>Header Files\editor</Filter>
     </ClInclude>
-    <ClInclude Include="source\render\IndexBuffer.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="source\render\VertexBuffer.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
     <ClInclude Include="source\render\Renderer.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="source\render\VertexArray.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="source\render\VertexBufferLayout.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
     <ClInclude Include="source\stb\stb_image.h">
@@ -176,19 +161,16 @@
     <ClInclude Include="source\entity\Transform.h">
       <Filter>Header Files\entity</Filter>
     </ClInclude>
-    <ClInclude Include="source\entity\component\MeshRenderer.h">
-      <Filter>Header Files\entity\component</Filter>
-    </ClInclude>
     <ClInclude Include="source\entity\ECS.h">
       <Filter>Header Files\entity</Filter>
-    </ClInclude>
-    <ClInclude Include="source\render\Camera.h">
-      <Filter>Header Files\entity\component</Filter>
     </ClInclude>
     <ClInclude Include="source\entity\component\MeshComponent.h">
       <Filter>Header Files\entity\component</Filter>
     </ClInclude>
     <ClInclude Include="source\entity\component\TestComponent.h">
+      <Filter>Header Files\entity\component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\entity\component\CameraComponent.h">
       <Filter>Header Files\entity\component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -204,9 +186,6 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="source\render\Camera.cpp">
-      <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="source\render\MatrixMaths.cpp">
       <Filter>Source Files\render</Filter>
@@ -229,13 +208,7 @@
     <ClCompile Include="source\editor\imgui_impl_glfw_gl3.cpp">
       <Filter>Source Files\editor</Filter>
     </ClCompile>
-    <ClCompile Include="source\render\IndexBuffer.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="source\render\Renderer.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="source\render\VertexBuffer.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="source\states\State.cpp">
@@ -247,9 +220,6 @@
     <ClCompile Include="source\core\Texture.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="source\render\VertexArray.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="source\scene\Scene.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
@@ -258,9 +228,6 @@
     </ClCompile>
     <ClCompile Include="source\core\EnginePrefs.cpp">
       <Filter>Source Files\core</Filter>
-    </ClCompile>
-    <ClCompile Include="source\entity\component\MeshRenderer.cpp">
-      <Filter>Source Files\entity\component</Filter>
     </ClCompile>
     <ClCompile Include="source\entity\component\MeshComponent.cpp">
       <Filter>Source Files\entity\component</Filter>

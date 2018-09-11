@@ -10,13 +10,13 @@ public:
 
 	// Inherited via EcsComponent
 	virtual void OnInit() override;
-	virtual void OnUpdate(double deltaTime) override;
-	virtual void OnFixedUpdate(double fixedTime) override;
-	virtual void OnRender(int method) override;
+	virtual void OnUpdate(double _deltaTime) override;
+	virtual void OnFixedUpdate(double _fixedTime) override;
+	virtual void OnRender(int _method) override;
 	virtual void OnEnable() override;
 	virtual void OnDisable() override;
 
-	void Configure(const CameraConfig& config);
+	void Configure(const CameraConfig& _config);
 	const Matrix4& GetViewMatrix() { return m_viewMatrix; }
 	const Matrix4& GetProjectionMatrix() { return m_projMatrix; }
 	const Matrix4& GetProjectionViewMatrix() { return m_projViewMatrix; }

@@ -10,28 +10,28 @@
 class Shader
 {
 public:
-	unsigned int RenderId;
-	Shader(const char* vertPath, const char* fragPath);
-	Shader(const std::string& path);
+	unsigned int shaderId;
+	Shader(const char* _vertPath, const char* _fragPath);
+	Shader(const std::string& _comboPath);
 
 	void Bind() const;
 	void Unbind() const;
 
-	void SetBool(const std::string& name, bool value) const;
-	void SetInt(const std::string& name, int value) const;
-	void SetFloat(const std::string& name, float value) const;
-	void SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3);
-	void SetUniform1f(const std::string& name, float value);
-	void SetUniform1i(const std::string& name, int value);
+	void SetBool		(const std::string& _name, bool _value) const;
+	void SetInt			(const std::string& _name, int _value) const;
+	void SetFloat		(const std::string& _name, float _value) const;
+	void SetUniform4f	(const std::string& _name, float f0, float f1, float f2, float f3);
+	void SetUniform1f	(const std::string& _name, float _value);
+	void SetUniform1i	(const std::string& _name, int _value);
 
 private:
-	void Compile(std::string vert, std::string frag);
-	unsigned int GetUniformLocation(const std::string& name);
-	std::unordered_map<std::string, int> m_locationCashe;
+	void Compile(std::string _vert, std::string _frag);
+	unsigned int GetUniformLocation(const std::string& _name);
+	std::unordered_map<std::string, int> m_locations;
 };
 
 struct ShaderSource
 {
-	std::string VertexSource;
-	std::string FragmentSource;
+	std::string vertexSource;
+	std::string fragmentSource;
 };

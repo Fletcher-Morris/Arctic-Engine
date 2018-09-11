@@ -21,7 +21,7 @@ public:
 	void Run();
 
 	template<typename T, typename... Args>
-	void PushState(Args&&... args);
+	void PushState(Args&&... _args);
 	void PopState();
 	void Shutdown();
 	GLFWwindow* window;
@@ -37,9 +37,9 @@ private:
 };
 
 template<typename T, typename... Args>
-void Game::PushState(Args&&... args)
+void Game::PushState(Args&&... _args)
 {
-	m_states.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+	m_states.push_back(std::make_unique<T>(std::forward<Args>(_args)...));
 }
 
 #endif // GAME_H

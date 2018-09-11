@@ -40,7 +40,7 @@ void State_Splash::GuiUpdate()
 
 void State_Splash::Render(GLFWwindow* target) {
 
-	m_pGame->PushState<State_Example>(*m_pGame);
+	p_game->PushState<State_Example>(*p_game);
 
 	glGenBuffers(1, &buffer);
 	glBindBuffer(GL_ARRAY_BUFFER, buffer);
