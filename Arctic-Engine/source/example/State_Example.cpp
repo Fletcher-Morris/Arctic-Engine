@@ -98,7 +98,7 @@ void State_Example::GuiUpdate()
 
 				ImGui::EndMenu();
 			}
-			if (ImGui::MenuItem("Quit", "Alt+F4", false, true)) { m_pGame->~Game(); }
+			if (ImGui::MenuItem("Quit", "Alt+F4", false, true)) { p_game->~Game(); }
 			ImGui::EndMenu();
 		}
 		if (ImGui::BeginMenu("Edit"))

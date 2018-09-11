@@ -16,36 +16,36 @@ public:
 	static AssetManager* Instance();
 	virtual ~AssetManager();
 
-	void LoadMesh(std::string name, std::string fileName);
-	Mesh * GetMesh(std::string name);
+	void LoadMesh(std::string _name, std::string _fileName);
+	Mesh * GetMesh(std::string _name);
 	std::vector<std::string> loadedMeshes;
-	void WriteMeshFile(Mesh mesh, std::string fileName);
+	void WriteMeshFile(Mesh mesh, std::string _fileName);
 
-	void LoadTexturePropper(std::string name, std::string fileName);
-	Texture &GetTexturePropper(std::string name);
-	void BindTexturePropper(std::string name);
-	unsigned int GetTextureId(std::string name);
+	void LoadTexturePropper(std::string _name, std::string _fileName);
+	Texture &GetTexturePropper(std::string _name);
+	void BindTexturePropper(std::string _name);
+	unsigned int GetTextureId(std::string _name);
 	int GetLoadedTextureCount();
-	void LoadTexture(std::string name, std::string filename);
-	void ReloadTexture(std::string name, std::string filename);
-	void BindTexture(std::string name);
-	void BindTexture(unsigned int id);
-	unsigned int GetTexture(std::string name);
-	void DeleteTexture(std::string name);
-	void DeleteTexture(unsigned int id);
+	void LoadTexture(std::string _name, std::string _fileName);
+	void ReloadTexture(std::string _name, std::string _fileName);
+	void BindTexture(std::string _name);
+	void BindTexture(unsigned int _id);
+	unsigned int GetTexture(std::string _name);
+	void DeleteTexture(std::string _name);
+	void DeleteTexture(unsigned int _id);
 	void DeleteAllTextures();
 
 private:
 	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
-	int currentMeshRevision = 1;
-	int FindExistingVertex(std::vector<Vertex> searchArea, Vector3 position, Vector2 uv, Vector3 normal);
+	int m_currentMeshRevision = 1;
+	int FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _position, Vector2 _uv, Vector3 _normal);
 
 protected:
 	AssetManager();
-	AssetManager(const AssetManager& ass);
-	AssetManager& operator=(const AssetManager& ass);
+	AssetManager(const AssetManager& _ass);
+	AssetManager& operator=(const AssetManager& _ass);
 	static AssetManager* m_instance;
 };
 

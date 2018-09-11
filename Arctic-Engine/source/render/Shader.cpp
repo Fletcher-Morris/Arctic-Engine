@@ -162,7 +162,7 @@ unsigned int Shader::GetUniformLocation(const std::string & name)
 		return m_locations[name];
 	}
 
-	GLCall(int location = glGetUniformLocation(RenderId, name.c_str()));
+	GLCall(int location = glGetUniformLocation(shaderId, name.c_str()));
 	if (location == -1) {
 		std::cout << "Error: uniform '" << name << "' does not exist!" << std::endl;
 	}
