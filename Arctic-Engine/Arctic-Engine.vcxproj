@@ -74,22 +74,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\$(ProjectName) (Output)\$(Configuration) $(Platform)\</OutDir>
-    <IntDir>C:\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>F:\Scratch\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\$(ProjectName) (Output)\$(Configuration) $(Platform)\</OutDir>
-    <IntDir>C:\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>F:\Scratch\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\$(ProjectName) (Output)\$(Configuration) $(Platform)\</OutDir>
-    <IntDir>C:\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>F:\Scratch\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\..\$(ProjectName) (Output)\$(Configuration) $(Platform)\</OutDir>
-    <IntDir>C:\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
+    <IntDir>F:\Scratch\Intermediates\$(ProjectName)\$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -186,6 +186,7 @@
     <ClInclude Include="source\entity\Transform.h" />
     <ClInclude Include="source\example\State_Example.h" />
     <ClInclude Include="source\render\CameraConfig.h" />
+    <ClInclude Include="source\render\Material.h" />
     <ClInclude Include="source\render\MatrixMaths.h" />
     <ClInclude Include="source\render\Renderer.h" />
     <ClInclude Include="source\render\Shader.h" />

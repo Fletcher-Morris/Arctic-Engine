@@ -173,6 +173,9 @@
     <ClInclude Include="source\entity\component\CameraComponent.h">
       <Filter>Header Files\entity\component</Filter>
     </ClInclude>
+    <ClInclude Include="source\render\Material.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
