@@ -118,6 +118,11 @@ void Shader::SetUniform1i(const std::string & _name, int _value)
 	GLCall(glUniform1i(GetUniformLocation(_name), _value));
 }
 
+void Shader::SetMvpMatrix(const Matrix4 _mvp)
+{
+	GLCall(glUniformMatrix4fv(GetUniformLocation("u_mvp"), 1, GL_FALSE, glm::value_ptr(_mvp)));
+}
+
 void Shader::Compile(std::string _vert, std::string _frag)
 {
 	const char* vertShader = _vert.c_str();

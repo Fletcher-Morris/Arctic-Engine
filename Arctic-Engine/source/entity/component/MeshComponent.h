@@ -3,6 +3,7 @@
 #include "../ECS.h"
 #include "../Mesh.h"
 #include "../../util/AssetManager.h"
+#include "../../render/Shader.h"
 
 class MeshComponent : public EcsComponent
 {
@@ -19,8 +20,11 @@ public:
 	void SetMesh(Mesh * _mesh);
 	void SetMesh(std::string _name);
 	Mesh * GetMesh() { return m_mesh; }
+	void SetShader(Shader * _shader);
 	bool doRender = true;
 
 private:
 	Mesh * m_mesh;
+	Shader * m_shader;
+	void UpdateShaderMatrix();
 };

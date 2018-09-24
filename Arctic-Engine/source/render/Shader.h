@@ -21,6 +21,7 @@ public:
 	void SetBool		(const std::string& _name, bool _value) const;
 	void SetInt			(const std::string& _name, int _value) const;
 	void SetFloat		(const std::string& _name, float _value) const;
+
 	void SetUniform1f	(const std::string& _name, float _value);	
 	void SetUniform3f	(const std::string& _name, Vector2 _value) { SetUniform2f(_name, _value.x, _value.y); }
 	void SetUniform2f	(const std::string& _name, float f0, float f1);	
@@ -29,6 +30,8 @@ public:
 	void SetUniform3f	(const std::string& _name, Vector4 _value) { SetUniform4f(_name, _value.x, _value.y, _value.z, _value.w); }
 	void SetUniform4f	(const std::string& _name, float f0, float f1, float f2, float f3);
 	void SetUniform1i	(const std::string& _name, int _value);
+
+	void SetMvpMatrix	(const Matrix4 _mvp);
 
 private:
 	void Compile(std::string _vert, std::string _frag);
