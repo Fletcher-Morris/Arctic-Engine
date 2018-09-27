@@ -1,14 +1,25 @@
 #include "MeshComponent.h"
 
-int yeet = 0;
+int lol = 1;
 
 void MeshComponent::OnInit()
 {
 	m_shader = AssetManager::Instance()->GetShader("standard");
+	entity->transform.position.z = 2.0f;
 }
 
 void MeshComponent::OnUpdate(double deltaTime)
 {
+	if (entity->transform.position.z >= 5.0f)
+	{
+		lol = -1;
+	}
+	else if (entity->transform.position.z <= 2.0f)
+	{
+		lol = 1;
+	}
+
+	entity->transform.position.z += deltaTime * 0.1f * lol;
 }
 
 void MeshComponent::OnFixedUpdate(double fixedTime)
@@ -17,13 +28,6 @@ void MeshComponent::OnFixedUpdate(double fixedTime)
 
 void MeshComponent::OnRender(int method)
 {
-	yeet++;
-	if (yeet >= 50)
-	{
-		doRender = !doRender;
-		yeet = 0;
-	}
-
 	if (!doRender) return;
 	if (m_mesh == nullptr) return;
 	if (m_shader == nullptr) return;
@@ -60,10 +64,10 @@ void MeshComponent::UpdateShaderMatrix()
 {
 	Matrix4 model = Matrix4(1.0f);
 	Matrix4 view = glm::lookAt(
-		glm::vec3(1.2f, 1.2f, 1.2f),
+		entity->transform.position,
 		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 0.0f, 1.0f));
-	Matrix4 proj = glm::perspective(glm::radians(45.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
+		glm::vec3(0.0f, 1.0f, 0.0f));
+	Matrix4 proj = glm::perspective(glm::radians(60.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);
 
 	Matrix4 mvp = proj * view * model;
 
