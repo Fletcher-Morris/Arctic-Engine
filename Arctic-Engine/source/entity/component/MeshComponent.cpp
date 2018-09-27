@@ -1,6 +1,7 @@
 #include "MeshComponent.h"
 
 int lol = 1;
+int yeet = 1;
 
 void MeshComponent::OnInit()
 {
@@ -10,16 +11,25 @@ void MeshComponent::OnInit()
 
 void MeshComponent::OnUpdate(double deltaTime)
 {
-	if (entity->transform.position.z >= 5.0f)
+	if (entity->transform.position.x >= 2.0f)
 	{
 		lol = -1;
 	}
-	else if (entity->transform.position.z <= 2.0f)
+	else if (entity->transform.position.x <= -2.0f)
 	{
 		lol = 1;
 	}
+	if (entity->transform.position.y >= 2.0f)
+	{
+		yeet = -1;
+	}
+	else if (entity->transform.position.y <= -2.0f)
+	{
+		yeet = 1;
+	}
 
-	entity->transform.position.z += deltaTime * 0.1f * lol;
+	entity->transform.position.y += deltaTime * 0.015f * yeet;
+	entity->transform.position.x += deltaTime * 0.05f * lol;
 }
 
 void MeshComponent::OnFixedUpdate(double fixedTime)
