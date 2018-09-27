@@ -4,7 +4,7 @@ int yeet = 0;
 
 void MeshComponent::OnInit()
 {
-	//m_shader = &Shader("assets/shaders/combo.shader");
+	m_shader = AssetManager::Instance()->GetShader("standard");
 }
 
 void MeshComponent::OnUpdate(double deltaTime)
@@ -28,8 +28,7 @@ void MeshComponent::OnRender(int method)
 	if (m_mesh == nullptr) return;
 	if (m_shader == nullptr) return;
 
-	//m_shader->Bind();
-	glUseProgram((GLuint)6);
+	m_shader->Bind();
 	UpdateShaderMatrix();
 	m_mesh->Render(method);
 }

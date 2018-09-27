@@ -401,6 +401,26 @@ void AssetManager::DeleteAllTextures()
 {
 }
 
+void AssetManager::AddShader(std::string _name)
+{
+	m_shaders[_name] = Shader();
+}
+
+void AssetManager::AddShader(std::string _name, std::string _path)
+{
+	m_shaders[_name] = Shader(_path);
+}
+
+Shader * AssetManager::GetShader(std::string _name)
+{
+	return &m_shaders.at(_name);
+}
+
+void AssetManager::RecompileShader(std::string _name, std::string _comboPath)
+{
+	m_shaders.at(_name).Compile(_comboPath);
+}
+
 AssetManager::AssetManager()
 {
 }

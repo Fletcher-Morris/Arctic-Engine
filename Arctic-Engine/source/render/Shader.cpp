@@ -1,6 +1,10 @@
 #include "Shader.h"
 #include "Renderer.h"
 
+Shader::Shader()
+{
+}
+
 Shader::Shader(const char * vertPath, const char * fragPath)
 {
 	std::string vertCode;
@@ -41,22 +45,28 @@ Shader::Shader(const char * vertPath, const char * fragPath)
 
 Shader::Shader(const std::string& path)
 {
+
+	Compile(path);
+}
+
+void Shader::Compile(const std::string _comboPath)
+{
 	enum class ShaderType {
 		None = -1, Vertex = 0, Fragment = 1
 	};
 
-	std::ifstream stream(path);
+	std::ifstream stream(_comboPath);
 	std::string line;
 	std::stringstream strstr[2];
 	ShaderType type = ShaderType::None;
 	while (std::getline(stream, line)) {
 		if (line.find("#shader") != std::string::npos) {
 			if (line.find("vertex") != std::string::npos) {
-				std::cout << "Loaded vertex shader: " + (std::string)path << std::endl;
+				std::cout << "Loaded vertex shader: " + (std::string)_comboPath << std::endl;
 				type = ShaderType::Vertex;
 			}
 			else if (line.find("fragment") != std::string::npos) {
-				std::cout << "Loaded fragment shader: " + (std::string)path << std::endl;
+				std::cout << "Loaded fragment shader: " + (std::string)_comboPath << std::endl;
 				type = ShaderType::Fragment;
 			}
 		}
@@ -120,7 +130,7 @@ void Shader::SetUniform1i(const std::string & _name, int _value)
 
 void Shader::SetMvpMatrix(const Matrix4 _mvp)
 {
-	GLCall(glUniformMatrix4fv(GetUniformLocation("u_mvp"), 1, GL_FALSE, glm::value_ptr(_mvp)));
+	GLCall(glUniformMatrix4fv(GetUniformLocation("u_MVP"), 1, GL_FALSE, glm::value_ptr(_mvp)));
 }
 
 void Shader::Compile(std::string _vert, std::string _frag)

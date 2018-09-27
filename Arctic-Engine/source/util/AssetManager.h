@@ -35,10 +35,16 @@ public:
 	void DeleteTexture(unsigned int _id);
 	void DeleteAllTextures();
 
+	void AddShader(std::string _name);
+	void AddShader(std::string _name, std::string _path);
+	Shader * GetShader(std::string _name);
+	void RecompileShader(std::string _name, std::string _comboPath);
+
 private:
 	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
+	std::map<std::string, Shader> m_shaders;
 	int m_currentMeshRevision = 1;
 	int FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _position, Vector2 _uv, Vector3 _normal);
 

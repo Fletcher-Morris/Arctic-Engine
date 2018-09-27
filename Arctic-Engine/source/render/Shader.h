@@ -12,8 +12,12 @@ class Shader
 {
 public:
 	unsigned int shaderId;
+	Shader();
 	Shader(const char* _vertPath, const char* _fragPath);
 	Shader(const std::string& _comboPath);
+
+	void Compile(std::string _vert, std::string _frag);
+	void Compile(const std::string _comboPath);
 
 	void Bind() const;
 	void Unbind() const;
@@ -34,7 +38,6 @@ public:
 	void SetMvpMatrix	(const Matrix4 _mvp);
 
 private:
-	void Compile(std::string _vert, std::string _frag);
 	unsigned int GetUniformLocation(const std::string& _name);
 	std::unordered_map<std::string, int> m_locations;
 };

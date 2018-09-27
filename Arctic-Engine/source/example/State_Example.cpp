@@ -24,8 +24,8 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
-	Shader shad("assets/shaders/combo.shader");
-	shad.Bind();
+	AssetManager::Instance()->AddShader("standard");
+	AssetManager::Instance()->RecompileShader("standard", "assets/shaders/combo.shader");
 
 	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
