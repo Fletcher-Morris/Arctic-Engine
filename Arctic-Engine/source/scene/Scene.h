@@ -36,12 +36,15 @@ public:
 		return *newEntity;
 	}
 
-	void ClearEntities() { for (auto& ent : entities) ent->Destroy(); }
+	void ClearEntities() { for (auto& ent : entities) ent->Destroy(); entityCount = entities.size(); }
 
 	void RefreshECS()
 	{
 		entities.erase(std::remove_if(std::begin(entities),
 			std::end(entities), [](const std::unique_ptr<EcsEntity> &ent)
 		{return ent->IsDestroyed(); }), std::end(entities));
+		entityCount = entities.size();
 	}
+
+	int entityCount;
 };

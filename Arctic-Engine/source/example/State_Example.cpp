@@ -54,16 +54,17 @@ State_Example::State_Example(Game& game) : State(game) {
 	currentScene.mainCamera->AttachComponent<CameraComponent>();
 }
 
-void State_Example::HandleEvent(int e) {
-
+void State_Example::HandleEvent(int e)
+{
 }
 
-void State_Example::HandleInput(GLFWwindow* window) {
-
+void State_Example::HandleInput(GLFWwindow* window)
+{
 }
 
-void State_Example::Update(double deltaTime) {
-
+void State_Example::Update(double deltaTime)
+{
+	currentScene.NewEntity("dragon", "dragon");
 	currentScene.RefreshECS();
 	for (auto& ent : currentScene.entities) ent->Update(deltaTime);
 }
@@ -153,34 +154,33 @@ void State_Example::GuiUpdate()
 		ImGui::EndMainMenuBar();
 	}
 
-	if (ImGui::Button("QUAD"))
+	ImGui::Text(std::to_string(currentScene.entityCount).c_str());
+	if (ImGui::Button("CLEAR"))
 	{
 		currentScene.ClearEntities();
+	}
+	if (ImGui::Button("QUAD"))
+	{
 		currentScene.NewEntity("quad", "quad");
 	}
 	if (ImGui::Button("CUBE"))
 	{
-		currentScene.ClearEntities();
 		currentScene.NewEntity("cube", "cube");
 	}
 	if (ImGui::Button("SPHERE"))
 	{
-		currentScene.ClearEntities();
 		currentScene.NewEntity("sphere", "sphere");
 	}
 	if (ImGui::Button("SPRING"))
 	{
-		currentScene.ClearEntities();
 		currentScene.NewEntity("spring", "spring");
 	}
 	if (ImGui::Button("TEAPOT"))
 	{
-		currentScene.ClearEntities();
 		currentScene.NewEntity("teapot", "teapot");
 	}
 	if (ImGui::Button("DRAGON"))
 	{
-		currentScene.ClearEntities();
 		currentScene.NewEntity("dragon", "dragon");
 	}
 	
