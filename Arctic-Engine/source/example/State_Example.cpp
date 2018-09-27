@@ -33,9 +33,11 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadMesh("spring", "assets/models/spring.obj");
 	AssetManager::Instance()->LoadMesh("teapot", "assets/models/teapot.obj");
 	AssetManager::Instance()->LoadMesh("dragon", "assets/models/dragonsmall.obj");
+	AssetManager::Instance()->LoadMesh("wolf", "assets/models/wolf.obj");
 
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
+	AssetManager::Instance()->LoadTexture("wolf", "assets/textures/wolf.jpg");
 	AssetManager::Instance()->LoadTexture("error", "assets/textures/error.png");
 	AssetManager::Instance()->LoadTexture("ros", "assets/textures/r.png");
 	AssetManager::Instance()->LoadTexture("apt", "assets/textures/apt.jpg");
@@ -64,7 +66,6 @@ void State_Example::HandleInput(GLFWwindow* window)
 
 void State_Example::Update(double deltaTime)
 {
-	currentScene.NewEntity("dragon", "dragon");
 	currentScene.RefreshECS();
 	for (auto& ent : currentScene.entities) ent->Update(deltaTime);
 }
@@ -182,6 +183,10 @@ void State_Example::GuiUpdate()
 	if (ImGui::Button("DRAGON"))
 	{
 		currentScene.NewEntity("dragon", "dragon");
+	}
+	if (ImGui::Button("WOLF"))
+	{
+		currentScene.NewEntity("wolf", "wolf");
 	}
 	
 
