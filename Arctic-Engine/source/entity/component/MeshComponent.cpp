@@ -50,6 +50,16 @@ void MeshComponent::SetShader(Shader * _shader)
 	m_shader = _shader;
 }
 
+void MeshComponent::SetMaterial(Material * _material)
+{
+	m_material = _material;
+}
+
+void MeshComponent::SetMaterial(std::string _materialName)
+{
+	m_material = AssetManager::Instance()->GetMaterial(_materialName);
+}
+
 void MeshComponent::UpdateShaderMatrix()
 {
 	Matrix4 projection = glm::perspective(glm::radians(60.0f), 1920.0f / 1080.0f, 0.1f, 100.0f);

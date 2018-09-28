@@ -6,6 +6,7 @@
 #include <map>
 #include "../entity/Mesh.h"
 #include "../core/Texture.h"
+#include "../render/Material.h"
 #include "ConsoleColour.h"
 #include <vector>
 
@@ -40,11 +41,18 @@ public:
 	Shader * GetShader(std::string _name);
 	void RecompileShader(std::string _name, std::string _comboPath);
 
+	void AddMaterial(std::string _name);
+	Material * GetMaterial(std::string _name);
+
 private:
+
+	//	Maps for the various asset types
 	std::map<std::string, Mesh> m_meshes;
 	std::map<std::string, Texture> m_textures;
 	std::map<std::string, unsigned int> m_texIdMap;
 	std::map<std::string, Shader> m_shaders;
+	std::map<std::string, Material> m_materials;
+
 	int m_currentMeshRevision = 1;
 	int FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _position, Vector2 _uv, Vector3 _normal);
 

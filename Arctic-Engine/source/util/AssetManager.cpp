@@ -421,6 +421,16 @@ void AssetManager::RecompileShader(std::string _name, std::string _comboPath)
 	m_shaders.at(_name).Compile(_comboPath);
 }
 
+void AssetManager::AddMaterial(std::string _name)
+{
+	m_materials[_name] = Material();
+}
+
+Material * AssetManager::GetMaterial(std::string _name)
+{
+	return &m_materials.at(_name);
+}
+
 AssetManager::AssetManager()
 {
 }

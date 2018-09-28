@@ -10,6 +10,7 @@ private:
 	int texture;
 
 public:
+	Material() { this->colour = Vector3(0, 0, 0); this->texture = 0; }
 	Material(Vector3 _colour, int _texture)
 	{
 		this->colour = _colour;
