@@ -41,7 +41,10 @@ public:
 	Shader * GetShader(std::string _name);
 	void RecompileShader(std::string _name, std::string _comboPath);
 
+	void LoadMaterial(std::string _path);
 	void AddMaterial(std::string _name);
+	void AddMaterial(std::string _name, Material _mat);
+	void AddMaterial(Material _mat);
 	Material * GetMaterial(std::string _name);
 
 private:
@@ -54,6 +57,8 @@ private:
 	std::map<std::string, Material> m_materials;
 
 	int m_currentMeshRevision = 1;
+	int m_currentMaterialRevision = 1;
+
 	int FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _position, Vector2 _uv, Vector3 _normal);
 
 protected:

@@ -421,11 +421,70 @@ void AssetManager::RecompileShader(std::string _name, std::string _comboPath)
 	m_shaders.at(_name).Compile(_comboPath);
 }
 
-void AssetManager::AddMaterial(std::string _name)
+void AssetManager::LoadMaterial(std::string _path)
 {
-	m_materials[_name] = Material();
+	Material newMat = Material();
+
+	FILE * file = fopen(_path.c_str(), "r");
+	int res = 0;
+	while (res != EOF) {
+		char lineHeader[128];
+		res = fscanf(file, "%s", lineHeader);
+		if (strcmp(lineHeader, "r") == 0) {
+			int rev;
+			fscanf(file, "%d", &rev);
+			if (rev != m_currentMaterialRevision)
+			{
+				std::cout << m_currentMaterialRevision << " != " << rev << std::endl;
+				std::cout << red << "Material: " + _path + " does not match current revision" << white << std::endl;
+			}
+		}
+		else if (strcmp(lineHeader, "name") == 0) {
+			std::string name;
+			fscanf(file, "%f", &name);
+			if (name == "") { name = "test"; }
+			newMat.SetName(name);
+		}
+		else if (strcmp(lineHeader, "shader") == 0) {
+			std::string shader;
+			fscanf(file, "%f", &shader);
+			if (shader == "") { shader = "standard"; }
+			newMat.SetShader(GetShader(shader));
+		}
+		else if (strcmp(lineHeader, "colour") == 0) {
+			Vector3 colour;
+			fscanf(file, "%d,%d,%d", &colour.x, &colour.y, &colour.z);
+			newMat.SetColour(colour);
+		}
+		else if (strcmp(lineHeader, "textureid") == 0) {
+			int texId;
+			fscanf(file, "%d", &texId);
+			newMat.SetTexture(texId);
+		}
+		else if (strcmp(lineHeader, "texture") == 0) {
+			std::string texture;
+			fscanf(file, "%f", &texture);
+			if (texture == "") { texture = "error"; }
+			newMat.SetTexture(GetTexture(texture));
+		}
+	}
+
+	AddMaterial(newMat);
+	std::cout << "Added Material : " << newMat.GetName() << std::endl;
 }
 
+void AssetManager::AddMaterial(std::string _name)
+{
+	AddMaterial(_name, Material());
+}
+void AssetManager::AddMaterial(std::string _name, Material _mat)
+{
+	m_materials[_name] = _mat;
+}
+void AssetManager::AddMaterial(Material _mat)
+{
+	AddMaterial(_mat.GetName(), _mat);
+}
 Material * AssetManager::GetMaterial(std::string _name)
 {
 	return &m_materials.at(_name);

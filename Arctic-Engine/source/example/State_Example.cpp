@@ -46,6 +46,8 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
+	AssetManager::Instance()->LoadMaterial("assets/materials/test.material");
+
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);

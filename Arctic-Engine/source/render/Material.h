@@ -6,6 +6,8 @@
 class Material
 {
 private:
+	std::string name;
+	Shader * shader;
 	Vector3 colour;
 	int texture;
 
@@ -19,8 +21,14 @@ public:
 
 	~Material() {}
 
-	void ConfigShader(Shader& _shader)
+	void UpdateShader(Shader& _shader)
 	{
 		_shader.SetUniform3f("colour", this->colour);
 	}
+
+	void SetName(std::string _name) { name = _name; }
+	std::string GetName() { return name; }
+	void SetShader(Shader * _shader) { shader = _shader; }
+	void SetColour(Vector3 _colour) { colour = _colour; }
+	void SetTexture(int _texture) { texture = _texture; }
 };

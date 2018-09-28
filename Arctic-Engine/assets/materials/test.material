@@ -1,0 +1,5 @@
+r 1
+name test
+shader standard
+colour 86,8,24
+texture error
