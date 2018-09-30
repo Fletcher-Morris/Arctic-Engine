@@ -231,6 +231,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\materials\test.material" />
     <None Include="assets\shaders\combo.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

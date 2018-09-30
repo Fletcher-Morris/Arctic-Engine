@@ -429,10 +429,11 @@ void AssetManager::LoadMaterial(std::string _path)
 	int res = 0;
 	while (res != EOF) {
 		char lineHeader[128];
+		char line[128];
 		res = fscanf(file, "%s", lineHeader);
 		if (strcmp(lineHeader, "r") == 0) {
 			int rev;
-			fscanf(file, "%d", &rev);
+			fscanf(file, "%i", &rev);
 			if (rev != m_currentMaterialRevision)
 			{
 				std::cout << m_currentMaterialRevision << " != " << rev << std::endl;
@@ -441,14 +442,17 @@ void AssetManager::LoadMaterial(std::string _path)
 		}
 		else if (strcmp(lineHeader, "name") == 0) {
 			std::string name;
-			fscanf(file, "%f", &name);
-			if (name == "") { name = "test"; }
+			fscanf(file, "%s", &line);
+			name = (std::string)line;
+			if (name == "") { name = "test"; std::cout << red << "Material: " + _path + " couldn't load name" << white << std::endl; }
 			newMat.SetName(name);
 		}
 		else if (strcmp(lineHeader, "shader") == 0) {
 			std::string shader;
-			fscanf(file, "%f", &shader);
-			if (shader == "") { shader = "standard"; }
+			fscanf(file, "%s", &line);
+			shader = (std::string) line;
+			if (shader == "") { shader = "standard"; std::cout << red << "Material: " + _path + " couldn't load shader" << white << std::endl;
+			}
 			newMat.SetShader(GetShader(shader));
 		}
 		else if (strcmp(lineHeader, "colour") == 0) {
@@ -463,8 +467,9 @@ void AssetManager::LoadMaterial(std::string _path)
 		}
 		else if (strcmp(lineHeader, "texture") == 0) {
 			std::string texture;
-			fscanf(file, "%f", &texture);
-			if (texture == "") { texture = "error"; }
+			fscanf(file, "%s", &line);
+			texture = (std::string) line;
+			if (texture == "") { texture = "error"; std::cout << red << "Material: " + _path + " couldn't load texture" << white << std::endl; }
 			newMat.SetTexture(GetTexture(texture));
 		}
 	}

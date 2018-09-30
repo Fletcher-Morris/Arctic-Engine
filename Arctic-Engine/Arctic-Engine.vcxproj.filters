@@ -75,6 +75,9 @@
     <Filter Include="Source Files\entity\component">
       <UniqueIdentifier>{5f50e674-67f1-4edf-9072-7b88f1db1ab3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\materials">
+      <UniqueIdentifier>{23e42193-2137-4a70-b940-5c9e53e20464}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\core\Game.h">
@@ -245,6 +248,9 @@
   <ItemGroup>
     <None Include="assets\shaders\combo.shader">
       <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="assets\materials\test.material">
+      <Filter>Assets\materials</Filter>
     </None>
   </ItemGroup>
 </Project>
