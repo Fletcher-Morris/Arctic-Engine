@@ -148,7 +148,6 @@ void AssetManager::LoadMesh(std::string _name, std::string _fileName)
 	double loadTime = std::chrono::duration_cast<std::chrono::milliseconds>(endTime - startTime).count();
 	std::cout << "Loaded mesh : " + _fileName + " in " << loadTime << "ms" << std::endl;
 }
-
 int AssetManager::FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _position, Vector2 _uv, Vector3 _normal)
 {
 	for (int i = 0; i < _searchArea.size(); i++)
@@ -159,12 +158,10 @@ int AssetManager::FindExistingVertex(std::vector<Vertex> _searchArea, Vector3 _p
 	}
 	return -1;
 }
-
 Mesh * AssetManager::GetMesh(std::string _name)
 {
 	return &m_meshes.at(_name);
 }
-
 void AssetManager::WriteMeshFile(Mesh _mesh, std::string _fileName)
 {
 	std::ofstream file(_fileName + ".mesh");
@@ -477,7 +474,6 @@ void AssetManager::LoadMaterial(std::string _path)
 	AddMaterial(newMat);
 	std::cout << "Loaded Material : " << newMat.GetName() << " : " << _path << std::endl;
 }
-
 void AssetManager::AddMaterial(std::string _name)
 {
 	AddMaterial(_name, Material());
