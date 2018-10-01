@@ -193,6 +193,7 @@
     <ClInclude Include="source\render\Vertex.h" />
     <ClInclude Include="source\scene\Scene.h" />
     <ClInclude Include="source\states\State.h" />
+    <ClInclude Include="source\states\State_Editor.h" />
     <ClInclude Include="source\states\State_Splash.h" />
     <ClInclude Include="source\stb\stb_image.h" />
     <ClInclude Include="source\util\AssetManager.h" />
@@ -220,6 +221,7 @@
     <ClCompile Include="source\render\Shader.cpp" />
     <ClCompile Include="source\scene\Scene.cpp" />
     <ClCompile Include="source\states\State.cpp" />
+    <ClCompile Include="source\states\State_Editor.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />
     <ClCompile Include="source\stb\stb_image.cpp" />
     <ClCompile Include="source\util\AssetManager.cpp" />

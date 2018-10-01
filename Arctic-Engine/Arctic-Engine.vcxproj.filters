@@ -179,6 +179,9 @@
     <ClInclude Include="source\render\Material.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="source\states\State_Editor.h">
+      <Filter>Header Files\states</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\Game.cpp">
@@ -243,6 +246,9 @@
     </ClCompile>
     <ClCompile Include="source\entity\component\CameraComponent.cpp">
       <Filter>Source Files\entity\component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\states\State_Editor.cpp">
+      <Filter>Source Files\states</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

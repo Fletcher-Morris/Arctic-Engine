@@ -16,7 +16,7 @@ public:
 	virtual void HandleInput	(GLFWwindow* _window) = 0;
 	virtual void Update			(double _deltaTime) = 0;
 	virtual void FixedUpdate	(double _fixedTime) = 0;
-	virtual void GuiUpdate		();
+	virtual void GuiUpdate		() = 0;
 	virtual void Render			(GLFWwindow* _target) = 0;
 
 protected:
