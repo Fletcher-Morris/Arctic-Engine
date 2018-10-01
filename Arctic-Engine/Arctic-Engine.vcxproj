@@ -220,7 +220,6 @@
     <ClCompile Include="source\render\Renderer.cpp" />
     <ClCompile Include="source\render\Shader.cpp" />
     <ClCompile Include="source\scene\Scene.cpp" />
-    <ClCompile Include="source\states\State.cpp" />
     <ClCompile Include="source\states\State_Editor.cpp" />
     <ClCompile Include="source\states\State_Splash.cpp" />
     <ClCompile Include="source\stb\stb_image.cpp" />
