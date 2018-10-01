@@ -24,9 +24,11 @@ State_Example::State_Example(Game& game) : State(game) {
 
 	ImGui::GetFont()->Scale = EnginePrefs::Instance()->guiScale;
 
+	//	Load shaders
 	AssetManager::Instance()->AddShader("standard");
 	AssetManager::Instance()->RecompileShader("standard", "assets/shaders/combo.shader");
 
+	//	Load meshes
 	AssetManager::Instance()->LoadMesh("quad", "assets/models/quad.obj");
 	AssetManager::Instance()->LoadMesh("cube", "assets/models/cube.obj");
 	AssetManager::Instance()->LoadMesh("sphere", "assets/models/sphere.obj");
@@ -35,6 +37,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadMesh("dragon", "assets/models/dragonsmall.obj");
 	AssetManager::Instance()->LoadMesh("wolf", "assets/models/wolf.obj");
 
+	//	Load textures
 	AssetManager::Instance()->LoadTexture("splash", "assets/textures/ArcticSplash.jpg");
 	AssetManager::Instance()->LoadTexture("hot", "assets/textures/hot.jpg");
 	AssetManager::Instance()->LoadTexture("wolf", "assets/textures/wolf.jpg");
@@ -46,6 +49,7 @@ State_Example::State_Example(Game& game) : State(game) {
 	AssetManager::Instance()->LoadTexture("blur3", "assets/textures/blur3.jpg");
 	AssetManager::Instance()->LoadTexture("blur4", "assets/textures/blur4.jpg");
 
+	//	Load materials
 	AssetManager::Instance()->LoadMaterial("assets/materials/test.material");
 
 

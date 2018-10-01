@@ -54,7 +54,6 @@ void MeshComponent::SetMaterial(Material * _material)
 {
 	m_material = _material;
 }
-
 void MeshComponent::SetMaterial(std::string _materialName)
 {
 	m_material = AssetManager::Instance()->GetMaterial(_materialName);
