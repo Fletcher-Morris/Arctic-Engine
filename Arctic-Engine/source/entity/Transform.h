@@ -8,10 +8,8 @@ public:
 	Vector3 rotation;
 	Vector3 scale;
 
-	Vector3 up			=	{ 0, 1, 0 };
-	Vector3 down		=	{ 0,-1, 0 };
-	Vector3 right		=	{ 1, 0, 0 };
-	Vector3 left		=	{-1, 0, 0 };
-	Vector3 forward		=	{ 0, 0, 1 };
-	Vector3 back		=	{ 0, 0,-1 };
+	Transform * parent;
+
+private:
+	std::vector<Transform*>m_children;
 };

@@ -51,7 +51,11 @@ public:
 
 
 	void Save();
+	void OnSceneLoad();
+
+	Transform origin;
 
 private:
 	std::string m_savePath;
+	bool m_isfullyLoaded;
 };
