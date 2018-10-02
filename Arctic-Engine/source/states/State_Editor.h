@@ -1,11 +1,18 @@
 #pragma once
 #include "State.h"
+#include "../scene/Scene.h"
 
 class State_Editor : public State
 {
 public:
 	State_Editor();
 	~State_Editor();
+
+	Scene currentScene;
+	void LoadScene(std::string _path);
+	void SaveScene();
+	void SaveSceneAs(std::string _path);
+	void NewScene();
 
 	// Inherited via State
 	virtual void HandleEvent	(int _event)			override;

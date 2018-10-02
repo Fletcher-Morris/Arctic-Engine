@@ -1,5 +1,21 @@
 #include "State_Editor.h"
 
+void State_Editor::LoadScene(std::string _path)
+{
+}
+
+void State_Editor::SaveScene()
+{
+}
+
+void State_Editor::SaveSceneAs(std::string _path)
+{
+}
+
+void State_Editor::NewScene()
+{
+}
+
 void State_Editor::HandleEvent(int _event)
 {
 }

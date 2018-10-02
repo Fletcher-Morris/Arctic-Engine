@@ -47,4 +47,11 @@ public:
 	}
 
 	int entityCount;
+
+
+
+	void Save();
+
+private:
+	std::string m_savePath;
 };
