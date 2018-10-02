@@ -16,6 +16,22 @@ void State_Editor::NewScene()
 {
 }
 
+void State_Editor::SelectEntity()
+{
+}
+
+void State_Editor::DeselectEntity()
+{
+}
+
+void State_Editor::DeleteSelectedEntity()
+{
+}
+
+void State_Editor::CopySelectedEntity()
+{
+}
+
 void State_Editor::HandleEvent(int _event)
 {
 }

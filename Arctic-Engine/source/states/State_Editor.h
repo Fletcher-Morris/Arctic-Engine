@@ -8,11 +8,20 @@ public:
 	State_Editor();
 	~State_Editor();
 
+	//	Scene loading & saving
 	Scene currentScene;
 	void LoadScene(std::string _path);
 	void SaveScene();
 	void SaveSceneAs(std::string _path);
 	void NewScene();
+
+
+	EcsEntity * selectedEntity;
+	void SelectEntity();
+	void DeselectEntity();
+	void DeleteSelectedEntity();
+	void CopySelectedEntity();
+
 
 	// Inherited via State
 	virtual void HandleEvent	(int _event)			override;
