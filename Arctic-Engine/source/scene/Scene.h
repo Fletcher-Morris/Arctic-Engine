@@ -28,6 +28,20 @@ public:
 	{
 		EcsEntity* newEntity = new EcsEntity();
 		newEntity->SetName(_name);
+		newEntity->SetParent(&origin);
+		newEntity->AttachComponent<MeshComponent>();
+		newEntity->GetComponent<MeshComponent>().SetMesh(_meshName);
+		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };
+		entities.emplace_back(std::move(uniquePtr));
+		std::cout << "Created new mesh entity '" << _name << "'" << std::endl;
+		return *newEntity;
+	}
+
+	EcsEntity& NewEntity(std::string _name, std::string _meshName, Transform * _parent)
+	{
+		EcsEntity* newEntity = new EcsEntity();
+		newEntity->SetName(_name);
+		newEntity->SetParent(&origin);
 		newEntity->AttachComponent<MeshComponent>();
 		newEntity->GetComponent<MeshComponent>().SetMesh(_meshName);
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };

@@ -65,6 +65,8 @@ private:
 
 public:
 	Transform transform;
+	void SetParent(Transform * _newParent) { transform.SetParent(_newParent); };
+	Transform * GetParent() { return transform.GetParent(); };
 
 	void SetName(std::string _name) { m_name = _name; }
 	std::string GetName() { return m_name; }

@@ -247,6 +247,9 @@
     <ClCompile Include="source\states\State_Editor.cpp">
       <Filter>Source Files\states</Filter>
     </ClCompile>
+    <ClCompile Include="source\entity\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\combo.shader">

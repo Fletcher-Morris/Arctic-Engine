@@ -215,6 +215,7 @@
     <ClCompile Include="source\entity\component\MeshComponent.cpp" />
     <ClCompile Include="source\entity\component\TestComponent.cpp" />
     <ClCompile Include="source\entity\Mesh.cpp" />
+    <ClCompile Include="source\entity\Transform.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
     <ClCompile Include="source\render\MatrixMaths.cpp" />
     <ClCompile Include="source\render\Renderer.cpp" />
