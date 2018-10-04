@@ -13,14 +13,17 @@ public:
 
 	std::vector<std::unique_ptr<EcsEntity>> entities;
 	EcsEntity * mainCamera;
+	Transform newestEntity;
 
 	EcsEntity& NewEntity(std::string _name)
 	{
 		EcsEntity* newEntity = new EcsEntity();
 		newEntity->SetName(_name);
+		newEntity->SetParent(&origin);
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };
 		entities.emplace_back(std::move(uniquePtr));
 		std::cout << "Created new entity '" << _name << "'" << std::endl;
+		newestEntity = newEntity->transform;
 		return *newEntity;
 	}
 
@@ -34,6 +37,7 @@ public:
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };
 		entities.emplace_back(std::move(uniquePtr));
 		std::cout << "Created new mesh entity '" << _name << "'" << std::endl;
+		newestEntity = newEntity->transform;
 		return *newEntity;
 	}
 
@@ -41,16 +45,20 @@ public:
 	{
 		EcsEntity* newEntity = new EcsEntity();
 		newEntity->SetName(_name);
-		newEntity->SetParent(&origin);
+		newEntity->SetParent(_parent);
 		newEntity->AttachComponent<MeshComponent>();
 		newEntity->GetComponent<MeshComponent>().SetMesh(_meshName);
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };
 		entities.emplace_back(std::move(uniquePtr));
 		std::cout << "Created new mesh entity '" << _name << "'" << std::endl;
+		newestEntity = newEntity->transform;
 		return *newEntity;
 	}
 
-	void ClearEntities() { for (auto& ent : entities) ent->Destroy(); entityCount = entities.size(); }
+	void ClearEntities() {
+		for (auto& ent : entities) ent->Destroy(); entityCount = entities.size();
+		newestEntity = origin;
+	}
 
 	void RefreshECS()
 	{

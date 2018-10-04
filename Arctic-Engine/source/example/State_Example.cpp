@@ -73,6 +73,7 @@ void State_Example::HandleInput(GLFWwindow* window)
 void State_Example::Update(double deltaTime)
 {
 	currentScene.RefreshECS();
+	currentScene.origin.UpdateInheritedTransform(Vector3(0, 0, 0));
 	for (auto& ent : currentScene.entities) ent->Update(deltaTime);
 }
 
@@ -168,31 +169,31 @@ void State_Example::GuiUpdate()
 	}
 	if (ImGui::Button("QUAD"))
 	{
-		currentScene.NewEntity("quad", "quad");
+		currentScene.NewEntity("quad", "quad", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("CUBE"))
 	{
-		currentScene.NewEntity("cube", "cube");
+		currentScene.NewEntity("cube", "cube", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("SPHERE"))
 	{
-		currentScene.NewEntity("sphere", "sphere");
+		currentScene.NewEntity("sphere", "sphere", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("SPRING"))
 	{
-		currentScene.NewEntity("spring", "spring");
+		currentScene.NewEntity("spring", "spring", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("TEAPOT"))
 	{
-		currentScene.NewEntity("teapot", "teapot");
+		currentScene.NewEntity("teapot", "teapot", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("DRAGON"))
 	{
-		currentScene.NewEntity("dragon", "dragon");
+		currentScene.NewEntity("dragon", "dragon", &currentScene.newestEntity);
 	}
 	if (ImGui::Button("WOLF"))
 	{
-		currentScene.NewEntity("wolf", "wolf");
+		currentScene.NewEntity("wolf", "wolf", &currentScene.newestEntity);
 	}
 	
 
