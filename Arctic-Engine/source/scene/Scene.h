@@ -46,6 +46,7 @@ public:
 		EcsEntity* newEntity = new EcsEntity();
 		newEntity->SetName(_name);
 		newEntity->SetParent(_parent);
+		_parent.AddChild(*newEntity);
 		newEntity->AttachComponent<MeshComponent>();
 		newEntity->GetComponent<MeshComponent>().SetMesh(_meshName);
 		std::unique_ptr<EcsEntity> uniquePtr{ newEntity };

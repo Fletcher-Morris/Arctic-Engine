@@ -11,9 +11,9 @@ void MeshComponent::OnUpdate(double deltaTime)
 {
 	entity->transform.rotation.y += deltaTime * 0.01f;
 
-	std::cout << "LOCAL POSITION IS " << entity->transform.localPosition.x << "," << entity->transform.localPosition.y << "," << entity->transform.localPosition.z << std::endl;
-	std::cout << "INHERITED POSITION IS " << entity->transform.GetInheritedPosition().x << "," << entity->transform.GetInheritedPosition().y << "," << entity->transform.GetInheritedPosition().z << std::endl;
-	std::cout << "WORLD POSITION IS " << entity->transform.GetWorldPosition().x << "," << entity->transform.GetWorldPosition().y << "," << entity->transform.GetWorldPosition().z << std::endl;
+	//std::cout << "LOCAL POSITION IS " << entity->transform.localPosition.x << "," << entity->transform.localPosition.y << "," << entity->transform.localPosition.z << std::endl;
+	//std::cout << "INHERITED POSITION IS " << entity->transform.GetInheritedPosition().x << "," << entity->transform.GetInheritedPosition().y << "," << entity->transform.GetInheritedPosition().z << std::endl;
+	//std::cout << "WORLD POSITION IS " << entity->transform.GetWorldPosition().x << "," << entity->transform.GetWorldPosition().y << "," << entity->transform.GetWorldPosition().z << std::endl;
 }
 
 void MeshComponent::OnFixedUpdate(double fixedTime)
