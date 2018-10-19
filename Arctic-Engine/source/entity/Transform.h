@@ -12,13 +12,10 @@ public:
 
 	void SetParent(Transform * _newParent)
 	{
-		if (m_parent != _newParent)
+		m_parent = _newParent;
+		if (!m_parent->HasChild(this))
 		{
-			m_parent = _newParent;
-			if (!_newParent->HasChild(this))
-			{
-				m_parent->AddChild(this);
-			}
+			m_parent->AddChild(this);
 		}
 	}
 	Transform * GetParent() { return m_parent; }
@@ -41,7 +38,7 @@ public:
 			m_children.push_back(_child);
 			m_childCount++;
 		}
-		else if (_child->GetParent() != this)
+		if (_child->GetParent() != this)
 		{
 			_child->SetParent(this);
 		}
