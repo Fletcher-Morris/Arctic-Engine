@@ -181,6 +181,7 @@
     <ClInclude Include="source\entity\component\CameraComponent.h" />
     <ClInclude Include="source\entity\component\MeshComponent.h" />
     <ClInclude Include="source\entity\component\TestComponent.h" />
+    <ClInclude Include="source\entity\component\TransformComponent.h" />
     <ClInclude Include="source\entity\ECS.h" />
     <ClInclude Include="source\entity\Mesh.h" />
     <ClInclude Include="source\entity\Transform.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="source\entity\component\CameraComponent.cpp" />
     <ClCompile Include="source\entity\component\MeshComponent.cpp" />
     <ClCompile Include="source\entity\component\TestComponent.cpp" />
+    <ClCompile Include="source\entity\component\TransformComponent.cpp" />
     <ClCompile Include="source\entity\Mesh.cpp" />
     <ClCompile Include="source\entity\Transform.cpp" />
     <ClCompile Include="source\example\State_Example.cpp" />
